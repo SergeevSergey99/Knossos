@@ -21,6 +21,7 @@ public class RotatableTiles : MonoBehaviour
             {
                 var X = (int) Mathf.Round(transform.localPosition.x + startX + j - maze.BaseTilesList.startX);
                 var Y = (int) Mathf.Round(transform.localPosition.y + startY + i - maze.BaseTilesList.startY);
+                
                 if (maze.maze[X, Y] == null)
                 {
                     var node = Instantiate(maze.NodePrefab, transform);
@@ -35,7 +36,9 @@ public class RotatableTiles : MonoBehaviour
                     node.GetComponent<Node>().Y = Y;
                     maze.maze[X, Y] = node.GetComponent<Node>();
                     Array[j, i] = node.GetComponent<Node>();
-                    ;
+                    RaycastHit2D hit = Physics2D.Raycast(Array[j, i].transform.position, -Vector3.forward);
+                    Array[j, i].isWall = hit.collider != null;
+                    if(Array[j, i].isWall) Array[j, i].transform.GetChild(0).gameObject.SetActive(false);
                 }
             }
         }
@@ -44,6 +47,10 @@ public class RotatableTiles : MonoBehaviour
     public void RotateAllOfSameType90()
     {
         maze.RotateAllOfType90(type);
+    }
+    public void RotateAllOfSameType_90()
+    {
+        maze.RotateAllOfType_90(type);
     }
 
     public struct xyPair
@@ -74,5 +81,30 @@ public class RotatableTiles : MonoBehaviour
                 maze.maze[Array[i, j].X, Array[i, j].Y] = Array[i, j];
             }
         }
+        maze.fixRotation();
+    }
+    public void Rotate_90()
+    {
+        transform.Rotate(Vector3.forward * -90);
+        xyPair[,] rotatedArray = new xyPair[sizeX, sizeY];
+        for (int i = 0; i < sizeY; i++)
+        {
+            for (int j = 0; j < sizeX; j++)
+            {
+                rotatedArray[j, i].x = Array[i, sizeY-1-j].X;
+                rotatedArray[j, i].y = Array[i, sizeY-1-j].Y;
+            }
+        }
+        for (int i = 0; i < sizeY; i++)
+        {
+            for (int j = 0; j < sizeX; j++)
+            {
+                Array[i, j].X = rotatedArray[i, j].x;
+                Array[i, j].Y = rotatedArray[i, j].y;
+                
+                maze.maze[Array[i, j].X, Array[i, j].Y] = Array[i, j];
+            }
+        }
+        maze.fixRotation();
     }
 }

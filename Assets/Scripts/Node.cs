@@ -6,6 +6,8 @@ public class Node : MonoBehaviour
 {
     public int X;
     public int Y;
+
+    public bool isWall;
     // Start is called before the first frame update
     void Start()
     {
