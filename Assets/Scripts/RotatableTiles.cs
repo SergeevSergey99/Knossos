@@ -70,6 +70,8 @@ public class RotatableTiles : MonoBehaviour
             {
                 Array[i, j].X = rotatedArray[i, j].x;
                 Array[i, j].Y = rotatedArray[i, j].y;
+                
+                maze.maze[Array[i, j].X, Array[i, j].Y] = Array[i, j];
             }
         }
     }

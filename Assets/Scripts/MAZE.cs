@@ -28,7 +28,7 @@ public class MAZE : MonoBehaviour
     {
         foreach (var rt in RotatableTilesList)
         {
-            if (rt.type == i) rt.Rotate90();
+            if (rt.type == i) rt.GetComponent<Animator>().Play("Rotate90");
         }
     }
 }
