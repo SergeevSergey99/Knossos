@@ -48,7 +48,7 @@ public class TurnManager : MonoBehaviour
     {
         foreach (var chel in cheliks)
         {
-            if (chel.transform.localPosition != Vector3.zero)
+            if (chel.transform.localPosition != (Vector3.zero) )
                 return false;
         }
 

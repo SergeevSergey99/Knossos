@@ -12,11 +12,11 @@ public class Node : MonoBehaviour
     public bool isWall;
 
     public Transform character;
-    [HideInInspector]public bool hasCharacter;
+    public bool hasCharacter;
     
     [HideInInspector]public NodeCenter center;
     [HideInInspector]public bool hasCenter = false;
-    
+
     public void SetCharacter(Transform character)
     {
         this.character = character;
@@ -27,5 +27,11 @@ public class Node : MonoBehaviour
     {
         this.center = center;
         hasCenter = true;
+    }
+    
+    public void RemoveCharacter()
+    {
+        character = null;
+        hasCharacter = false;
     }
 }

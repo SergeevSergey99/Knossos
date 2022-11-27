@@ -1,41 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class MazeCharacter : MonoBehaviour
 {
-    private MAZE _maze;
+    [HideInInspector] public MAZE maze;
 
     private Node _currNode;
-    
-    [SerializeField]private SpriteRenderer spriteRenderer;
-    
+
+    [SerializeField] private SpriteRenderer spriteRenderer;
+
     public Node GetCurrNode() => _currNode;
-    // Start is called before the first frame update
+
     void Start()
     {
         if (spriteRenderer == null)
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
         }
-        _maze = FindObjectOfType<MAZE>();
+
+        maze = FindObjectOfType<MAZE>();
         int closestX = 0, closestY = 0;
         float min = float.MaxValue;
-        for (int i = 0; i < _maze.baseTilesList.sizeX; i++)
+        for (int i = 0; i < maze.baseTilesList.sizeX; i++)
         {
-            for (int j = 0; j < _maze.baseTilesList.sizeY; j++)
+            for (int j = 0; j < maze.baseTilesList.sizeY; j++)
             {
-                if ((_maze.Maze[i, j].transform.position - transform.position).magnitude < min)
+                if ((maze.Maze[i, j].transform.position - transform.position).magnitude < min)
                 {
-                    min = (_maze.Maze[i, j].transform.position - transform.position).magnitude;
+                    min = (maze.Maze[i, j].transform.position - transform.position).magnitude;
                     closestX = i;
                     closestY = j;
                 }
             }
         }
 
-        _currNode = _maze.Maze[closestX, closestY];
+        _currNode = maze.Maze[closestX, closestY];
         transform.SetParent(_currNode.transform);
         _currNode.SetCharacter(transform);
         transform.localPosition = Vector3.zero;
@@ -56,34 +56,37 @@ public class MazeCharacter : MonoBehaviour
         {
             return true;
         }
-
         return false;
     }
 
     public List<direction> GetPossible(bool countCheliks = true)
     {
         List<direction> directions = new List<direction>();
-        if (_currNode.x > 0 && !_maze.Maze[_currNode.x - 1, _currNode.y].isWall
-                           && (!countCheliks || !HaveCharacters(_maze.Maze[_currNode.x - 1, _currNode.y]))) 
+
+        if (_currNode.x > 0 && !maze.Maze[_currNode.x - 1, _currNode.y].isWall
+                            && (!countCheliks || !HaveCharacters(maze.Maze[_currNode.x - 1, _currNode.y])))
             directions.Add(direction.left);
-        
-        if (_currNode.x < _maze.baseTilesList.sizeX - 1 && !_maze.Maze[_currNode.x + 1, _currNode.y].isWall
-                                                      && (!countCheliks || !HaveCharacters(_maze.Maze[_currNode.x + 1, _currNode.y])))
+
+        if (_currNode.x < maze.baseTilesList.sizeX - 1 && !maze.Maze[_currNode.x + 1, _currNode.y].isWall
+                                                       && (!countCheliks ||
+                                                           !HaveCharacters(maze.Maze[_currNode.x + 1, _currNode.y])))
             directions.Add(direction.right);
-        
-        if (_currNode.y > 0 && !_maze.Maze[_currNode.x, _currNode.y - 1].isWall
-                           && (!countCheliks || !HaveCharacters(_maze.Maze[_currNode.x, _currNode.y - 1]))) 
+
+        if (_currNode.y > 0 && !maze.Maze[_currNode.x, _currNode.y - 1].isWall
+                            && (!countCheliks || !HaveCharacters(maze.Maze[_currNode.x, _currNode.y - 1])))
             directions.Add(direction.down);
-        
-        if (_currNode.y < _maze.baseTilesList.sizeY - 1 && !_maze.Maze[_currNode.x, _currNode.y + 1].isWall
-                                                      && (!countCheliks || !HaveCharacters(_maze.Maze[_currNode.x, _currNode.y + 1])))
+
+        if (_currNode.y < maze.baseTilesList.sizeY - 1 && !maze.Maze[_currNode.x, _currNode.y + 1].isWall
+                                                       && (!countCheliks ||
+                                                           !HaveCharacters(maze.Maze[_currNode.x, _currNode.y + 1])))
             directions.Add(direction.up);
+
         return directions;
     }
+
     public direction GetRandomPossible()
     {
         var directions = GetPossible();
-
         if (directions.Count == 0) return direction.none;
         return directions[Random.Range(0, directions.Count)];
     }
@@ -93,23 +96,27 @@ public class MazeCharacter : MonoBehaviour
         var dir = GetRandomPossible();
         MoveTo(dir);
     }
+
     public void MoveTo(direction dir)
     {
+        if (dir == direction.none) return;
+        _currNode.RemoveCharacter();
+
         switch (dir)
         {
             case direction.left:
-                _currNode = _maze.Maze[_currNode.x - 1, _currNode.y];
+                _currNode = maze.Maze[_currNode.x - 1, _currNode.y];
                 spriteRenderer.flipX = false;
                 break;
             case direction.right:
-                _currNode = _maze.Maze[_currNode.x + 1, _currNode.y];
+                _currNode = maze.Maze[_currNode.x + 1, _currNode.y];
                 spriteRenderer.flipX = true;
                 break;
             case direction.up:
-                _currNode = _maze.Maze[_currNode.x, _currNode.y + 1];
+                _currNode = maze.Maze[_currNode.x, _currNode.y + 1];
                 break;
             case direction.down:
-                _currNode = _maze.Maze[_currNode.x, _currNode.y - 1];
+                _currNode = maze.Maze[_currNode.x, _currNode.y - 1];
                 break;
             default:
                 return;
@@ -129,7 +136,7 @@ public class MazeCharacter : MonoBehaviour
         while (i > 0)
         {
             yield return new WaitForSeconds(t);
-            transform.localPosition = start *(i*1f/cnt);
+            transform.localPosition = start * (i * 1f / cnt);
             i--;
         }
 

@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1268eaf8ca97fb149abc88b1a5ccd758, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offset: {x: 0, y: -0.15, z: 0}
   isGear: 1
   onActiveEvent:
     m_PersistentCalls:
