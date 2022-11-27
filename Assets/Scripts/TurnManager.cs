@@ -16,26 +16,29 @@ public class TurnManager : MonoBehaviour
     public Animator LoseGame;
     public Animator WinGame;
     public Animator EscapeMenu;
+    public Animator KillPanel;
     private bool isPaused = false;
     public bool GetPaused() => isPaused;
 
     private Vector2 cameraPos;
-    
+    private float camSize;
+
     private void Awake()
     {
         cameraPos = Camera.main.transform.position;
+        camSize = Camera.main.orthographicSize;
         player = FindObjectOfType<MinotaurController>();
         cheliks.Clear();
         var chs = FindObjectsOfType<MazeCharacter>();
         foreach (var mc in chs)
         {
-            if(mc.GetComponent<MinotaurController>() == null)
+            if (mc.GetComponent<MinotaurController>() == null)
                 cheliks.Add(mc);
         }
-        
+
         for (int i = 0; i < cheliks.Count; i++)
         {
-            if(_chelicksOD.Count < cheliks.Count) _chelicksOD.Add(chelicksOD);
+            if (_chelicksOD.Count < cheliks.Count) _chelicksOD.Add(chelicksOD);
             else _chelicksOD[i] = chelicksOD;
         }
     }
@@ -78,7 +81,7 @@ public class TurnManager : MonoBehaviour
     {
         foreach (var chel in cheliks)
         {
-            if (chel.transform.localPosition != (Vector3.zero) )
+            if (chel.transform.localPosition != (Vector3.zero))
                 return false;
         }
 
@@ -98,11 +101,25 @@ public class TurnManager : MonoBehaviour
 
     public void ZoomToMino()
     {
+        isPaused = true;
+        StartCoroutine(ZoomingTo());
+    }
+
+    IEnumerator ZoomingTo()
+    {
         var cam = Camera.main;
-        while ((cam.transform.position - player.transform.position).magnitude > 0.05f)
+        for (int i = 100; i >= 0; i--)
         {
-            
+            yield return new WaitForSeconds(0.01f);
+            Vector3 playerPos = new Vector3(player.transform.position.x, player.transform.position.y,
+                cam.transform.position.z);
+            cam.transform.position = playerPos -
+                                     (new Vector3(cameraPos.x, cameraPos.y, cam.transform.position.z) - playerPos) *
+                                     (i / 100f);
+            cam.orthographicSize = 1 + (camSize - 1) * (i / 100f);
         }
+        KillPanel.gameObject.SetActive(true);
+        KillPanel.Play("");
     }
 
     IEnumerator WaitTillStop()
@@ -135,6 +152,5 @@ public class TurnManager : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape)) Pause();
-        
     }
 }
