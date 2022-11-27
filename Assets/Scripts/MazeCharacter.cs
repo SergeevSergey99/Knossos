@@ -8,6 +8,7 @@ public class MazeCharacter : MonoBehaviour
 
     private Node currNode = null;
 
+    public Node GetCurrNode() => currNode;
     // Start is called before the first frame update
     void Start()
     {
@@ -114,10 +115,14 @@ public class MazeCharacter : MonoBehaviour
     IEnumerator MoveToZero()
     {
         float t = 0.01f;
-        while (transform.localPosition.magnitude > 0.05)
+        int cnt = 50;
+        int i = cnt;
+        var start = transform.localPosition;
+        while (i > 0)
         {
             yield return new WaitForSeconds(t);
-            transform.localPosition = Vector2.Lerp(transform.localPosition, Vector2.zero, t * 5);
+            transform.localPosition = start *(i*1f/cnt);
+            i--;
         }
 
         transform.localPosition = Vector3.zero;

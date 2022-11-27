@@ -19,8 +19,8 @@ public class RotatableTiles : MonoBehaviour
         {
             for (int j = 0; j < sizeX; j++)
             {
-                var X = (int) Mathf.Round(transform.localPosition.x + startX + j - maze.BaseTilesList.startX);
-                var Y = (int) Mathf.Round(transform.localPosition.y + startY + i - maze.BaseTilesList.startY);
+                var X = (int) Mathf.Round(transform.parent.localPosition.x + startX + j - maze.BaseTilesList.startX);
+                var Y = (int) Mathf.Round(transform.parent.localPosition.y + startY + i - maze.BaseTilesList.startY);
                 
                 if (maze.maze[X, Y] == null)
                 {
@@ -61,7 +61,8 @@ public class RotatableTiles : MonoBehaviour
 
     public void Rotate90()
     {
-        transform.Rotate(Vector3.forward * 90);
+        transform.parent.Rotate(Vector3.forward * 90);
+        transform.eulerAngles = new Vector3(0, 0, -90);
         xyPair[,] rotatedArray = new xyPair[sizeX, sizeY];
         for (int i = 0; i < sizeY; i++)
         {
@@ -81,11 +82,12 @@ public class RotatableTiles : MonoBehaviour
                 maze.maze[Array[i, j].X, Array[i, j].Y] = Array[i, j];
             }
         }
-        maze.fixRotation();
+        maze.StopFixing();
     }
     public void Rotate_90()
     {
-        transform.Rotate(Vector3.forward * -90);
+        transform.parent.Rotate(Vector3.forward * -90);
+        transform.eulerAngles = new Vector3(0, 0, 90);
         xyPair[,] rotatedArray = new xyPair[sizeX, sizeY];
         for (int i = 0; i < sizeY; i++)
         {
@@ -105,6 +107,6 @@ public class RotatableTiles : MonoBehaviour
                 maze.maze[Array[i, j].X, Array[i, j].Y] = Array[i, j];
             }
         }
-        maze.fixRotation();
+        maze.StopFixing();
     }
 }
