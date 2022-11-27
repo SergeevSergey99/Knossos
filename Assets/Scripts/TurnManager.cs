@@ -19,8 +19,11 @@ public class TurnManager : MonoBehaviour
     private bool isPaused = false;
     public bool GetPaused() => isPaused;
 
+    private Vector2 cameraPos;
+    
     private void Awake()
     {
+        cameraPos = Camera.main.transform.position;
         player = FindObjectOfType<MinotaurController>();
         cheliks.Clear();
         var chs = FindObjectsOfType<MazeCharacter>();
@@ -91,6 +94,15 @@ public class TurnManager : MonoBehaviour
         }
 
         return sum;
+    }
+
+    public void ZoomToMino()
+    {
+        var cam = Camera.main;
+        while ((cam.transform.position - player.transform.position).magnitude > 0.05f)
+        {
+            
+        }
     }
 
     IEnumerator WaitTillStop()
