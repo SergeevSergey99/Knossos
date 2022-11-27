@@ -24,11 +24,17 @@ public class MAZE : MonoBehaviour
         Maze = new Node[baseTilesList.sizeX, baseTilesList.sizeY];
 
         _tm = FindObjectOfType<TurnManager>();
+        
+        rotatableTilesList.Clear();
+        var rtl = FindObjectsOfType<RotatableTiles>();
+        foreach (var rt in rtl)
+        {
+            if(rt != baseTilesList)
+                rotatableTilesList.Add(rt);
+        }
 
         for (int i = 0; i < rotatableTilesList.Count; i++)
-        {
             rotatableTilesList[i].Init(this);
-        }
 
         baseTilesList.Init(this);
     }

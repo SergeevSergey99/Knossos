@@ -21,6 +21,15 @@ public class TurnManager : MonoBehaviour
 
     private void Awake()
     {
+        player = FindObjectOfType<MinotaurController>();
+        cheliks.Clear();
+        var chs = FindObjectsOfType<MazeCharacter>();
+        foreach (var mc in chs)
+        {
+            if(mc.GetComponent<MinotaurController>() == null)
+                cheliks.Add(mc);
+        }
+        
         for (int i = 0; i < cheliks.Count; i++)
         {
             if(_chelicksOD.Count < cheliks.Count) _chelicksOD.Add(chelicksOD);
