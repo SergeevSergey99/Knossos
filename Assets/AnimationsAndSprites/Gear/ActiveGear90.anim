@@ -106,6 +106,25 @@ AnimationClip:
     path: Layer2
     classID: 212
     script: {fileID: 0}
+  - curve:
+    - time: 0
+      value: {fileID: 21300000, guid: 7a36070005549ff47aa8f968d0f41e51, type: 3}
+    - time: 0.16666667
+      value: {fileID: 21300000, guid: 28b75a5397d0b3b4cb8c40a09ed0385f, type: 3}
+    - time: 0.33333334
+      value: {fileID: 21300000, guid: c38fb97936420f24c8f78ee2e95fe276, type: 3}
+    - time: 0.5
+      value: {fileID: 21300000, guid: 23343f175165c7641acd37b36b17ed62, type: 3}
+    - time: 0.6666667
+      value: {fileID: 21300000, guid: 450e7f9c50ec25b41b43223c388d5a70, type: 3}
+    - time: 0.8333333
+      value: {fileID: 21300000, guid: 4bae8c5d31659c54db96913766baf8a1, type: 3}
+    - time: 1
+      value: {fileID: 21300000, guid: 958f31145e5d24c499ed9d75dd0a648f, type: 3}
+    attribute: m_Sprite
+    path: 
+    classID: 212
+    script: {fileID: 0}
   m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
@@ -134,6 +153,13 @@ AnimationClip:
       typeID: 212
       customType: 23
       isPPtrCurve: 1
+    - serializedVersion: 2
+      path: 0
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
     pptrCurveMapping:
     - {fileID: 21300000, guid: f3aefb41a7004fc48814a406d665b3b7, type: 3}
     - {fileID: 21300000, guid: a66bf2e9d1049cf4a8a98cce7379d793, type: 3}
@@ -144,6 +170,13 @@ AnimationClip:
     - {fileID: 21300000, guid: 1442ccb5b99cbb64c86ee27777753d1f, type: 3}
     - {fileID: 21300000, guid: 2fbbe9f452a63134694f8bdc1841e035, type: 3}
     - {fileID: 21300000, guid: f3aefb41a7004fc48814a406d665b3b7, type: 3}
+    - {fileID: 21300000, guid: 7a36070005549ff47aa8f968d0f41e51, type: 3}
+    - {fileID: 21300000, guid: 28b75a5397d0b3b4cb8c40a09ed0385f, type: 3}
+    - {fileID: 21300000, guid: c38fb97936420f24c8f78ee2e95fe276, type: 3}
+    - {fileID: 21300000, guid: 23343f175165c7641acd37b36b17ed62, type: 3}
+    - {fileID: 21300000, guid: 450e7f9c50ec25b41b43223c388d5a70, type: 3}
+    - {fileID: 21300000, guid: 4bae8c5d31659c54db96913766baf8a1, type: 3}
+    - {fileID: 21300000, guid: 958f31145e5d24c499ed9d75dd0a648f, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -234,7 +267,7 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 1.0166667
+  - time: 0.85
     functionName: ActiveGear90
     data: 
     objectReferenceParameter: {fileID: 0}

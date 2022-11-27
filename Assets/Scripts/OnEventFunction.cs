@@ -11,7 +11,6 @@ public class OnEventFunction : MonoBehaviour
     public UnityEvent OnEnableFunctions;
     public UnityEvent OnDisableFunctions;
     public UnityEvent OnDestroyFunctions;
-    // Start is called before the first frame update
     private void Awake()
     {
         OnAwakeFunctions.Invoke();

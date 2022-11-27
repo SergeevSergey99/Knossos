@@ -38,7 +38,7 @@ public class MinotaurController : MonoBehaviour
     }
 
     public void MoveTo(MazeCharacter.direction dir)
-    {
+    {   
         _isMoving = true;
         if (_MinotaurOD > 0)
         {
@@ -51,7 +51,8 @@ public class MinotaurController : MonoBehaviour
 
 
     IEnumerator WaitTillStop()
-    {
+    {   
+        
         while (transform.localPosition != Vector3.zero)
         {
             yield return new WaitForSeconds(0.05f);

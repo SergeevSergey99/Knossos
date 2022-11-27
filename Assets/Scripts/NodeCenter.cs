@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public class NodeCenter : MonoBehaviour
 {
+    
     private Node _currNode = null;
     public bool isGear;
     public UnityEvent onActiveEvent;
@@ -29,6 +30,5 @@ public class NodeCenter : MonoBehaviour
         _currNode = maze.Maze[closestX, closestY];
         transform.SetParent(_currNode.transform);
         _currNode.SetCenter(this);
-        transform.localPosition = Vector3.zero;
     }
 }

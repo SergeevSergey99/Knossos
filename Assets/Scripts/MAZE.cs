@@ -6,11 +6,12 @@ using UnityEngine.Serialization;
 
 [RequireComponent(typeof(RotatableTiles))]
 public class MAZE : MonoBehaviour
-{
+{   
+    
     [FormerlySerializedAs("BaseTilesList")] public RotatableTiles baseTilesList;
     [FormerlySerializedAs("RotatableTilesList")] public List<RotatableTiles> rotatableTilesList;
 
-    public Node[,] Maze = null;
+    public  Node[,] Maze = null;
     private NodeCenter[] _nodeCenters;
     [FormerlySerializedAs("NodePrefab")] public GameObject nodePrefab;
     
