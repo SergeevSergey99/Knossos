@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TurnManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class TurnManager : MonoBehaviour
     List<int> _chelicksOD = new List<int>();
     private bool _isPlayerTurn = true;
     public bool IsPlayerTurn() => _isPlayerTurn;
+    public Button turnButton;
 
     private void Awake()
     {
@@ -39,6 +41,9 @@ public class TurnManager : MonoBehaviour
     public void startCheliksTurn()
     {
         _isPlayerTurn = false;
+        turnButton.interactable = false;
+        player.LoseOG();
+        player.ShowOG();
         Awake();
 
         CheliksRandMove();
@@ -77,6 +82,7 @@ public class TurnManager : MonoBehaviour
         else
         {
             _isPlayerTurn = true;
+            turnButton.interactable = true;
             player.UpdateOD();
         }
     }

@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class MazeCharacter : MonoBehaviour
 {
@@ -9,17 +11,20 @@ public class MazeCharacter : MonoBehaviour
     private Node _currNode;
 
     [SerializeField] private SpriteRenderer spriteRenderer;
+    public Animator animator;
+    [SerializeField] private int FramesPerMove = 50;
 
     public Node GetCurrNode() => _currNode;
 
+    private void Awake()
+    {
+        if (animator == null) animator = GetComponent<Animator>();
+        if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
+        maze = FindObjectOfType<MAZE>();
+    }
+
     void Start()
     {
-        if (spriteRenderer == null)
-        {
-            spriteRenderer = GetComponent<SpriteRenderer>();
-        }
-
-        maze = FindObjectOfType<MAZE>();
         int closestX = 0, closestY = 0;
         float min = float.MaxValue;
         for (int i = 0; i < maze.baseTilesList.sizeX; i++)
@@ -97,6 +102,16 @@ public class MazeCharacter : MonoBehaviour
         MoveTo(dir);
     }
 
+    public void SetFlipX(int flip)
+    {
+        if (spriteRenderer != null) spriteRenderer.flipX = flip == 1;
+        if (animator != null)
+        {
+            if (flip == 1) animator.Play("FlipXTrue");
+            else animator.Play("FlipXFalse");
+        }
+    }
+
     public void MoveTo(direction dir)
     {
         if (dir == direction.none) return;
@@ -106,17 +121,23 @@ public class MazeCharacter : MonoBehaviour
         {
             case direction.left:
                 _currNode = maze.Maze[_currNode.x - 1, _currNode.y];
-                spriteRenderer.flipX = false;
+                if (spriteRenderer != null) spriteRenderer.flipX = false;
+                if (animator != null) animator.Play("FlipXFalse");
+                if (animator != null) animator.SetBool("isWalk", true);
                 break;
             case direction.right:
                 _currNode = maze.Maze[_currNode.x + 1, _currNode.y];
-                spriteRenderer.flipX = true;
+                if (spriteRenderer != null) spriteRenderer.flipX = true;
+                if (animator != null) animator.Play("FlipXTrue");
+                if (animator != null) animator.SetBool("isWalk", true);
                 break;
             case direction.up:
                 _currNode = maze.Maze[_currNode.x, _currNode.y + 1];
+                if (animator != null) animator.SetBool("isWalk", true);
                 break;
             case direction.down:
                 _currNode = maze.Maze[_currNode.x, _currNode.y - 1];
+                if (animator != null) animator.SetBool("isWalk", true);
                 break;
             default:
                 return;
@@ -130,16 +151,17 @@ public class MazeCharacter : MonoBehaviour
     IEnumerator MoveToZero()
     {
         float t = 0.01f;
-        int cnt = 50;
-        int i = cnt;
+        int i = FramesPerMove;
         var start = transform.localPosition;
         while (i > 0)
         {
             yield return new WaitForSeconds(t);
-            transform.localPosition = start * (i * 1f / cnt);
+            transform.localPosition = start * (i * 1f / FramesPerMove);
             i--;
         }
 
         transform.localPosition = Vector3.zero;
+        
+        if (animator != null) animator.SetBool("isWalk", false);
     }
 }

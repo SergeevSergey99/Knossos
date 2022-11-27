@@ -29,6 +29,7 @@ public class NodeCenter : MonoBehaviour
 
         _currNode = maze.Maze[closestX, closestY];
         transform.SetParent(_currNode.transform);
+        transform.localPosition = Vector3.zero;
         _currNode.SetCenter(this);
     }
 }
