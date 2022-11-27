@@ -15,6 +15,9 @@ public class TurnManager : MonoBehaviour
     public Button turnButton;
     public Animator LoseGame;
     public Animator WinGame;
+    public Animator EscapeMenu;
+    private bool isPaused = false;
+    public bool GetPaused() => isPaused;
 
     private void Awake()
     {
@@ -95,5 +98,22 @@ public class TurnManager : MonoBehaviour
             turnButton.interactable = true;
             player.UpdateOD();
         }
+    }
+
+    public void Pause()
+    {
+        isPaused = !isPaused;
+        if (isPaused)
+        {
+            EscapeMenu.gameObject.SetActive(true);
+            EscapeMenu.Play("AppearHalf");
+        }
+        else EscapeMenu.Play("DisappearHalf");
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape)) Pause();
+        
     }
 }

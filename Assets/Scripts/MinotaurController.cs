@@ -106,7 +106,7 @@ public class MinotaurController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!TM.IsPlayerTurn()) return;
+        if (!TM.IsPlayerTurn() || TM.GetPaused()) return;
         if (_isMoving) return;
 
         if (_MinotaurOD > 0)
