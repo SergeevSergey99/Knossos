@@ -15,4 +15,8 @@ public class MenuScript : MonoBehaviour
     {
         SceneManager.LoadScene(name);
     }
+    public void ReLoadLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }

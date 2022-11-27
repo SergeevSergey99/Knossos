@@ -45,6 +45,8 @@ public class MinotaurController : MonoBehaviour
         _HungerOG--;
     }
 
+    public int GetOG() => _HungerOG;
+
     private bool _isMoving = false;
 
     public void AnimStop()

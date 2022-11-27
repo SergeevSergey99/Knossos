@@ -13,6 +13,8 @@ public class TurnManager : MonoBehaviour
     private bool _isPlayerTurn = true;
     public bool IsPlayerTurn() => _isPlayerTurn;
     public Button turnButton;
+    public Animator LoseGame;
+    public Animator WinGame;
 
     private void Awake()
     {
@@ -42,11 +44,19 @@ public class TurnManager : MonoBehaviour
     {
         _isPlayerTurn = false;
         turnButton.interactable = false;
-        player.LoseOG();
-        player.ShowOG();
-        Awake();
+        if (player.GetOG() > 0)
+        {
+            player.LoseOG();
+            player.ShowOG();
+            Awake();
 
-        CheliksRandMove();
+            CheliksRandMove();
+        }
+        else
+        {
+            LoseGame.gameObject.SetActive(true);
+            LoseGame.Play("AppearHalf");
+        }
     }
 
     bool IsCheliksStoped()
