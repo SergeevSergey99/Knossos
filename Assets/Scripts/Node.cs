@@ -1,22 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
+
 
 public class Node : MonoBehaviour
 {
-    public int X;
-    public int Y;
+    [FormerlySerializedAs("X")] public int x;
+    [FormerlySerializedAs("Y")] public int y;
 
     public bool isWall;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public Transform character;
+    [HideInInspector]public bool hasCharacter;
+    
+    [HideInInspector]public NodeCenter center;
+    [HideInInspector]public bool hasCenter = false;
+    
+    public void SetCharacter(Transform character)
     {
-        
+        this.character = character;
+        hasCharacter = true;
+    }
+    
+    public void SetCenter(NodeCenter center)
+    {
+        this.center = center;
+        hasCenter = true;
     }
 }

@@ -9,8 +9,8 @@ public class TurnManager : MonoBehaviour
     public List<MazeCharacter> cheliks;
     public int chelicksOD = 3;
     List<int> _chelicksOD = new List<int>();
-    private bool isPlayerTurn = true;
-    public bool IsPlayerTurn() => isPlayerTurn;
+    private bool _isPlayerTurn = true;
+    public bool IsPlayerTurn() => _isPlayerTurn;
 
     private void Awake()
     {
@@ -38,7 +38,7 @@ public class TurnManager : MonoBehaviour
 
     public void startCheliksTurn()
     {
-        isPlayerTurn = false;
+        _isPlayerTurn = false;
         Awake();
 
         CheliksRandMove();
@@ -76,7 +76,7 @@ public class TurnManager : MonoBehaviour
         if (SumOD() > 0) CheliksRandMove();
         else
         {
-            isPlayerTurn = true;
+            _isPlayerTurn = true;
             player.UpdateOD();
         }
     }

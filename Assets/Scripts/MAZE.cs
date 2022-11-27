@@ -2,79 +2,83 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
+[RequireComponent(typeof(RotatableTiles))]
 public class MAZE : MonoBehaviour
 {
-    public RotatableTiles BaseTilesList;
-    public List<RotatableTiles> RotatableTilesList;
+    [FormerlySerializedAs("BaseTilesList")] public RotatableTiles baseTilesList;
+    [FormerlySerializedAs("RotatableTilesList")] public List<RotatableTiles> rotatableTilesList;
 
-    public Node[,] maze = null;
-    public GameObject NodePrefab;
+    public Node[,] Maze = null;
+    private NodeCenter[] _nodeCenters;
+    [FormerlySerializedAs("NodePrefab")] public GameObject nodePrefab;
+    
 
-
-    private TurnManager tm = null;
+    private TurnManager _tm = null;
 
     private void Awake()
     {
-        maze = new Node[BaseTilesList.sizeX, BaseTilesList.sizeY];
+        _nodeCenters = FindObjectsOfType<NodeCenter>();
+        Maze = new Node[baseTilesList.sizeX, baseTilesList.sizeY];
 
-        tm = FindObjectOfType<TurnManager>();
+        _tm = FindObjectOfType<TurnManager>();
 
-        for (int i = 0; i < RotatableTilesList.Count; i++)
+        for (int i = 0; i < rotatableTilesList.Count; i++)
         {
-            RotatableTilesList[i].init(this);
+            rotatableTilesList[i].Init(this);
         }
 
-        BaseTilesList.init(this);
+        baseTilesList.Init(this);
     }
 
-    private Coroutine fixCorr = null;
+    private Coroutine _fixCorr;
 
     public void RotateAllOfType90(int i)
     {
-        foreach (var rt in RotatableTilesList)
+        foreach (var rt in rotatableTilesList)
         {
             if (rt.type == i) rt.transform.parent.GetComponent<Animator>().Play("Rotate90");
         }
 
-        fixCorr = StartCoroutine(fixing());
+        _fixCorr = StartCoroutine(Fixing());
     }
 
     public void RotateAllOfType_90(int i)
     {
-        foreach (var rt in RotatableTilesList)
+        foreach (var rt in rotatableTilesList)
         {
             if (rt.type == i) rt.transform.parent.GetComponent<Animator>().Play("Rotate_90");
         }
 
-        fixCorr = StartCoroutine(fixing());
+        _fixCorr = StartCoroutine(Fixing());
     }
 
     public void StopFixing()
     {
-        if (fixCorr != null) StopCoroutine(fixCorr);
-        fixCorr = null;
+        if (_fixCorr != null) StopCoroutine(_fixCorr);
+        _fixCorr = null;
     }
 
-    IEnumerator fixing()
+    IEnumerator Fixing()
     {
         while (true)
         {
             yield return new WaitForEndOfFrame();
-            fixRotation();
+            FixRotation();
         }
     }
 
-    public void fixRotation()
+    public void FixRotation()
     {
-        tm.player.transform.eulerAngles = Vector3.zero;
-        tm.player.AnimStop();
-        foreach (var VARIABLE in FindObjectsOfType<NodeCenter>())
+        _tm.player.transform.eulerAngles = Vector3.zero;
+        _tm.player.AnimStop();
+        foreach (var nodeCenter in _nodeCenters)
         {
-            VARIABLE.transform.eulerAngles = Vector3.zero;
+            nodeCenter.transform.eulerAngles = Vector3.zero;
         }
 
-        foreach (var chel in tm.cheliks)
+        foreach (var chel in _tm.cheliks)
         {
             chel.transform.eulerAngles = Vector3.zero;
         }

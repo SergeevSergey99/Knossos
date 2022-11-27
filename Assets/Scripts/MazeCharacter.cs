@@ -1,35 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class MazeCharacter : MonoBehaviour
 {
-    private MAZE maze = null;
+    private MAZE _maze;
 
-    private Node currNode = null;
-
-    public Node GetCurrNode() => currNode;
+    private Node _currNode;
+    
+    [SerializeField]private SpriteRenderer spriteRenderer;
+    
+    public Node GetCurrNode() => _currNode;
     // Start is called before the first frame update
     void Start()
     {
-        maze = FindObjectOfType<MAZE>();
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+        _maze = FindObjectOfType<MAZE>();
         int closestX = 0, closestY = 0;
         float min = float.MaxValue;
-        for (int i = 0; i < maze.BaseTilesList.sizeX; i++)
+        for (int i = 0; i < _maze.baseTilesList.sizeX; i++)
         {
-            for (int j = 0; j < maze.BaseTilesList.sizeY; j++)
+            for (int j = 0; j < _maze.baseTilesList.sizeY; j++)
             {
-                if ((maze.maze[i, j].transform.position - transform.position).magnitude < min)
+                if ((_maze.Maze[i, j].transform.position - transform.position).magnitude < min)
                 {
-                    min = (maze.maze[i, j].transform.position - transform.position).magnitude;
+                    min = (_maze.Maze[i, j].transform.position - transform.position).magnitude;
                     closestX = i;
                     closestY = j;
                 }
             }
         }
 
-        currNode = maze.maze[closestX, closestY];
-        transform.SetParent(currNode.transform);
+        _currNode = _maze.Maze[closestX, closestY];
+        transform.SetParent(_currNode.transform);
+        _currNode.SetCharacter(transform);
         transform.localPosition = Vector3.zero;
     }
 
@@ -44,10 +52,9 @@ public class MazeCharacter : MonoBehaviour
 
     public bool HaveCharacters(Node node)
     {
-        foreach (Transform VARIABLE in node.transform)
+        if (node.hasCharacter)
         {
-            if (VARIABLE.GetComponent<MazeCharacter>() != null)
-                return true;
+            return true;
         }
 
         return false;
@@ -56,20 +63,20 @@ public class MazeCharacter : MonoBehaviour
     public List<direction> GetPossible(bool countCheliks = true)
     {
         List<direction> directions = new List<direction>();
-        if (currNode.X > 0 && !maze.maze[currNode.X - 1, currNode.Y].isWall
-                           && (!countCheliks || !HaveCharacters(maze.maze[currNode.X - 1, currNode.Y]))) 
+        if (_currNode.x > 0 && !_maze.Maze[_currNode.x - 1, _currNode.y].isWall
+                           && (!countCheliks || !HaveCharacters(_maze.Maze[_currNode.x - 1, _currNode.y]))) 
             directions.Add(direction.left);
         
-        if (currNode.X < maze.BaseTilesList.sizeX - 1 && !maze.maze[currNode.X + 1, currNode.Y].isWall
-                                                      && (!countCheliks || !HaveCharacters(maze.maze[currNode.X + 1, currNode.Y])))
+        if (_currNode.x < _maze.baseTilesList.sizeX - 1 && !_maze.Maze[_currNode.x + 1, _currNode.y].isWall
+                                                      && (!countCheliks || !HaveCharacters(_maze.Maze[_currNode.x + 1, _currNode.y])))
             directions.Add(direction.right);
         
-        if (currNode.Y > 0 && !maze.maze[currNode.X, currNode.Y - 1].isWall
-                           && (!countCheliks || !HaveCharacters(maze.maze[currNode.X, currNode.Y - 1]))) 
+        if (_currNode.y > 0 && !_maze.Maze[_currNode.x, _currNode.y - 1].isWall
+                           && (!countCheliks || !HaveCharacters(_maze.Maze[_currNode.x, _currNode.y - 1]))) 
             directions.Add(direction.down);
         
-        if (currNode.Y < maze.BaseTilesList.sizeY - 1 && !maze.maze[currNode.X, currNode.Y + 1].isWall
-                                                      && (!countCheliks || !HaveCharacters(maze.maze[currNode.X, currNode.Y + 1])))
+        if (_currNode.y < _maze.baseTilesList.sizeY - 1 && !_maze.Maze[_currNode.x, _currNode.y + 1].isWall
+                                                      && (!countCheliks || !HaveCharacters(_maze.Maze[_currNode.x, _currNode.y + 1])))
             directions.Add(direction.up);
         return directions;
     }
@@ -91,24 +98,25 @@ public class MazeCharacter : MonoBehaviour
         switch (dir)
         {
             case direction.left:
-                currNode = maze.maze[currNode.X - 1, currNode.Y];
-                GetComponent<SpriteRenderer>().flipX = false;
+                _currNode = _maze.Maze[_currNode.x - 1, _currNode.y];
+                spriteRenderer.flipX = false;
                 break;
             case direction.right:
-                currNode = maze.maze[currNode.X + 1, currNode.Y];
-                GetComponent<SpriteRenderer>().flipX = true;
+                _currNode = _maze.Maze[_currNode.x + 1, _currNode.y];
+                spriteRenderer.flipX = true;
                 break;
             case direction.up:
-                currNode = maze.maze[currNode.X, currNode.Y + 1];
+                _currNode = _maze.Maze[_currNode.x, _currNode.y + 1];
                 break;
             case direction.down:
-                currNode = maze.maze[currNode.X, currNode.Y - 1];
+                _currNode = _maze.Maze[_currNode.x, _currNode.y - 1];
                 break;
             default:
                 return;
         }
 
-        transform.SetParent(currNode.transform);
+        transform.SetParent(_currNode.transform);
+        _currNode.SetCharacter(transform);
         StartCoroutine(MoveToZero());
     }
 

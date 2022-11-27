@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class NodeCenter : MonoBehaviour
 {
-    private Node currNode = null;
+    private Node _currNode = null;
     public bool isGear;
     public UnityEvent onActiveEvent;
     void Start()
@@ -13,21 +13,22 @@ public class NodeCenter : MonoBehaviour
         var maze = FindObjectOfType<MAZE>();
         int closestX = 0, closestY = 0;
         float min = float.MaxValue;
-        for (int i = 0; i < maze.BaseTilesList.sizeX; i++)
+        for (int i = 0; i < maze.baseTilesList.sizeX; i++)
         {
-            for (int j = 0; j < maze.BaseTilesList.sizeY; j++)
+            for (int j = 0; j < maze.baseTilesList.sizeY; j++)
             {
-                if ((maze.maze[i, j].transform.position - transform.position).magnitude < min)
+                if ((maze.Maze[i, j].transform.position - transform.position).magnitude < min)
                 {
-                    min = (maze.maze[i, j].transform.position - transform.position).magnitude;
+                    min = (maze.Maze[i, j].transform.position - transform.position).magnitude;
                     closestX = i;
                     closestY = j;
                 }
             }
         }
 
-        currNode = maze.maze[closestX, closestY];
-        transform.SetParent(currNode.transform);
+        _currNode = maze.Maze[closestX, closestY];
+        transform.SetParent(_currNode.transform);
+        _currNode.SetCenter(this);
         transform.localPosition = Vector3.zero;
     }
 }

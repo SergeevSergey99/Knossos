@@ -8,23 +8,24 @@ public class RotatableTiles : MonoBehaviour
     public int sizeX, sizeY;
 
     public int type;
-    private Node[,] Array = null;
-    private MAZE maze = null;
+    private Node[,] _array = null;
+    private MAZE _maze = null;
 
-    public void init(MAZE maze)
+    public void Init(MAZE maze)
     {
-        this.maze = maze;
-        Array = new Node[sizeX, sizeY];
+        this._maze = maze;
+        _array = new Node[sizeX, sizeY];
         for (int i = 0; i < sizeY; i++)
         {
             for (int j = 0; j < sizeX; j++)
             {
-                var X = (int) Mathf.Round(transform.parent.localPosition.x + startX + j - maze.BaseTilesList.startX);
-                var Y = (int) Mathf.Round(transform.parent.localPosition.y + startY + i - maze.BaseTilesList.startY);
+                var localPosition = transform.parent.localPosition;
+                var X = (int) Mathf.Round(localPosition.x + startX + j - maze.baseTilesList.startX);
+                var Y = (int) Mathf.Round(localPosition.y + startY + i - maze.baseTilesList.startY);
                 
-                if (maze.maze[X, Y] == null)
+                if (maze.Maze[X, Y] == null)
                 {
-                    var node = Instantiate(maze.NodePrefab, transform);
+                    var node = Instantiate(maze.nodePrefab, transform);
                     node.transform.localPosition = new Vector3(
                         0.5f + startX + j,
                         0.5f + startY + i,
@@ -32,13 +33,13 @@ public class RotatableTiles : MonoBehaviour
                     );
 
 
-                    node.GetComponent<Node>().X = X;
-                    node.GetComponent<Node>().Y = Y;
-                    maze.maze[X, Y] = node.GetComponent<Node>();
-                    Array[j, i] = node.GetComponent<Node>();
-                    RaycastHit2D hit = Physics2D.Raycast(Array[j, i].transform.position, -Vector3.forward);
-                    Array[j, i].isWall = hit.collider != null;
-                    if(Array[j, i].isWall) Array[j, i].transform.GetChild(0).gameObject.SetActive(false);
+                    node.GetComponent<Node>().x = X;
+                    node.GetComponent<Node>().y = Y;
+                    maze.Maze[X, Y] = node.GetComponent<Node>();
+                    _array[j, i] = node.GetComponent<Node>();
+                    RaycastHit2D hit = Physics2D.Raycast(_array[j, i].transform.position, -Vector3.forward);
+                    _array[j, i].isWall = hit.collider != null;
+                    if(_array[j, i].isWall) _array[j, i].transform.GetChild(0).gameObject.SetActive(false);
                 }
             }
         }
@@ -46,14 +47,14 @@ public class RotatableTiles : MonoBehaviour
 
     public void RotateAllOfSameType90()
     {
-        maze.RotateAllOfType90(type);
+        _maze.RotateAllOfType90(type);
     }
     public void RotateAllOfSameType_90()
     {
-        maze.RotateAllOfType_90(type);
+        _maze.RotateAllOfType_90(type);
     }
 
-    public struct xyPair
+    public struct XYPair
     {
         public int x;
         public int y;
@@ -63,50 +64,50 @@ public class RotatableTiles : MonoBehaviour
     {
         transform.parent.Rotate(Vector3.forward * 90);
         transform.eulerAngles = new Vector3(0, 0, -90);
-        xyPair[,] rotatedArray = new xyPair[sizeX, sizeY];
+        XYPair[,] rotatedArray = new XYPair[sizeX, sizeY];
         for (int i = 0; i < sizeY; i++)
         {
             for (int j = 0; j < sizeX; j++)
             {
-                rotatedArray[j, i].x = Array[sizeY-1-i, j].X;
-                rotatedArray[j, i].y = Array[sizeY-1-i, j].Y;
+                rotatedArray[j, i].x = _array[sizeY-1-i, j].x;
+                rotatedArray[j, i].y = _array[sizeY-1-i, j].y;
             }
         }
         for (int i = 0; i < sizeY; i++)
         {
             for (int j = 0; j < sizeX; j++)
             {
-                Array[i, j].X = rotatedArray[i, j].x;
-                Array[i, j].Y = rotatedArray[i, j].y;
+                _array[i, j].x = rotatedArray[i, j].x;
+                _array[i, j].y = rotatedArray[i, j].y;
                 
-                maze.maze[Array[i, j].X, Array[i, j].Y] = Array[i, j];
+                _maze.Maze[_array[i, j].x, _array[i, j].y] = _array[i, j];
             }
         }
-        maze.StopFixing();
+        _maze.StopFixing();
     }
     public void Rotate_90()
     {
         transform.parent.Rotate(Vector3.forward * -90);
         transform.eulerAngles = new Vector3(0, 0, 90);
-        xyPair[,] rotatedArray = new xyPair[sizeX, sizeY];
+        XYPair[,] rotatedArray = new XYPair[sizeX, sizeY];
         for (int i = 0; i < sizeY; i++)
         {
             for (int j = 0; j < sizeX; j++)
             {
-                rotatedArray[j, i].x = Array[i, sizeY-1-j].X;
-                rotatedArray[j, i].y = Array[i, sizeY-1-j].Y;
+                rotatedArray[j, i].x = _array[i, sizeY-1-j].x;
+                rotatedArray[j, i].y = _array[i, sizeY-1-j].y;
             }
         }
         for (int i = 0; i < sizeY; i++)
         {
             for (int j = 0; j < sizeX; j++)
             {
-                Array[i, j].X = rotatedArray[i, j].x;
-                Array[i, j].Y = rotatedArray[i, j].y;
+                _array[i, j].x = rotatedArray[i, j].x;
+                _array[i, j].y = rotatedArray[i, j].y;
                 
-                maze.maze[Array[i, j].X, Array[i, j].Y] = Array[i, j];
+                _maze.Maze[_array[i, j].x, _array[i, j].y] = _array[i, j];
             }
         }
-        maze.StopFixing();
+        _maze.StopFixing();
     }
 }

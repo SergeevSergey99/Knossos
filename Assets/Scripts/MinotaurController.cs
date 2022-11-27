@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class MinotaurController : MonoBehaviour
 {
@@ -9,8 +10,16 @@ public class MinotaurController : MonoBehaviour
     private MazeCharacter MC = null;
     public int MinotaurOD = 3;
     int _MinotaurOD = 0;
+
+    [SerializeField] private Animator animator;
+
     private void Awake()
     {
+        if (animator == null)
+        {
+            animator = GetComponent<Animator>();
+        }
+        
         UpdateOD();
         TM = FindObjectOfType<TurnManager>();
         MC = GetComponent<MazeCharacter>();
@@ -21,16 +30,16 @@ public class MinotaurController : MonoBehaviour
         _MinotaurOD = MinotaurOD;
     }
 
-    private bool isMoving = false;
+    private bool _isMoving = false;
 
     public void AnimStop()
     {
-        isMoving = false;
+        _isMoving = false;
     }
 
     public void MoveTo(MazeCharacter.direction dir)
     {
-        isMoving = true;
+        _isMoving = true;
         if (_MinotaurOD > 0)
         {
             _MinotaurOD--;
@@ -39,7 +48,7 @@ public class MinotaurController : MonoBehaviour
 
         StartCoroutine(WaitTillStop());
     }
-    
+
 
     IEnumerator WaitTillStop()
     {
@@ -48,9 +57,9 @@ public class MinotaurController : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
         }
 
-        isMoving = false;
+        _isMoving = false;
 
-        if (_MinotaurOD <= 0) 
+        if (_MinotaurOD <= 0)
         {
             TM.startCheliksTurn();
         }
@@ -60,6 +69,7 @@ public class MinotaurController : MonoBehaviour
     {
         transform.parent.parent.GetComponent<RotatableTiles>().RotateAllOfSameType90();
     }
+
     public void ActiveGear_90()
     {
         transform.parent.parent.GetComponent<RotatableTiles>().RotateAllOfSameType_90();
@@ -67,34 +77,38 @@ public class MinotaurController : MonoBehaviour
 
     bool HasNodeGear()
     {
-        foreach (Transform VARIABLE in MC.GetCurrNode().transform)
+        if (MC.GetCurrNode().hasCenter && MC.GetCurrNode().center.isGear)
         {
-            if (VARIABLE.GetComponent<NodeCenter>() != null && VARIABLE.GetComponent<NodeCenter>().isGear)
-                return true;
+            return true;
         }
-
         return false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!TM.IsPlayerTurn()) return;
-        if(isMoving) return;
-        
+        if (!TM.IsPlayerTurn()) return;
+        if (_isMoving) return;
+
         var dirs = MC.GetPossible(false);
-        if((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && dirs.Contains(MazeCharacter.direction.up)) MoveTo(MazeCharacter.direction.up);
-        if((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && dirs.Contains(MazeCharacter.direction.down)) MoveTo(MazeCharacter.direction.down);
-        if((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && dirs.Contains(MazeCharacter.direction.left)) MoveTo(MazeCharacter.direction.left);
-        if((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) && dirs.Contains(MazeCharacter.direction.right)) MoveTo(MazeCharacter.direction.right);
+        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) &&
+            dirs.Contains(MazeCharacter.direction.up)) MoveTo(MazeCharacter.direction.up);
+        if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) &&
+            dirs.Contains(MazeCharacter.direction.down)) MoveTo(MazeCharacter.direction.down);
+        if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) &&
+            dirs.Contains(MazeCharacter.direction.left)) MoveTo(MazeCharacter.direction.left);
+        if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) &&
+            dirs.Contains(MazeCharacter.direction.right)) MoveTo(MazeCharacter.direction.right);
         if (Input.GetKeyDown(KeyCode.Q) && HasNodeGear())
         {
-            isMoving = true;
-            GetComponent<Animator>().Play("ActiveGear90");
-        }if (Input.GetKeyDown(KeyCode.E) && HasNodeGear())
+            _isMoving = true;
+            animator.Play("ActiveGear90");
+        }
+
+        if (Input.GetKeyDown(KeyCode.E) && HasNodeGear())
         {
-            isMoving = true;
-            GetComponent<Animator>().Play("ActiveGear_90");
+            _isMoving = true;
+            animator.Play("ActiveGear_90");
         }
     }
 }
