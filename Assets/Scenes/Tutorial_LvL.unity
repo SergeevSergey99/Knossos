@@ -457,7 +457,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.3
+  m_Intensity: 0.48
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 00000000
@@ -4303,9 +4303,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 546559947}
   cheliks:
-  - {fileID: 1733059371}
   - {fileID: 1215945765}
   - {fileID: 742185034}
+  - {fileID: 1733059371}
   chelicksOD: 3
   turnButton: {fileID: 1345343910}
   LoseGame: {fileID: 637815084}
@@ -4483,6 +4483,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 613905136814563361, guid: 3e11844dd1f911f4dab39d96827a457a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303222240834585627, guid: 3e11844dd1f911f4dab39d96827a457a, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303222240834585627, guid: 3e11844dd1f911f4dab39d96827a457a, type: 3}
+      propertyPath: m_Color.g
+      value: 0.7179692
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303222240834585627, guid: 3e11844dd1f911f4dab39d96827a457a, type: 3}
+      propertyPath: m_Color.r
+      value: 0.504717
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303222240834585627, guid: 3e11844dd1f911f4dab39d96827a457a, type: 3}
+      propertyPath: m_ShadowIntensity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303222240834585627, guid: 3e11844dd1f911f4dab39d96827a457a, type: 3}
+      propertyPath: m_FalloffIntensity
+      value: 0.783
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303222240834585627, guid: 3e11844dd1f911f4dab39d96827a457a, type: 3}
+      propertyPath: m_NormalMapQuality
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303222240834585627, guid: 3e11844dd1f911f4dab39d96827a457a, type: 3}
+      propertyPath: m_NormalMapDistance
+      value: 3.91
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303222240834585627, guid: 3e11844dd1f911f4dab39d96827a457a, type: 3}
+      propertyPath: m_ShadowIntensityEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2336790843887920484, guid: 3e11844dd1f911f4dab39d96827a457a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 23a6b7277283ecf4a93691ac79e58aa1, type: 2}
     - target: {fileID: 2336790844734789906, guid: 3e11844dd1f911f4dab39d96827a457a, type: 3}
       propertyPath: HungerOG_UI
       value: 
@@ -4497,11 +4537,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2336790844734789907, guid: 3e11844dd1f911f4dab39d96827a457a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.53
+      value: 4.485
       objectReference: {fileID: 0}
     - target: {fileID: 2336790844734789907, guid: 3e11844dd1f911f4dab39d96827a457a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.39
+      value: 3.406
       objectReference: {fileID: 0}
     - target: {fileID: 2336790844734789907, guid: 3e11844dd1f911f4dab39d96827a457a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4859,7 +4899,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5292505959680103673, guid: b8dcf41deb9673f4cad8969c3697ec18, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5292505959680103673, guid: b8dcf41deb9673f4cad8969c3697ec18, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4920,7 +4960,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5998877562927709145, guid: af742981095248a47b19b2b6f9e61ead, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5998877562927709145, guid: af742981095248a47b19b2b6f9e61ead, type: 3}
       propertyPath: m_LocalPosition.x
