@@ -1,15 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TurnManager : MonoBehaviour
 {
-    public MinotaurController player;
-    public List<MazeCharacter> cheliks;
+    [HideInInspector]
+    public MinotaurController player = null;
+    [HideInInspector]
+    public List<CHEL> cheliks = new List<CHEL>();
     public int chelicksOD = 3;
-    List<int> _chelicksOD = new List<int>();
+    //List<int> _chelicksOD = new List<int>();
     private bool _isPlayerTurn = true;
     public bool IsPlayerTurn() => _isPlayerTurn;
     public Button turnButton;
@@ -23,34 +26,42 @@ public class TurnManager : MonoBehaviour
     private Vector2 cameraPos;
     private float camSize;
 
+    public class CHEL
+    {
+        public MazeCharacter character = null;
+        public int OD = 0;
+    }
     private void Awake()
     {
-        cameraPos = Camera.main.transform.position;
-        camSize = Camera.main.orthographicSize;
-        player = FindObjectOfType<MinotaurController>();
-        cheliks.Clear();
-        var chs = FindObjectsOfType<MazeCharacter>();
-        foreach (var mc in chs)
+        if (camSize == 0)
         {
-            if (mc.GetComponent<MinotaurController>() == null)
-                cheliks.Add(mc);
-        }
-
-        for (int i = 0; i < cheliks.Count; i++)
-        {
-            if (_chelicksOD.Count < cheliks.Count) _chelicksOD.Add(chelicksOD);
-            else _chelicksOD[i] = chelicksOD;
+            cameraPos = Camera.main.transform.position;
+            camSize = Camera.main.orthographicSize;
+            player = FindObjectOfType<MinotaurController>();
+            cheliks = new List<CHEL>();
+            var chs = FindObjectsOfType<MazeCharacter>();
+            foreach (var mc in chs)
+            {
+                if (mc.GetComponent<MinotaurController>() == null)
+                {
+                    CHEL ch = new CHEL();
+                    ch.character = mc;
+                    ch.OD = chelicksOD;
+                    cheliks.Add(ch);
+                }
+            }
         }
     }
 
     public void CheliksRandMove()
     {
-        for (int i = 0; i < _chelicksOD.Count; i++)
+        
+        for (int i = 0; i < cheliks.Count; i++)
         {
-            if (_chelicksOD[i] > 0)
+            if (cheliks[i].OD > 0)
             {
-                _chelicksOD[i]--;
-                cheliks[i].MoveToRandomPossibleDir();
+                cheliks[i].OD--;
+                cheliks[i].character.MoveToRandomPossibleDir();
                 break;
             }
         }
@@ -62,6 +73,8 @@ public class TurnManager : MonoBehaviour
     {
         _isPlayerTurn = false;
         turnButton.interactable = false;
+        player.Sound();
+        cheliks = cheliks.OrderByDescending(o=>Mathf.Abs((o.character.transform.position - player.transform.position).magnitude)).ToList();
         if (player.GetOG() > 0)
         {
             player.LoseOG();
@@ -81,7 +94,7 @@ public class TurnManager : MonoBehaviour
     {
         foreach (var chel in cheliks)
         {
-            if (chel.transform.localPosition != (Vector3.zero))
+            if (chel.character.transform.localPosition != (Vector3.zero))
                 return false;
         }
 
@@ -91,9 +104,9 @@ public class TurnManager : MonoBehaviour
     int SumOD()
     {
         int sum = 0;
-        foreach (var VARIABLE in _chelicksOD)
+        foreach (var ch in cheliks)
         {
-            sum += VARIABLE;
+            sum += ch.OD;
         }
 
         return sum;
@@ -132,10 +145,10 @@ public class TurnManager : MonoBehaviour
         player.UpdateOG();
         for (int i = 0; i < cheliks.Count; i++)
         {
-            if (cheliks[i].GetCurrNode().x == player.GetMC().GetCurrNode().x
-                && cheliks[i].GetCurrNode().y == player.GetMC().GetCurrNode().y)
+            if (cheliks[i].character.GetCurrNode().x == player.GetMC().GetCurrNode().x
+                && cheliks[i].character.GetCurrNode().y == player.GetMC().GetCurrNode().y)
             {
-                Destroy(cheliks[i].gameObject);
+                Destroy(cheliks[i].character.gameObject);
                 cheliks.RemoveAt(i);
                 i--;
             }

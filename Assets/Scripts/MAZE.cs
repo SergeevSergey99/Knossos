@@ -86,7 +86,7 @@ public class MAZE : MonoBehaviour
 
         foreach (var chel in _tm.cheliks)
         {
-            chel.transform.eulerAngles = Vector3.zero;
+            chel.character.transform.eulerAngles = Vector3.zero;
         }
     }
 }
