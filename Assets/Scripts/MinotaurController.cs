@@ -88,13 +88,14 @@ public class MinotaurController : MonoBehaviour
 
         foreach (var chel in TM.cheliks)
         {
-            if (MC.GetCurrNode().x == chel.GetCurrNode().x
-                && MC.GetCurrNode().y == chel.GetCurrNode().y)
+            if (MC.GetCurrNode().x == chel.character.GetCurrNode().x
+                && MC.GetCurrNode().y == chel.character.GetCurrNode().y)
             {
                 TM.ZoomToMino();
                 break;
             }
         }
+        GetComponent<AudioManager>().Stop();
     }
 
     public void ActiveGear90()
@@ -116,6 +117,17 @@ public class MinotaurController : MonoBehaviour
         return false;
     }
 
+    public void Sound()
+    {
+        foreach (var chel in TM.cheliks)
+        {
+            if(Mathf.Abs(chel.character.GetCurrNode().x - MC.GetCurrNode().x) <= 2 
+               && Mathf.Abs(chel.character.GetCurrNode().y - MC.GetCurrNode().y) <= 2)
+                chel.character.SetPlayer(this);
+            else
+                chel.character.SetPlayer(null);
+        }
+    }
     // Update is called once per frame
     void Update()
     {
