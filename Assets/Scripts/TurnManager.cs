@@ -67,6 +67,15 @@ public class TurnManager : MonoBehaviour
         mc.MoveToRandomPossibleDir();
     }
 
+    void CheckAndMove(MazeCharacter mc, MazeCharacter.direction dir)
+    {
+        if(mc.CanMove(dir)) mc.MoveTo(dir);
+        else
+        {
+            mc.path.Clear();
+            mc.path = null;
+        }
+    }
     public void CheliksAIMove(MazeCharacter mc)
     {
         if (mc.path != null)
@@ -79,10 +88,10 @@ public class TurnManager : MonoBehaviour
             }
             else
             {
-                if(mc.path[0].x > mc.GetCurrNode().x) mc.MoveTo(MazeCharacter.direction.right);
-                else if(mc.path[0].x < mc.GetCurrNode().x) mc.MoveTo(MazeCharacter.direction.left);
-                else if(mc.path[0].y > mc.GetCurrNode().y) mc.MoveTo(MazeCharacter.direction.up);
-                else if(mc.path[0].y < mc.GetCurrNode().y) mc.MoveTo(MazeCharacter.direction.down);
+                if(mc.path[0].x > mc.GetCurrNode().x) CheckAndMove(mc,MazeCharacter.direction.right);
+                else if(mc.path[0].x < mc.GetCurrNode().x) CheckAndMove(mc,MazeCharacter.direction.left);
+                else if(mc.path[0].y > mc.GetCurrNode().y) CheckAndMove(mc,MazeCharacter.direction.up);
+                else if(mc.path[0].y < mc.GetCurrNode().y) CheckAndMove(mc,MazeCharacter.direction.down);
             }
         }
     }
