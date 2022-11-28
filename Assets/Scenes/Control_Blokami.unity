@@ -3226,6 +3226,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rot1x1
       objectReference: {fileID: 0}
+    - target: {fileID: 5998877562927709144, guid: 3f524ff3f348ff94395a0f3bd6786417, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5998877562927709145, guid: 3f524ff3f348ff94395a0f3bd6786417, type: 3}
       propertyPath: m_RootOrder
       value: 8
