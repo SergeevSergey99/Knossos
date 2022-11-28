@@ -16,6 +16,7 @@ public class MinotaurController : MonoBehaviour
     int _MinotaurOD = 0;
     int _HungerOG = 0;
 
+    public MazeCharacter GetMC() => MC;
 
     private void Awake()
     {
@@ -78,10 +79,15 @@ public class MinotaurController : MonoBehaviour
 
         _isMoving = false;
 
-        /*if (_MinotaurOD <= 0)
+        foreach (var chel in TM.cheliks)
         {
-            TM.startCheliksTurn();
-        }*/
+            if (MC.GetCurrNode().x == chel.GetCurrNode().x
+                && MC.GetCurrNode().y == chel.GetCurrNode().y)
+            {
+                TM.ZoomToMino();
+                break;
+            }
+        }
     }
 
     public void ActiveGear90()

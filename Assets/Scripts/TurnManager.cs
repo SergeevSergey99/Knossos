@@ -104,6 +104,11 @@ public class TurnManager : MonoBehaviour
         isPaused = true;
         StartCoroutine(ZoomingTo());
     }
+    public void ZoomFromMino()
+    {
+        isPaused = true;
+        StartCoroutine(ZoomingFrom());
+    }
 
     IEnumerator ZoomingTo()
     {
@@ -113,13 +118,45 @@ public class TurnManager : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
             Vector3 playerPos = new Vector3(player.transform.position.x, player.transform.position.y,
                 cam.transform.position.z);
-            cam.transform.position = playerPos -
+            cam.transform.position = playerPos +
                                      (new Vector3(cameraPos.x, cameraPos.y, cam.transform.position.z) - playerPos) *
                                      (i / 100f);
             cam.orthographicSize = 1 + (camSize - 1) * (i / 100f);
         }
         KillPanel.gameObject.SetActive(true);
-        KillPanel.Play("");
+        KillPanel.Play("Killing");
+    }
+
+    public void Eating()
+    {
+        player.UpdateOG();
+        for (int i = 0; i < cheliks.Count; i++)
+        {
+            if (cheliks[i].GetCurrNode().x == player.GetMC().GetCurrNode().x
+                && cheliks[i].GetCurrNode().y == player.GetMC().GetCurrNode().y)
+            {
+                Destroy(cheliks[i].gameObject);
+                cheliks.RemoveAt(i);
+                i--;
+            }
+        }
+    }
+    IEnumerator ZoomingFrom()
+    {
+        KillPanel.gameObject.SetActive(false);
+        var cam = Camera.main;
+        for (int i = 0; i <= 100; i++)
+        {
+            yield return new WaitForSeconds(0.01f);
+            Vector3 playerPos = new Vector3(player.transform.position.x, player.transform.position.y,
+                cam.transform.position.z);
+            cam.transform.position = playerPos +
+                                     (new Vector3(cameraPos.x, cameraPos.y, cam.transform.position.z) - playerPos) *
+                                     (i / 100f);
+            cam.orthographicSize = 1 + (camSize - 1) * (i / 100f);
+        }
+        
+        isPaused = false;
     }
 
     IEnumerator WaitTillStop()
