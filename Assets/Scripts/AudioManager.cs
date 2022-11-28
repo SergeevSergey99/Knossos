@@ -7,22 +7,51 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(AudioSource))]
 public class AudioManager : MonoBehaviour
 {
-    public List<AudioClip> clips;
+    public AudioClip Clip1;
+    public AudioClip Clip2;
+    public AudioClip Clip3;
 
     AudioSource AS = null;
-
+    bool secondClip = false;
+    
     private void Awake()
     {
         AS = GetComponent<AudioSource>();
     }
 
-    public void Play(int i)
+    public void Play()
     {
-        if (i >= 0 && i < clips.Count)
+        RandomPitch(0.1f);
+        if (secondClip)
         {
-            AS.clip = clips[i];
+            AS.clip = Clip2;
             AS.Play();
+            secondClip = false;
         }
+        else
+        {
+            AS.clip = Clip1;
+            AS.Play();
+            secondClip = true;
+        }
+    }
+
+    public void PlayFirst()
+    {
+        AS.clip = Clip1;
+        AS.Play();
+    }
+    
+    public void PlaySecond()
+    {
+        AS.clip = Clip2;
+        AS.Play();
+    }
+    
+    public void PlayThird()
+    {
+        AS.clip = Clip3;
+        AS.Play();
     }
 
     public void Stop()

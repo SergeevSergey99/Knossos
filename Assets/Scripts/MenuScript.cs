@@ -6,6 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class MenuScript : MonoBehaviour
 {
+    private void Awake()
+    {
+        TurnItBlack.OnTurnBlack += TurnItBlack_OnTurnBlack;
+    }
+
+    
+
     public void Quit()
     {
         Application.Quit();
@@ -19,7 +26,19 @@ public class MenuScript : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+    
+    public void LoadNextLevel()
+    {
+        var Black = FindObjectOfType<TurnItBlack>();
+        Black.TurnBlack();
+    }
+    
+    private void TurnItBlack_OnTurnBlack()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 
+    }
+    
     public void DeActiveSelf()
     {
         gameObject.SetActive(false);
