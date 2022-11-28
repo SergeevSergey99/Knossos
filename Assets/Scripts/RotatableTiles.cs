@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class RotatableTiles : MonoBehaviour
 {
@@ -54,6 +55,29 @@ public class RotatableTiles : MonoBehaviour
         _maze.RotateAllOfType_90(type);
     }
 
+    public void childAddLayers(int i)
+    {
+        foreach (Transform node in transform)
+        {
+            foreach (Transform OBJ in node.transform)
+            {
+                if (OBJ.GetComponent<SpriteRenderer>() != null)
+                {
+                    OBJ.GetComponent<SpriteRenderer>().sortingOrder += i;
+                }
+
+                foreach (Transform VAR in OBJ)
+                {
+                    if (VAR.GetComponent<SpriteRenderer>() != null)
+                    {
+                        VAR.GetComponent<SpriteRenderer>().sortingOrder += i;
+                    }
+                }
+            }
+        }
+    }
+    
+
     public struct XYPair
     {
         public int x;
@@ -84,6 +108,7 @@ public class RotatableTiles : MonoBehaviour
             }
         }
         _maze.StopFixing();
+        childAddLayers(11);
     }
     public void Rotate_90()
     {
@@ -109,5 +134,6 @@ public class RotatableTiles : MonoBehaviour
             }
         }
         _maze.StopFixing();
+        childAddLayers(11);
     }
 }
