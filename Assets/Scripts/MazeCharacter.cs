@@ -134,6 +134,7 @@ public class MazeCharacter : MonoBehaviour
             sign.gameObject.SetActive(true);
             playerPOS = new PathFinder.POINT(player.GetMC().GetCurrNode().x, player.GetMC().GetCurrNode().y);
 
+            path = null;
         }
         else
         {
