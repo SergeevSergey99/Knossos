@@ -1171,7 +1171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startX: -9
   startY: -4
-  sizeX: 12
+  sizeX: 14
   sizeY: 7
   type: 0
 --- !u!483693784 &1184580126
