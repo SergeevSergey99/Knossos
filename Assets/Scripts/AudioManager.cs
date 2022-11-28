@@ -28,6 +28,7 @@ public class AudioManager : MonoBehaviour
     public void Stop()
     {
         AS.Stop();
+        AS.clip = null;
     }
 
     public void SetPitch(float pitch)
