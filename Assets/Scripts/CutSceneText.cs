@@ -10,7 +10,6 @@ public class CutSceneText : MonoBehaviour
      
     private void Awake()
     {
-        Debug.Log("Zdarova");
         animator = GetComponent<Animator>();
     }
 
