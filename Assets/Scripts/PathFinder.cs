@@ -26,7 +26,7 @@ public class PathFinder
         }
     }
 
-    public static void FindPathBFS(int startX, int startY, ref bool[,] visited, ref int[,] arr, POINT sizes)
+    public static void FindPathBFS(int startX, int startY, ref bool[,] visited, ref int[,] arr, POINT sizes, bool cheliks = false)
     {
         List<POINT> queue = new List<POINT>();
         List<POINT> nextQueue = new List<POINT>();
@@ -48,10 +48,10 @@ public class PathFinder
             //if (curr.x == endX && curr.y == endY) return curr.path;
 
             arr[curr.x, curr.y] = level;
-            CheckNext(1, 0, curr, ref nextQueue, ref visited, ref arr, sizes);
-            CheckNext(-1, 0, curr, ref nextQueue, ref visited, ref arr, sizes);
-            CheckNext(0, 1, curr, ref nextQueue, ref visited, ref arr, sizes);
-            CheckNext(0, -1, curr, ref nextQueue, ref visited, ref arr, sizes);
+            CheckNext(1, 0, curr, ref nextQueue, ref visited, ref arr, sizes,cheliks);
+            CheckNext(-1, 0, curr, ref nextQueue, ref visited, ref arr, sizes, cheliks);
+            CheckNext(0, 1, curr, ref nextQueue, ref visited, ref arr, sizes, cheliks);
+            CheckNext(0, -1, curr, ref nextQueue, ref visited, ref arr, sizes, cheliks);
             /*
             CheckNext(1,1, curr, ref nextQueue, ref visited, ref arr, sizes);
             CheckNext(-1,1, curr, ref nextQueue, ref visited, ref arr, sizes);
@@ -73,7 +73,7 @@ public class PathFinder
     public static List<POINT> FindPathBFS(POINT start, POINT end, ref int[,] arr, POINT sizes)
     {
         bool[,] visited = new bool[sizes.x, sizes.y];
-        return FindPathBFS(start, end, ref visited, ref arr, sizes);
+        return FindPathBFS(start, end, ref visited, ref arr, sizes, GameObject.FindObjectOfType<MAZE>());
     }
 
     private static System.Random rng = new System.Random();
@@ -91,7 +91,7 @@ public class PathFinder
         }
     }
 
-    public static List<POINT> FindPathBFS(POINT start, POINT end, ref bool[,] visited, ref int[,] arr, POINT sizes)
+    public static List<POINT> FindPathBFS(POINT start, POINT end, ref bool[,] visited, ref int[,] arr, POINT sizes, MAZE mz = null)
     {
         List<POINT> queue = new List<POINT>();
         List<POINT> nextQueue = new List<POINT>();
@@ -110,10 +110,10 @@ public class PathFinder
             if (curr.x == end.x && curr.y == end.y) return curr.path;
 
             arr[curr.x, curr.y] = level;
-            CheckNext(1, 0, curr, ref nextQueue, ref visited, ref arr, sizes, true);
-            CheckNext(-1, 0, curr, ref nextQueue, ref visited, ref arr, sizes, true);
-            CheckNext(0, 1, curr, ref nextQueue, ref visited, ref arr, sizes, true);
-            CheckNext(0, -1, curr, ref nextQueue, ref visited, ref arr, sizes, true);
+            CheckNext(1, 0, curr, ref nextQueue, ref visited, ref arr, sizes, true, mz);
+            CheckNext(-1, 0, curr, ref nextQueue, ref visited, ref arr, sizes, true, mz);
+            CheckNext(0, 1, curr, ref nextQueue, ref visited, ref arr, sizes, true, mz);
+            CheckNext(0, -1, curr, ref nextQueue, ref visited, ref arr, sizes, true, mz);
             /*
             CheckNext(1,1, curr, ref nextQueue, ref visited, ref arr, sizes);
             CheckNext(-1,1, curr, ref nextQueue, ref visited, ref arr, sizes);
@@ -135,7 +135,7 @@ public class PathFinder
     }
 
     static void CheckNext(int dX, int dY, POINT point, ref List<POINT> q, ref bool[,] visited, ref int[,] arr,
-        POINT sizes, bool checkInkr = false)
+        POINT sizes, bool checkInkr = false, MAZE mz = null)
     {
         var p = new POINT();
         p.x = point.x;
@@ -145,7 +145,7 @@ public class PathFinder
         if (p.x + dX < sizes.x && p.x + dX >= 0 && p.y + dY < sizes.y && p.y + dY >= 0
             && visited[p.x + dX, p.y + dY] == false)
             if ((!checkInkr && arr[p.x + dX, p.y + dY] != -1)
-                || (checkInkr && arr[p.x + dX, p.y + dY] > 0))
+                || (checkInkr && arr[p.x + dX, p.y + dY] > 0 && mz.Maze[p.x + dX, p.y + dY].character == null))
             {
                 p.x += dX;
                 p.y += dY;

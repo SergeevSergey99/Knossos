@@ -20,7 +20,7 @@ public class PointsController : MonoBehaviour
                 Destroy(VAR.gameObject);
             }
             if (pointType == PointType.OD) SetPoints(player.MinotaurOD);
-            else SetPoints(player.HungerOG);
+            else SetPoints(player.HungerOG+1);
             
         }
     }
@@ -35,6 +35,7 @@ public class PointsController : MonoBehaviour
     private GameObject last = null;
     public void SetPoints(int i)
     {
+        if (pointType == PointType.OG) i++;
        if(player == null) Start();
        if (i < count)
        {

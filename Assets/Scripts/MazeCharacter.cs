@@ -17,16 +17,17 @@ public class MazeCharacter : MonoBehaviour
     [SerializeField] private int FramesPerMove = 50;
 
     public bool useAI = false;
-    private PathFinder.POINT target = null;
     [HideInInspector]
-    public List<PathFinder.POINT> path = null;
+    public PathFinder.POINT target = null;
+    [HideInInspector] public List<PathFinder.POINT> path = null;
     private MinotaurController player;
+    public bool isPlayerNull() => player == null;
     public Node GetCurrNode() => _currNode;
 
-    [SerializeField]
-    private SpriteRenderer sign;
+    [SerializeField] private SpriteRenderer sign;
 
     private bool isPlayer = false;
+
     private void Awake()
     {
         if (animator == null) animator = GetComponent<Animator>();
@@ -73,6 +74,7 @@ public class MazeCharacter : MonoBehaviour
         {
             return true;
         }
+
         return false;
     }
 
@@ -81,20 +83,20 @@ public class MazeCharacter : MonoBehaviour
         switch (dir)
         {
             case direction.left:
-                if(!isPlayer && maze.Maze[_currNode.x - 1, _currNode.y].character != null 
-                   || maze.Maze[_currNode.x - 1, _currNode.y].isWall) return false;
+                if (!isPlayer && maze.Maze[_currNode.x - 1, _currNode.y].character != null
+                    || maze.Maze[_currNode.x - 1, _currNode.y].isWall) return false;
                 break;
             case direction.right:
-                if(!isPlayer && maze.Maze[_currNode.x + 1, _currNode.y].character != null
-                   || maze.Maze[_currNode.x + 1, _currNode.y].isWall) return false;
+                if (!isPlayer && maze.Maze[_currNode.x + 1, _currNode.y].character != null
+                    || maze.Maze[_currNode.x + 1, _currNode.y].isWall) return false;
                 break;
             case direction.up:
-                if(!isPlayer && maze.Maze[_currNode.x, _currNode.y + 1].character != null
-                   || maze.Maze[_currNode.x, _currNode.y+1].isWall) return false;
+                if (!isPlayer && maze.Maze[_currNode.x, _currNode.y + 1].character != null
+                    || maze.Maze[_currNode.x, _currNode.y + 1].isWall) return false;
                 break;
             case direction.down:
-                if(!isPlayer && maze.Maze[_currNode.x, _currNode.y - 1].character != null
-                   || maze.Maze[_currNode.x, _currNode.y-1].isWall) return false;
+                if (!isPlayer && maze.Maze[_currNode.x, _currNode.y - 1].character != null
+                    || maze.Maze[_currNode.x, _currNode.y - 1].isWall) return false;
                 break;
         }
 
@@ -106,43 +108,30 @@ public class MazeCharacter : MonoBehaviour
         switch (dir)
         {
             case direction.left:
-                if(maze.Maze[_currNode.x - 1, _currNode.y].character != null) return true;
+                if (maze.Maze[_currNode.x - 1, _currNode.y].character != null) return true;
                 break;
             case direction.right:
-                if(maze.Maze[_currNode.x + 1, _currNode.y].character != null) return true;
+                if (maze.Maze[_currNode.x + 1, _currNode.y].character != null) return true;
                 break;
             case direction.up:
-                if(maze.Maze[_currNode.x, _currNode.y + 1].character != null) return true;
+                if (maze.Maze[_currNode.x, _currNode.y + 1].character != null) return true;
                 break;
             case direction.down:
-                if(maze.Maze[_currNode.x, _currNode.y - 1].character != null) return true;
+                if (maze.Maze[_currNode.x, _currNode.y - 1].character != null) return true;
                 break;
         }
 
         return false;
     }
 
-    public void SetPlayer(MinotaurController mino, ref int[,] arr, PathFinder.POINT sizes, List<PathFinder.POINT> maxPoints = null)
+    public void SetPlayer(MinotaurController mino)
     {
         player = mino;
         if (player != null)
         {
-            PathFinder.Shuffle(ref maxPoints);
             useAI = true;
             sign.gameObject.SetActive(true);
-            target = new PathFinder.POINT(maxPoints[0].x, maxPoints[0].y);
-            foreach (var pnt in maxPoints)
-            {
-                if (arr[_currNode.x, _currNode.y] < arr[pnt.x, pnt.y]
-                    && arr[pnt.x, pnt.y] - arr[_currNode.x, _currNode.y] 
-                    < arr[target.x, target.y] - arr[_currNode.x, _currNode.y])
-                {
-                    target.x = pnt.x;
-                    target.y = pnt.y;
-                } 
-            }
-
-            path = PathFinder.FindPathBFS(new PathFinder.POINT(_currNode.x, _currNode.y), target, ref arr, sizes);
+            
         }
         else
         {
@@ -150,6 +139,7 @@ public class MazeCharacter : MonoBehaviour
             sign.gameObject.SetActive(false);
         }
     }
+
     public List<direction> GetPossible(bool countCheliks = true)
     {
         List<direction> directions = new List<direction>();
@@ -247,7 +237,7 @@ public class MazeCharacter : MonoBehaviour
         }
 
         transform.localPosition = Vector3.zero;
-        
+
         if (animator != null) animator.SetBool("isWalk", false);
     }
 }

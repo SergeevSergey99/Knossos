@@ -164,10 +164,37 @@ public class MinotaurController : MonoBehaviour
             if (Mathf.Abs(chel.character.GetCurrNode().x - MC.GetCurrNode().x) <= 2
                 && Mathf.Abs(chel.character.GetCurrNode().y - MC.GetCurrNode().y) <= 2)
             {
-                chel.character.SetPlayer(this, ref maze, sizes, maxs);
+                chel.character.SetPlayer(this);
             }
             else
-                chel.character.SetPlayer(null, ref maze, sizes);
+            {
+                chel.character.SetPlayer(null);
+            }
+            
+        }
+        for (int i = MC.GetCurrNode().x + 1; i < MC.maze.baseTilesList.sizeX; i++)
+        {
+           if(MC.maze.Maze[i, MC.GetCurrNode().y].isWall) break;
+           else if (MC.maze.Maze[i, MC.GetCurrNode().y].character != null)
+               MC.maze.Maze[i, MC.GetCurrNode().y].character.GetComponent<MazeCharacter>().SetPlayer(this);
+        }
+        for (int i = MC.GetCurrNode().x - 1; i > 0; i--)
+        {
+           if(MC.maze.Maze[i, MC.GetCurrNode().y].isWall) break;
+           else if (MC.maze.Maze[i, MC.GetCurrNode().y].character != null)
+               MC.maze.Maze[i, MC.GetCurrNode().y].character.GetComponent<MazeCharacter>().SetPlayer(this);
+        }
+        for (int i = MC.GetCurrNode().y - 1; i > 0; i--)
+        {
+           if(MC.maze.Maze[MC.GetCurrNode().x, i].isWall) break;
+           else if (MC.maze.Maze[MC.GetCurrNode().x, i].character != null)
+               MC.maze.Maze[MC.GetCurrNode().x, i].character.GetComponent<MazeCharacter>().SetPlayer(this);
+        }
+        for (int i = MC.GetCurrNode().y + 1; i < MC.maze.baseTilesList.sizeY; i++)
+        {
+           if(MC.maze.Maze[MC.GetCurrNode().x, i].isWall) break;
+           else if (MC.maze.Maze[MC.GetCurrNode().x, i].character != null)
+               MC.maze.Maze[MC.GetCurrNode().x, i].character.GetComponent<MazeCharacter>().SetPlayer(this);
         }
     }
     // Update is called once per frame
