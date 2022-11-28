@@ -101,6 +101,27 @@ public class MazeCharacter : MonoBehaviour
         return true;
     }
 
+    public bool HanCheliks(direction dir)
+    {
+        switch (dir)
+        {
+            case direction.left:
+                if(maze.Maze[_currNode.x - 1, _currNode.y].character != null) return true;
+                break;
+            case direction.right:
+                if(maze.Maze[_currNode.x + 1, _currNode.y].character != null) return true;
+                break;
+            case direction.up:
+                if(maze.Maze[_currNode.x, _currNode.y + 1].character != null) return true;
+                break;
+            case direction.down:
+                if(maze.Maze[_currNode.x, _currNode.y - 1].character != null) return true;
+                break;
+        }
+
+        return false;
+    }
+
     public void SetPlayer(MinotaurController mino, ref int[,] arr, PathFinder.POINT sizes, List<PathFinder.POINT> maxPoints = null)
     {
         player = mino;

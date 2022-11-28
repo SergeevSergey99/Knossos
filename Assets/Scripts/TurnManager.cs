@@ -116,7 +116,6 @@ public class TurnManager : MonoBehaviour
     {
         _isPlayerTurn = false;
         turnButton.interactable = false;
-        player.Sound();
         cheliks = cheliks
             .OrderByDescending(o => Mathf.Abs((o.character.transform.position - player.transform.position).magnitude))
             .ToList();
@@ -201,6 +200,12 @@ public class TurnManager : MonoBehaviour
                 cheliks.RemoveAt(i);
                 i--;
             }
+        }
+        if (cheliks.Count == 0)
+        {
+            _isPlayerTurn = false;
+            WinGame.gameObject.SetActive(true);
+            WinGame.Play("AppearHalf");
         }
     }
 
