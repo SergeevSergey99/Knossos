@@ -19,6 +19,7 @@ public class MazeCharacter : MonoBehaviour
     public bool useAI = false;
     [HideInInspector]
     public PathFinder.POINT target = null;
+    public PathFinder.POINT playerPOS = null;
     [HideInInspector] public List<PathFinder.POINT> path = null;
     private MinotaurController player;
     public bool isPlayerNull() => player == null;
@@ -131,11 +132,14 @@ public class MazeCharacter : MonoBehaviour
         {
             useAI = true;
             sign.gameObject.SetActive(true);
-            
+            playerPOS = new PathFinder.POINT(player.GetMC().GetCurrNode().x, player.GetMC().GetCurrNode().y);
+
         }
         else
         {
             if (path == null) useAI = false;
+            target = null;
+            path = null;
             sign.gameObject.SetActive(false);
         }
     }
