@@ -3388,6 +3388,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5998877562927709145, guid: af742981095248a47b19b2b6f9e61ead, type: 3}
   m_PrefabInstance: {fileID: 2057451204}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1730408181 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 351554424161956979, guid: 691f077d3af29174e8a8cdbeb0dcf6e1, type: 3}
+  m_PrefabInstance: {fileID: 351554424240281966}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1734426280
 GameObject:
   m_ObjectHideFlags: 0
@@ -4013,6 +4024,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 351554422653234331, guid: 691f077d3af29174e8a8cdbeb0dcf6e1, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c5294d6076b0eca4cac17295a186cd1c, type: 3}
+    - target: {fileID: 351554422653234331, guid: 691f077d3af29174e8a8cdbeb0dcf6e1, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 351554422653234331, guid: 691f077d3af29174e8a8cdbeb0dcf6e1, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 351554422653234331, guid: 691f077d3af29174e8a8cdbeb0dcf6e1, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 351554422653234334, guid: 691f077d3af29174e8a8cdbeb0dcf6e1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 351554423803826246, guid: 691f077d3af29174e8a8cdbeb0dcf6e1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 493084831762440702, guid: 691f077d3af29174e8a8cdbeb0dcf6e1, type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 1730408181}
     - target: {fileID: 6745457388068607358, guid: 691f077d3af29174e8a8cdbeb0dcf6e1, type: 3}
       propertyPath: invokeEvent.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -4319,6 +4358,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7392093544943682166, guid: 4c659f4718152a940a01aaa1f862c9a2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7983889259276501731, guid: 4c659f4718152a940a01aaa1f862c9a2, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7983889259690098843, guid: 4c659f4718152a940a01aaa1f862c9a2, type: 3}
