@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class MazeCharacter : MonoBehaviour
@@ -13,8 +14,13 @@ public class MazeCharacter : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     public Animator animator;
     [SerializeField] private int FramesPerMove = 50;
-
+    private bool useAI = false;
+    private Vector2 target= Vector2.zero;
+    private MinotaurController player;
     public Node GetCurrNode() => _currNode;
+
+    [SerializeField]
+    private SpriteRenderer sign;
 
     private void Awake()
     {
@@ -64,6 +70,18 @@ public class MazeCharacter : MonoBehaviour
         return false;
     }
 
+    public void SetPlayer(MinotaurController mino)
+    {
+        player = mino;
+        if (player != null)
+        {
+            sign.gameObject.SetActive(true);
+        }
+        else
+        {
+            sign.gameObject.SetActive(false);
+        }
+    }
     public List<direction> GetPossible(bool countCheliks = true)
     {
         List<direction> directions = new List<direction>();
