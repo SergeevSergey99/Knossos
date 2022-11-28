@@ -477,6 +477,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bec35064be49c647bac69b436bfeb07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Clip1: {fileID: 8300000, guid: 39b900c1eabc01c4db5f71a9f6ff3bec, type: 3}
-  Clip2: {fileID: 8300000, guid: 74fe557c65c3bd74da3bd391514080ce, type: 3}
+  Clip1: {fileID: 8300000, guid: e2076deeffe2cf742960b91431cf7bb7, type: 3}
+  Clip2: {fileID: 8300000, guid: 807993031c028fb43bce5c25877a5c43, type: 3}
   Clip3: {fileID: 8300000, guid: da0d11857a7b88149afcaf2fb757e062, type: 3}
