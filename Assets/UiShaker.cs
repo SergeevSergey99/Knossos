@@ -5,17 +5,18 @@ using UnityEngine;
 
 public class UiShaker : MonoBehaviour
 {
+    public float shakeDuration = 0.5f;
+    public float shakeMagnitude = 0.5f;
+    public float shakeSpeed = 1.0f;
+    
     private void Start()
     {
-        StartCoroutine(Shake());
+        
     }
     
     private IEnumerator Shake()
     {
         var originalPosition = transform.position;
-        var shakeDuration = 0.5f;
-        var shakeMagnitude = 0.5f;
-        var shakeSpeed = 10f;
         var shakeTime = 0f;
         while (shakeTime < shakeDuration)
         {
@@ -25,10 +26,12 @@ public class UiShaker : MonoBehaviour
             transform.position = originalPosition + new Vector3(x, y, 0);
             yield return null;
         }
+        
         transform.position = originalPosition;
     }
-    void Update()
+    
+    public void StartShake()
     {
-        
+        StartCoroutine(Shake());
     }
 }
