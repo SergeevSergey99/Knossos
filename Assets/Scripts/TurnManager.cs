@@ -162,6 +162,8 @@ public class TurnManager : MonoBehaviour
 
     IEnumerator ZoomingTo()
     {
+     
+        
         var cam = Camera.main;
         for (int i = 100; i >= 0; i--)
         {
