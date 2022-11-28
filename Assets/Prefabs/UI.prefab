@@ -1043,9 +1043,6 @@ MonoBehaviour:
   pointType: 0
   states:
   - {fileID: 21300000, guid: 6a826f2264ebc5749b5148ed38f83764, type: 3}
-  - {fileID: 21300000, guid: dbfeee995bbeb3348bf854868770f117, type: 3}
-  - {fileID: 21300000, guid: fa4a3991664b2354bbc948a649e9bc97, type: 3}
-  - {fileID: 21300000, guid: 14b1f3620d7aa2d43bd9ecf5e3860625, type: 3}
   - {fileID: 21300000, guid: 5797ce97fb2d8cc4c949abf9ff1d433c, type: 3}
   - {fileID: 21300000, guid: 65fbccee98035434ba78bd061e8051e0, type: 3}
   - {fileID: 21300000, guid: aee349cf68e9c794bbb309d54142b2aa, type: 3}
