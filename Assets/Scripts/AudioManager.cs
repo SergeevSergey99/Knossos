@@ -13,7 +13,7 @@ public class AudioManager : MonoBehaviour
 
     AudioSource AS = null;
     bool secondClip = false;
-    
+
     private void Awake()
     {
         AS = GetComponent<AudioSource>();
@@ -36,18 +36,37 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void PlayRandom()
+    {
+        switch (Random.Range(0, 3))
+        {
+            case 0:
+                if (Clip1 == null) PlayRandom();
+                else PlayFirst();
+                break;
+            case 1:
+                if (Clip2 == null) PlayRandom();
+                else PlaySecond();
+                break;
+            case 2:
+                if (Clip3 == null) PlayRandom();
+                else PlayThird();
+                break;
+        }
+    }
+
     public void PlayFirst()
     {
         AS.clip = Clip1;
         AS.Play();
     }
-    
+
     public void PlaySecond()
     {
         AS.clip = Clip2;
         AS.Play();
     }
-    
+
     public void PlayThird()
     {
         AS.clip = Clip3;
@@ -64,6 +83,7 @@ public class AudioManager : MonoBehaviour
     {
         AS.pitch = pitch;
     }
+
     public void RandomPitch(float offset)
     {
         if (offset < 1) AS.pitch = Random.Range(1 - offset, 1 + offset);
