@@ -8,4 +8,8 @@ public class SelfDestroyer : MonoBehaviour
     {
         Destroy(gameObject);
     }
+    public void DeactiveSelf()
+    {
+        gameObject.GetComponent<Animator>().enabled = false;
+    }
 }
