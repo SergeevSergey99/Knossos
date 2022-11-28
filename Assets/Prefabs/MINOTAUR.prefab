@@ -292,6 +292,7 @@ GameObject:
   - component: {fileID: 2336790844734789906}
   - component: {fileID: 2336790844734789909}
   - component: {fileID: 7876260907129116623}
+  - component: {fileID: 3757968768147299646}
   m_Layer: 0
   m_Name: MINOTAUR
   m_TagString: Untagged
@@ -333,6 +334,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 0}
   animator: {fileID: 0}
   FramesPerMove: 150
+  sign: {fileID: 0}
 --- !u!114 &2336790844734789906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -463,3 +465,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3757968768147299646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2336790844734789918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bec35064be49c647bac69b436bfeb07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: 39b900c1eabc01c4db5f71a9f6ff3bec, type: 3}
+  - {fileID: 8300000, guid: 74fe557c65c3bd74da3bd391514080ce, type: 3}
