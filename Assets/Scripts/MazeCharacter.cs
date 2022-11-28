@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -14,19 +15,24 @@ public class MazeCharacter : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     public Animator animator;
     [SerializeField] private int FramesPerMove = 50;
-    private bool useAI = false;
-    private Vector2 target= Vector2.zero;
+
+    public bool useAI = false;
+    private PathFinder.POINT target = null;
+    [HideInInspector]
+    public List<PathFinder.POINT> path = null;
     private MinotaurController player;
     public Node GetCurrNode() => _currNode;
 
     [SerializeField]
     private SpriteRenderer sign;
 
+    private bool isPlayer = false;
     private void Awake()
     {
         if (animator == null) animator = GetComponent<Animator>();
         if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
         maze = FindObjectOfType<MAZE>();
+        isPlayer = GetComponent<MinotaurController>() != null;
     }
 
     void Start()
@@ -70,15 +76,31 @@ public class MazeCharacter : MonoBehaviour
         return false;
     }
 
-    public void SetPlayer(MinotaurController mino)
+    public void SetPlayer(MinotaurController mino, ref int[,] arr, PathFinder.POINT sizes, List<PathFinder.POINT> maxPoints = null)
     {
         player = mino;
         if (player != null)
         {
+            PathFinder.Shuffle(ref maxPoints);
+            useAI = true;
             sign.gameObject.SetActive(true);
+            target = new PathFinder.POINT(maxPoints[0].x, maxPoints[0].y);
+            foreach (var pnt in maxPoints)
+            {
+                if (arr[_currNode.x, _currNode.y] < arr[pnt.x, pnt.y]
+                    && arr[pnt.x, pnt.y] - arr[_currNode.x, _currNode.y] 
+                    < arr[target.x, target.y] - arr[_currNode.x, _currNode.y])
+                {
+                    target.x = pnt.x;
+                    target.y = pnt.y;
+                } 
+            }
+
+            path = PathFinder.FindPathBFS(new PathFinder.POINT(_currNode.x, _currNode.y), target, ref arr, sizes);
         }
         else
         {
+            if (path == null) useAI = false;
             sign.gameObject.SetActive(false);
         }
     }
@@ -133,27 +155,34 @@ public class MazeCharacter : MonoBehaviour
     public void MoveTo(direction dir)
     {
         if (dir == direction.none) return;
-        _currNode.RemoveCharacter();
 
         switch (dir)
         {
             case direction.left:
+                if(!isPlayer && maze.Maze[_currNode.x - 1, _currNode.y].character != null) return;
+                _currNode.RemoveCharacter();
                 _currNode = maze.Maze[_currNode.x - 1, _currNode.y];
                 if (spriteRenderer != null) spriteRenderer.flipX = false;
                 if (animator != null) animator.Play("FlipXFalse");
                 if (animator != null) animator.SetBool("isWalk", true);
                 break;
             case direction.right:
+                if(!isPlayer && maze.Maze[_currNode.x + 1, _currNode.y].character != null) return;
+                _currNode.RemoveCharacter();
                 _currNode = maze.Maze[_currNode.x + 1, _currNode.y];
                 if (spriteRenderer != null) spriteRenderer.flipX = true;
                 if (animator != null) animator.Play("FlipXTrue");
                 if (animator != null) animator.SetBool("isWalk", true);
                 break;
             case direction.up:
+                if(!isPlayer && maze.Maze[_currNode.x, _currNode.y + 1].character != null) return;
+                _currNode.RemoveCharacter();
                 _currNode = maze.Maze[_currNode.x, _currNode.y + 1];
                 if (animator != null) animator.SetBool("isWalk", true);
                 break;
             case direction.down:
+                if(!isPlayer && maze.Maze[_currNode.x, _currNode.y - 1].character != null) return;
+                _currNode.RemoveCharacter();
                 _currNode = maze.Maze[_currNode.x, _currNode.y - 1];
                 if (animator != null) animator.SetBool("isWalk", true);
                 break;

@@ -7,11 +7,11 @@ using UnityEngine.UI;
 
 public class TurnManager : MonoBehaviour
 {
-    [HideInInspector]
-    public MinotaurController player = null;
-    [HideInInspector]
-    public List<CHEL> cheliks = new List<CHEL>();
+    [HideInInspector] public MinotaurController player = null;
+    [HideInInspector] public List<CHEL> cheliks = new List<CHEL>();
+
     public int chelicksOD = 3;
+
     //List<int> _chelicksOD = new List<int>();
     private bool _isPlayerTurn = true;
     public bool IsPlayerTurn() => _isPlayerTurn;
@@ -31,6 +31,7 @@ public class TurnManager : MonoBehaviour
         public MazeCharacter character = null;
         public int OD = 0;
     }
+
     private void Awake()
     {
         if (camSize == 0)
@@ -61,15 +62,40 @@ public class TurnManager : MonoBehaviour
         }
     }
 
-    public void CheliksRandMove()
+    public void CheliksRandMove(MazeCharacter mc)
     {
-        
+        mc.MoveToRandomPossibleDir();
+    }
+
+    public void CheliksAIMove(MazeCharacter mc)
+    {
+        if (mc.path != null)
+        {
+            mc.path.RemoveAt(0);
+            if (mc.path.Count == 0)
+            {
+                mc.useAI = false;
+                CheliksRandMove(mc);
+            }
+            else
+            {
+                if(mc.path[0].x > mc.GetCurrNode().x) mc.MoveTo(MazeCharacter.direction.right);
+                else if(mc.path[0].x < mc.GetCurrNode().x) mc.MoveTo(MazeCharacter.direction.left);
+                else if(mc.path[0].y > mc.GetCurrNode().y) mc.MoveTo(MazeCharacter.direction.up);
+                else if(mc.path[0].y < mc.GetCurrNode().y) mc.MoveTo(MazeCharacter.direction.down);
+            }
+        }
+    }
+
+    public void CheliksMove()
+    {
         for (int i = 0; i < cheliks.Count; i++)
         {
             if (cheliks[i].OD > 0)
             {
                 cheliks[i].OD--;
-                cheliks[i].character.MoveToRandomPossibleDir();
+                if (cheliks[i].character.useAI) CheliksAIMove(cheliks[i].character);
+                else CheliksRandMove(cheliks[i].character);
                 break;
             }
         }
@@ -82,14 +108,16 @@ public class TurnManager : MonoBehaviour
         _isPlayerTurn = false;
         turnButton.interactable = false;
         player.Sound();
-        cheliks = cheliks.OrderByDescending(o=>Mathf.Abs((o.character.transform.position - player.transform.position).magnitude)).ToList();
+        cheliks = cheliks
+            .OrderByDescending(o => Mathf.Abs((o.character.transform.position - player.transform.position).magnitude))
+            .ToList();
         if (player.GetOG() > 0)
         {
             player.LoseOG();
             player.ShowOG();
             UpdateCheliksOD();
 
-            CheliksRandMove();
+            CheliksMove();
         }
         else
         {
@@ -125,6 +153,7 @@ public class TurnManager : MonoBehaviour
         isPaused = true;
         StartCoroutine(ZoomingTo());
     }
+
     public void ZoomFromMino()
     {
         isPaused = true;
@@ -144,6 +173,7 @@ public class TurnManager : MonoBehaviour
                                      (i / 100f);
             cam.orthographicSize = 1 + (camSize - 1) * (i / 100f);
         }
+
         KillPanel.gameObject.SetActive(true);
         KillPanel.Play("Killing");
     }
@@ -162,6 +192,7 @@ public class TurnManager : MonoBehaviour
             }
         }
     }
+
     IEnumerator ZoomingFrom()
     {
         KillPanel.gameObject.SetActive(false);
@@ -176,7 +207,7 @@ public class TurnManager : MonoBehaviour
                                      (i / 100f);
             cam.orthographicSize = 1 + (camSize - 1) * (i / 100f);
         }
-        
+
         isPaused = false;
     }
 
@@ -187,7 +218,7 @@ public class TurnManager : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
         }
 
-        if (SumOD() > 0) CheliksRandMove();
+        if (SumOD() > 0) CheliksMove();
         else
         {
             _isPlayerTurn = true;

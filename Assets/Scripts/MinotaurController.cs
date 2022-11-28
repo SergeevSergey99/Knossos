@@ -119,13 +119,52 @@ public class MinotaurController : MonoBehaviour
 
     public void Sound()
     {
+        PathFinder.POINT sizes = new PathFinder.POINT(MC.maze.baseTilesList.sizeX, MC.maze.baseTilesList.sizeY);
+        int[,] maze = new int[sizes.x, sizes.y];
+        bool[,] visited = new bool[sizes.x, sizes.y];
+
+        for (int i = 0; i < MC.maze.baseTilesList.sizeX; i++)
+        {
+            for (int j = 0; j < MC.maze.baseTilesList.sizeY; j++)
+            {
+                if (MC.maze.Maze[i, j].isWall) maze[i, j] = -1;
+                else maze[i, j] = 0;
+            }
+        }
+
+        PathFinder.POINT startTarget = new PathFinder.POINT(MC.GetCurrNode().x, MC.GetCurrNode().y);
+        
+        PathFinder.FindPathBFS(startTarget.x, startTarget.y, ref visited, ref maze, sizes);
+        int max = -1;
+        for (int i = 0; i < sizes.x; i++)
+        {
+            for (int j = 0; j < sizes.y; j++)
+            {
+                if (maze[i, j] > max)
+                    max = maze[i, j];
+            }
+        }
+
+        List<PathFinder.POINT> maxs = new List<PathFinder.POINT>();
+        for (int i = 0; i < sizes.x; i++)
+        {
+            for (int j = 0; j < sizes.y; j++)
+            {
+                if (maze[i, j] > max * 0.6f)
+                    maxs.Add(new PathFinder.POINT(i, j));
+            }
+        }
+
+
         foreach (var chel in TM.cheliks)
         {
-            if(Mathf.Abs(chel.character.GetCurrNode().x - MC.GetCurrNode().x) <= 2 
-               && Mathf.Abs(chel.character.GetCurrNode().y - MC.GetCurrNode().y) <= 2)
-                chel.character.SetPlayer(this);
+            if (Mathf.Abs(chel.character.GetCurrNode().x - MC.GetCurrNode().x) <= 2
+                && Mathf.Abs(chel.character.GetCurrNode().y - MC.GetCurrNode().y) <= 2)
+            {
+                chel.character.SetPlayer(this, ref maze, sizes, maxs);
+            }
             else
-                chel.character.SetPlayer(null);
+                chel.character.SetPlayer(null, ref maze, sizes);
         }
     }
     // Update is called once per frame
