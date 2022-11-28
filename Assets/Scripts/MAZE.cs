@@ -44,7 +44,11 @@ public class MAZE : MonoBehaviour
     {
         foreach (var rt in rotatableTilesList)
         {
-            if (rt.type == i) rt.transform.parent.GetComponent<Animator>().Play("Rotate90");
+            if (rt.type == i)
+            {
+                rt.transform.parent.GetComponent<Animator>().Play("Rotate90");
+                rt.childAddLayers(-11);
+            }
         }
 
         _fixCorr = StartCoroutine(Fixing());
@@ -54,7 +58,11 @@ public class MAZE : MonoBehaviour
     {
         foreach (var rt in rotatableTilesList)
         {
-            if (rt.type == i) rt.transform.parent.GetComponent<Animator>().Play("Rotate_90");
+            if (rt.type == i)
+            {
+                rt.transform.parent.GetComponent<Animator>().Play("Rotate_90");
+                rt.childAddLayers(-11);
+            }
         }
 
         _fixCorr = StartCoroutine(Fixing());
@@ -63,6 +71,7 @@ public class MAZE : MonoBehaviour
     public void StopFixing()
     {
         if (_fixCorr != null) StopCoroutine(_fixCorr);
+        _tm.player.AnimStop();
         _fixCorr = null;
     }
 
@@ -78,7 +87,6 @@ public class MAZE : MonoBehaviour
     public void FixRotation()
     {
         _tm.player.transform.eulerAngles = Vector3.zero;
-        _tm.player.AnimStop();
         foreach (var nodeCenter in _nodeCenters)
         {
             nodeCenter.transform.eulerAngles = Vector3.zero;
