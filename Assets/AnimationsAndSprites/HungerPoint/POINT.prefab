@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1059078826942347298}
   - component: {fileID: 7585436172485452592}
   - component: {fileID: 1205924907071213804}
-  - component: {fileID: 3315259411611597358}
+  - component: {fileID: 5017837618498216036}
   m_Layer: 5
   m_Name: POINT
   m_TagString: Untagged
@@ -98,7 +98,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &3315259411611597358
+--- !u!114 &5017837618498216036
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -43,10 +43,9 @@ public class MenuScript : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-    
-    public void ActivateObject(GameObject obj)
+
+    public void OpenURL(string url)
     {
-        obj.SetActive(true);
+        Application.OpenURL(url);
     }
-    
 }

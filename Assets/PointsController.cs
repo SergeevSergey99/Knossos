@@ -6,7 +6,7 @@ public class PointsController : MonoBehaviour
 {
     public PointType pointType;
     public GameObject prefab;
-    List<GameObject> states;
+    List<GameObject> states = new List<GameObject>();
 
     private MinotaurController player;
     private void Start()
@@ -31,40 +31,45 @@ public class PointsController : MonoBehaviour
         OG
     }
 
+    private int count = 0;
     private GameObject last = null;
     public void SetPoints(int i)
     {
        if(player == null) Start();
-       if (i < transform.childCount)
+       if (i < count)
        {
            last.GetComponent<Animator>().Play("Disappear");
 
            last = null;
-           if(transform.childCount > 1) last = transform.GetChild(transform.childCount - 2).gameObject;
+           count--;
+           if(count > 0) last = states[count-1];
        }
        else
        {
-           foreach (Transform VAR in transform)
+           if (transform.childCount == 0)
            {
-               Destroy(VAR.gameObject);
+               for (int j = 0; j < i; j++)
+               {
+                   var go = Instantiate(prefab, transform);
+                   count++;
+                   last = go;
+                   states.Add(go);
+               }
            }
-
-           for (int j = 0; j < i; j++)
+           else
            {
-               var go = Instantiate(prefab, transform);
-               last = go;
+               for (int j = 0; j < transform.childCount; j++)
+               {
+                   var anim = states[j].GetComponent<Animator>();
+                   if (!anim.enabled)
+                   {
+                       anim.enabled = true;
+                       anim.Play("Appear");
+                       count++;
+                       last = states[j];
+                   }
+               }
            }
        }
-       /*
-        if (pointType == PointType.OD)
-        {
-            var val = i * 1f / player.MinotaurOD * (states.Count - 1);
-            img.sprite = states[(int) Mathf.Round(val)];
-        }
-        else
-        {
-            var val = i * 1f / player.HungerOG * (states.Count - 1);
-            img.sprite = states[(int) Mathf.Round(val)];
-        }*/
     }
 }
