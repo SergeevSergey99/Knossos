@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
+
 [RequireComponent(typeof(AudioSource))]
 public class AudioManager : MonoBehaviour
 {
@@ -26,5 +28,14 @@ public class AudioManager : MonoBehaviour
     public void Stop()
     {
         AS.Stop();
+    }
+
+    public void SetPitch(float pitch)
+    {
+        AS.pitch = pitch;
+    }
+    public void RandomPitch(float offset)
+    {
+        if (offset < 1) AS.pitch = Random.Range(1 - offset, 1 + offset);
     }
 }
