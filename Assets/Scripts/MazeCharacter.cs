@@ -76,6 +76,31 @@ public class MazeCharacter : MonoBehaviour
         return false;
     }
 
+    public bool CanMove(direction dir)
+    {
+        switch (dir)
+        {
+            case direction.left:
+                if(!isPlayer && maze.Maze[_currNode.x - 1, _currNode.y].character != null 
+                   || maze.Maze[_currNode.x - 1, _currNode.y].isWall) return false;
+                break;
+            case direction.right:
+                if(!isPlayer && maze.Maze[_currNode.x + 1, _currNode.y].character != null
+                   || maze.Maze[_currNode.x + 1, _currNode.y].isWall) return false;
+                break;
+            case direction.up:
+                if(!isPlayer && maze.Maze[_currNode.x, _currNode.y + 1].character != null
+                   || maze.Maze[_currNode.x, _currNode.y+1].isWall) return false;
+                break;
+            case direction.down:
+                if(!isPlayer && maze.Maze[_currNode.x, _currNode.y - 1].character != null
+                   || maze.Maze[_currNode.x, _currNode.y-1].isWall) return false;
+                break;
+        }
+
+        return true;
+    }
+
     public void SetPlayer(MinotaurController mino, ref int[,] arr, PathFinder.POINT sizes, List<PathFinder.POINT> maxPoints = null)
     {
         player = mino;
@@ -156,33 +181,26 @@ public class MazeCharacter : MonoBehaviour
     {
         if (dir == direction.none) return;
 
+        _currNode.RemoveCharacter();
         switch (dir)
         {
             case direction.left:
-                if(!isPlayer && maze.Maze[_currNode.x - 1, _currNode.y].character != null) return;
-                _currNode.RemoveCharacter();
                 _currNode = maze.Maze[_currNode.x - 1, _currNode.y];
                 if (spriteRenderer != null) spriteRenderer.flipX = false;
                 if (animator != null) animator.Play("FlipXFalse");
                 if (animator != null) animator.SetBool("isWalk", true);
                 break;
             case direction.right:
-                if(!isPlayer && maze.Maze[_currNode.x + 1, _currNode.y].character != null) return;
-                _currNode.RemoveCharacter();
                 _currNode = maze.Maze[_currNode.x + 1, _currNode.y];
                 if (spriteRenderer != null) spriteRenderer.flipX = true;
                 if (animator != null) animator.Play("FlipXTrue");
                 if (animator != null) animator.SetBool("isWalk", true);
                 break;
             case direction.up:
-                if(!isPlayer && maze.Maze[_currNode.x, _currNode.y + 1].character != null) return;
-                _currNode.RemoveCharacter();
                 _currNode = maze.Maze[_currNode.x, _currNode.y + 1];
                 if (animator != null) animator.SetBool("isWalk", true);
                 break;
             case direction.down:
-                if(!isPlayer && maze.Maze[_currNode.x, _currNode.y - 1].character != null) return;
-                _currNode.RemoveCharacter();
                 _currNode = maze.Maze[_currNode.x, _currNode.y - 1];
                 if (animator != null) animator.SetBool("isWalk", true);
                 break;
