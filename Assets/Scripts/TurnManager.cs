@@ -83,7 +83,7 @@ public class TurnManager : MonoBehaviour
     {
         if (mc.path != null)
         {
-            mc.path.RemoveAt(0);
+            if(mc.path.Count > 0)mc.path.RemoveAt(0);
             if (mc.path.Count == 0)
             {
                 mc.SetPlayer(null);
@@ -123,30 +123,40 @@ public class TurnManager : MonoBehaviour
 
     public void UpdateAI(MazeCharacter mc)
     {
-        if (mc.useAI && (mc.path == null || mc.path.Count == 0))
+        if (mc.useAI && mc.path == null)
         {
             PathFinder.POINT sizes = new PathFinder.POINT(mc.maze.baseTilesList.sizeX, mc.maze.baseTilesList.sizeY);
             int[,] arr = new int[sizes.x, sizes.y];
-  //          int[,] arr2 = new int[sizes.x, sizes.y];
+            int[,] arr2 = new int[sizes.x, sizes.y];
             bool[,] visited = new bool[sizes.x, sizes.y];
-    //        bool[,] visited2 = new bool[sizes.x, sizes.y];
+            bool[,] visited2 = new bool[sizes.x, sizes.y];
 
             for (int i = 0; i < mc.maze.baseTilesList.sizeX; i++)
             {
                 for (int j = 0; j < mc.maze.baseTilesList.sizeY; j++)
                 {
-                    if (mc.maze.Maze[i, j].isWall) arr[i, j] = -1;
-                    else arr[i, j] = 0;
+                    if (mc.maze.Maze[i, j].isWall)
+                    {
+                        arr[i, j] = -1;
+                        arr2[i, j] = -1;
+                    }
+                    else
+                    {
+                        arr[i, j] = 0;
+                        if(mc.maze.Maze[i,j].hasCharacter)
+                            arr2[i, j] = -1;
+                        else arr2[i, j] = 0;
+                    }
                 }
             }
 
             PathFinder.POINT startTarget =
                 new PathFinder.POINT(
-                    player.GetMC().GetCurrNode().x,
-                    player.GetMC().GetCurrNode().y);
+                    mc.playerPOS.x,
+                    mc.playerPOS.y);
 
             PathFinder.FindPathBFS(startTarget.x, startTarget.y, ref visited, ref arr, sizes);
-//            PathFinder.FindPathBFS(mc.GetCurrNode().x, mc.GetCurrNode().y, ref visited2, ref arr2, sizes, true);
+            PathFinder.FindPathBFS(mc.GetCurrNode().x, mc.GetCurrNode().y, ref visited2, ref arr2, sizes);
             
             List<PathFinder.POINT> maxPoints = new List<PathFinder.POINT>();
             for (int i = 0; i < sizes.x; i++)
@@ -158,37 +168,32 @@ public class TurnManager : MonoBehaviour
                 }
             }
 
-            //PathFinder.Shuffle(ref maxPoints);
             if (maxPoints.Count == 0) return;
-            maxPoints.OrderBy(o => arr[o.x, o.y]);
-            for (int i = (int) Mathf.Floor(maxPoints.Count / 2f); i < maxPoints.Count; i++)
+            PathFinder.Shuffle(ref maxPoints);
+            maxPoints.OrderByDescending(o => arr[o.x, o.y]);
+            List<PathFinder.POINT> possiblePoints = new List<PathFinder.POINT>();
+            for (int i = 0; i < maxPoints.Count; i++)
             {
-                
-                mc.target = new PathFinder.POINT(maxPoints[i].x, maxPoints[i].y);
-                mc.path = PathFinder.FindPathBFS(new PathFinder.POINT(mc.GetCurrNode().x, mc.GetCurrNode().y),
-                    mc.target, ref arr,
+                PathFinder.POINT pnt = new PathFinder.POINT(maxPoints[i].x, maxPoints[i].y);
+                pnt.path = PathFinder.FindPathBFS(new PathFinder.POINT(mc.GetCurrNode().x, mc.GetCurrNode().y),
+                    pnt, ref arr2,
                     sizes);
-                if (arr[mc.GetCurrNode().x, mc.GetCurrNode().y] < arr[maxPoints[i].x, maxPoints[i].y]
-                    && arr[maxPoints[i].x, maxPoints[i].y] - arr[mc.GetCurrNode().x, mc.GetCurrNode().y]
-                    < arr[mc.target.x, mc.target.y] - arr[mc.GetCurrNode().x, mc.GetCurrNode().y])
-                {
-                    return;
-                }
+                if(pnt.path != null && (pnt.path.Count>chelicksOD 
+                    && arr[pnt.path[chelicksOD].x,pnt.path[chelicksOD].y] > arr[pnt.path[0].x,pnt.path[0].y] || pnt.path.Count<=chelicksOD))
+                    possiblePoints.Add(pnt);
             }
-            for (int i = (int) Mathf.Floor(maxPoints.Count / 2f); i > 0; i--)
+
+            if(possiblePoints.Count == 0) return;
+            int max = 0;
+            for (int i = 0; i < possiblePoints.Count; i++)
             {
-                
-                mc.target = new PathFinder.POINT(maxPoints[i].x, maxPoints[i].y);
-                mc.path = PathFinder.FindPathBFS(new PathFinder.POINT(mc.GetCurrNode().x, mc.GetCurrNode().y),
-                    mc.target, ref arr,
-                    sizes);
-                if (arr[mc.GetCurrNode().x, mc.GetCurrNode().y] < arr[maxPoints[i].x, maxPoints[i].y]
-                    && arr[maxPoints[i].x, maxPoints[i].y] - arr[mc.GetCurrNode().x, mc.GetCurrNode().y]
-                    < arr[mc.target.x, mc.target.y] - arr[mc.GetCurrNode().x, mc.GetCurrNode().y])
-                {
-                    return;
-                }
+                if (possiblePoints[i].path.Count > possiblePoints[max].path.Count)
+                    max = i;
             }
+
+            mc.target = possiblePoints[max];
+            mc.path = possiblePoints[max].path;
+            Debug.Log(mc.path.Count);
         }
     }
 
@@ -197,6 +202,7 @@ public class TurnManager : MonoBehaviour
     {
         _isPlayerTurn = false;
         turnButton.interactable = false;
+        if(player.MinotaurOD == player.GetCurrOD())player.Sound();
         cheliks = cheliks
             .OrderByDescending(o => Mathf.Abs((o.character.transform.position - player.transform.position).magnitude))
             .ToList();

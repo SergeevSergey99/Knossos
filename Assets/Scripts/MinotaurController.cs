@@ -14,6 +14,7 @@ public class MinotaurController : MonoBehaviour
     PointsController MinotaurOD_UI;
     PointsController HungerOG_UI;
     int _MinotaurOD = 0;
+    public int GetCurrOD() => _MinotaurOD;
     int _HungerOG = 0;
 
     public MazeCharacter GetMC() => MC;
@@ -60,6 +61,7 @@ public class MinotaurController : MonoBehaviour
     public void AnimStop()
     {
         _isMoving = false;
+        TM.turnButton.interactable = true;
     }
 
     public void MoveTo(MazeCharacter.direction dir)
@@ -166,10 +168,6 @@ public class MinotaurController : MonoBehaviour
             {
                 chel.character.SetPlayer(this);
             }
-            else
-            {
-                chel.character.SetPlayer(null);
-            }
             
         }
         for (int i = MC.GetCurrNode().x + 1; i < MC.maze.baseTilesList.sizeX; i++)
@@ -220,6 +218,7 @@ public class MinotaurController : MonoBehaviour
                 _MinotaurOD--;
                 MinotaurOD_UI.SetPoints(_MinotaurOD);
                 MC.animator.Play("ActiveGear90");
+                TM.turnButton.interactable = false;
             }
             if (Input.GetKeyDown(KeyCode.E) && HasNodeGear())
             {
@@ -227,6 +226,7 @@ public class MinotaurController : MonoBehaviour
                 _MinotaurOD--;
                 MinotaurOD_UI.SetPoints(_MinotaurOD);
                 MC.animator.Play("ActiveGear_90");
+                TM.turnButton.interactable = false;
             }
         }
     }
