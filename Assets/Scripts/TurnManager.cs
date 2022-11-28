@@ -207,10 +207,10 @@ public class TurnManager : MonoBehaviour
             .OrderByDescending(o => Mathf.Abs((o.character.transform.position - player.transform.position).magnitude))
             .ToList();
 
+        player.LoseOG();
+        player.ShowOG();
         if (player.GetOG() > 0)
         {
-            player.LoseOG();
-            player.ShowOG();
             UpdateCheliksOD();
 
             CheliksMove();
