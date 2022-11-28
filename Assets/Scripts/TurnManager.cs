@@ -53,6 +53,14 @@ public class TurnManager : MonoBehaviour
         }
     }
 
+    void UpdateCheliksOD()
+    {
+        foreach (var chel in cheliks)
+        {
+            chel.OD = chelicksOD;
+        }
+    }
+
     public void CheliksRandMove()
     {
         
@@ -79,7 +87,7 @@ public class TurnManager : MonoBehaviour
         {
             player.LoseOG();
             player.ShowOG();
-            Awake();
+            UpdateCheliksOD();
 
             CheliksRandMove();
         }
