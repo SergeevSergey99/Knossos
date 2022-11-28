@@ -214,7 +214,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.85
+  - time: 1.0166667
     functionName: ActiveGear90
     data: 
     objectReferenceParameter: {fileID: 0}
