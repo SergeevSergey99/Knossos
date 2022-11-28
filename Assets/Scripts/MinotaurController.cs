@@ -11,8 +11,8 @@ public class MinotaurController : MonoBehaviour
     private MazeCharacter MC = null;
     public int MinotaurOD = 3;
     public int HungerOG = 5;
-    public TMP_Text MinotaurOD_UI;
-    public TMP_Text HungerOG_UI;
+    PointsController MinotaurOD_UI;
+    PointsController HungerOG_UI;
     int _MinotaurOD = 0;
     int _HungerOG = 0;
 
@@ -20,16 +20,23 @@ public class MinotaurController : MonoBehaviour
 
     private void Awake()
     {
-        UpdateOD();
-        UpdateOG();
         TM = FindObjectOfType<TurnManager>();
         MC = GetComponent<MazeCharacter>();
+        foreach (var PC in FindObjectsOfType<PointsController>())
+        {
+            if (PC.pointType == PointsController.PointType.OD)
+                MinotaurOD_UI = PC;
+            else
+                HungerOG_UI = PC;
+        }
+        UpdateOD();
+        UpdateOG();
     }
 
     public void UpdateOD()
     {
         _MinotaurOD = MinotaurOD;
-        MinotaurOD_UI.text = _MinotaurOD.ToString();
+        MinotaurOD_UI.SetPoints(_MinotaurOD);
     }
     public void UpdateOG()
     {
@@ -38,7 +45,7 @@ public class MinotaurController : MonoBehaviour
     }
     public void ShowOG()
     {
-        HungerOG_UI.text = _HungerOG.ToString();
+        HungerOG_UI.SetPoints(_HungerOG);
     }
 
     public void LoseOG()
@@ -61,7 +68,7 @@ public class MinotaurController : MonoBehaviour
         {
             _isMoving = true;
             _MinotaurOD--;
-            MinotaurOD_UI.text = _MinotaurOD.ToString();
+            MinotaurOD_UI.SetPoints(_MinotaurOD);
             MC.MoveTo(dir);
             StartCoroutine(WaitTillStop());
         }
@@ -130,14 +137,14 @@ public class MinotaurController : MonoBehaviour
             {
                 _isMoving = true;
                 _MinotaurOD--;
-                MinotaurOD_UI.text = _MinotaurOD.ToString();
+                MinotaurOD_UI.SetPoints(_MinotaurOD);
                 MC.animator.Play("ActiveGear90");
             }
             if (Input.GetKeyDown(KeyCode.E) && HasNodeGear())
             {
                 _isMoving = true;
                 _MinotaurOD--;
-                MinotaurOD_UI.text = _MinotaurOD.ToString();
+                MinotaurOD_UI.SetPoints(_MinotaurOD);
                 MC.animator.Play("ActiveGear_90");
             }
         }
