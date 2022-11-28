@@ -43,4 +43,10 @@ public class MenuScript : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+    
+    public void ActivateObject(GameObject obj)
+    {
+        obj.SetActive(true);
+    }
+    
 }
