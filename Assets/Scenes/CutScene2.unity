@@ -233,11 +233,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_text
-      value: "\u2026again\u2026"
+      value: but you need to eat to move
       objectReference: {fileID: 0}
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_fontSize
-      value: 60
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_fontAsset
@@ -253,7 +253,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_fontSizeBase
-      value: 60
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_enableKerning
@@ -787,11 +787,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_text
-      value: "it\u2019s time to wake up"
+      value: they've gone too deep this time
       objectReference: {fileID: 0}
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_fontSize
-      value: 60
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_fontAsset
@@ -807,7 +807,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_fontSizeBase
-      value: 60
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_enableKerning
@@ -944,11 +944,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_text
-      value: they have disturbed your peace again
+      value: you are always hungry and you will always fulfill your duty
       objectReference: {fileID: 0}
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_fontSize
-      value: 40
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_fontAsset
@@ -964,7 +964,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_fontSizeBase
-      value: 40
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_enableKerning
