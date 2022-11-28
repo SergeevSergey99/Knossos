@@ -178,13 +178,13 @@ public class MinotaurController : MonoBehaviour
            else if (MC.maze.Maze[i, MC.GetCurrNode().y].character != null)
                MC.maze.Maze[i, MC.GetCurrNode().y].character.GetComponent<MazeCharacter>().SetPlayer(this);
         }
-        for (int i = MC.GetCurrNode().x - 1; i > 0; i--)
+        for (int i = MC.GetCurrNode().x - 1; i >= 0; i--)
         {
            if(MC.maze.Maze[i, MC.GetCurrNode().y].isWall) break;
            else if (MC.maze.Maze[i, MC.GetCurrNode().y].character != null)
                MC.maze.Maze[i, MC.GetCurrNode().y].character.GetComponent<MazeCharacter>().SetPlayer(this);
         }
-        for (int i = MC.GetCurrNode().y - 1; i > 0; i--)
+        for (int i = MC.GetCurrNode().y - 1; i >= 0; i--)
         {
            if(MC.maze.Maze[MC.GetCurrNode().x, i].isWall) break;
            else if (MC.maze.Maze[MC.GetCurrNode().x, i].character != null)
