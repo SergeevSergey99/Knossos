@@ -1053,6 +1053,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e758572c3f269d34f85ce155af6c5072, type: 3}
+--- !u!1 &163937396 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4579748560605730527, guid: 4c659f4718152a940a01aaa1f862c9a2, type: 3}
+  m_PrefabInstance: {fileID: 7983889260494377277}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &183213911
 GameObject:
   m_ObjectHideFlags: 0
@@ -1178,6 +1183,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1055757578}
     m_Modifications:
+    - target: {fileID: 3946391049581369315, guid: e758572c3f269d34f85ce155af6c5072, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 163937396}
+    - target: {fileID: 3946391049581369315, guid: e758572c3f269d34f85ce155af6c5072, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3946391050569961399, guid: e758572c3f269d34f85ce155af6c5072, type: 3}
       propertyPath: m_text
       value: 'U can always

@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class MenuScript : MonoBehaviour
 {
+    
+    int nextSceneToLoad;
     private void Awake()
     {
         TurnItBlack.OnTurnBlack += TurnItBlack_OnTurnBlack;
@@ -22,6 +24,14 @@ public class MenuScript : MonoBehaviour
     {
         SceneManager.LoadScene(name);
     }
+    
+    public void LoadLevel(int index)
+    {
+        nextSceneToLoad = index;
+        var Black = FindObjectOfType<TurnItBlack>();
+        Black.TurnBlack();
+        
+    }
     public void ReLoadLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -29,13 +39,14 @@ public class MenuScript : MonoBehaviour
     
     public void LoadNextLevel()
     {
+        nextSceneToLoad = SceneManager.GetActiveScene().buildIndex + 1;
         var Black = FindObjectOfType<TurnItBlack>();
         Black.TurnBlack();
     }
     
     private void TurnItBlack_OnTurnBlack()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(nextSceneToLoad);
 
     }
     

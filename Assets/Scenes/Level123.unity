@@ -130,6 +130,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1055757578}
     m_Modifications:
+    - target: {fileID: 3946391049581369315, guid: e758572c3f269d34f85ce155af6c5072, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1391313731}
+    - target: {fileID: 3946391049581369315, guid: e758572c3f269d34f85ce155af6c5072, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: PlayFirst
+      objectReference: {fileID: 0}
     - target: {fileID: 3946391050569961399, guid: e758572c3f269d34f85ce155af6c5072, type: 3}
       propertyPath: m_text
       value: 'If you are out of meat
@@ -355,6 +363,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1055757578}
     m_Modifications:
+    - target: {fileID: 3946391049581369315, guid: e758572c3f269d34f85ce155af6c5072, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1391313731}
+    - target: {fileID: 3946391049581369315, guid: e758572c3f269d34f85ce155af6c5072, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: PlayFirst
+      objectReference: {fileID: 0}
     - target: {fileID: 3946391050569961399, guid: e758572c3f269d34f85ce155af6c5072, type: 3}
       propertyPath: m_text
       value: 'U can always
@@ -2274,6 +2290,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7392093544943682166, guid: 4c659f4718152a940a01aaa1f862c9a2, type: 3}
   m_PrefabInstance: {fileID: 7983889260494377277}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1391313731 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1391313731, guid: 4c659f4718152a940a01aaa1f862c9a2, type: 3}
+  m_PrefabInstance: {fileID: 7983889260494377277}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bec35064be49c647bac69b436bfeb07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1465538229 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3946391050635611773, guid: e758572c3f269d34f85ce155af6c5072, type: 3}
@@ -2489,6 +2516,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1055757578}
     m_Modifications:
+    - target: {fileID: 3946391049581369315, guid: e758572c3f269d34f85ce155af6c5072, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1391313731}
+    - target: {fileID: 3946391049581369315, guid: e758572c3f269d34f85ce155af6c5072, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: PlayFirst
+      objectReference: {fileID: 0}
     - target: {fileID: 3946391050569961399, guid: e758572c3f269d34f85ce155af6c5072, type: 3}
       propertyPath: m_text
       value: 'On different levels u have different amount of meat and move points.
@@ -2654,6 +2689,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1055757578}
     m_Modifications:
+    - target: {fileID: 3946391049581369315, guid: e758572c3f269d34f85ce155af6c5072, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1391313731}
+    - target: {fileID: 3946391049581369315, guid: e758572c3f269d34f85ce155af6c5072, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: PlayFirst
+      objectReference: {fileID: 0}
     - target: {fileID: 3946391050569961399, guid: e758572c3f269d34f85ce155af6c5072, type: 3}
       propertyPath: m_text
       value: 'Investigate
