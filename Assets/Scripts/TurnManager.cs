@@ -179,7 +179,7 @@ public class TurnManager : MonoBehaviour
                     pnt, ref arr2,
                     sizes);
                 if(pnt.path != null && (pnt.path.Count>chelicksOD 
-                    && arr[pnt.path[chelicksOD].x,pnt.path[chelicksOD].y] > arr[pnt.path[0].x,pnt.path[0].y] || pnt.path.Count<=chelicksOD))
+                    && arr[pnt.path[chelicksOD].x,pnt.path[chelicksOD].y] > arr[pnt.path[0].x,pnt.path[0].y]))
                     possiblePoints.Add(pnt);
             }
 
