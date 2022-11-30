@@ -30,6 +30,7 @@ public class MinotaurController : MonoBehaviour
             else
                 HungerOG_UI = PC;
         }
+
         UpdateOD();
         UpdateOG();
     }
@@ -39,11 +40,13 @@ public class MinotaurController : MonoBehaviour
         _MinotaurOD = MinotaurOD;
         MinotaurOD_UI.SetPoints(_MinotaurOD);
     }
+
     public void UpdateOG()
     {
         _HungerOG = HungerOG;
         ShowOG();
     }
+
     public void ShowOG()
     {
         HungerOG_UI.SetPoints(_HungerOG);
@@ -65,24 +68,46 @@ public class MinotaurController : MonoBehaviour
     }
 
     public void MoveTo(MazeCharacter.direction dir)
-    {   
+    {
+        var dirs = MC.GetPossible(false);
+        if (!dirs.Contains(dir))
+        {
+            return;
+        }
+
         if (_MinotaurOD > 0)
         {
             _isMoving = true;
             _MinotaurOD--;
             MinotaurOD_UI.SetPoints(_MinotaurOD);
-            if(MC.HanCheliks(dir))
+            if (MC.HasCheliks(dir))
                 TM.ZoomToMino();
             MC.MoveTo(dir);
             StartCoroutine(WaitTillStop());
         }
+    }
 
+    public void TurnGearLeft()
+    {
+        _isMoving = true;
+        _MinotaurOD--;
+        MinotaurOD_UI.SetPoints(_MinotaurOD);
+        MC.animator.Play("ActiveGear90");
+        TM.turnButton.interactable = false;
+    }
+
+    public void TurnGearRight()
+    {
+        _isMoving = true;
+        _MinotaurOD--;
+        MinotaurOD_UI.SetPoints(_MinotaurOD);
+        MC.animator.Play("ActiveGear_90");
+        TM.turnButton.interactable = false;
     }
 
 
     IEnumerator WaitTillStop()
-    {   
-        
+    {
         while (transform.localPosition != Vector3.zero)
         {
             yield return new WaitForSeconds(0.05f);
@@ -119,6 +144,7 @@ public class MinotaurController : MonoBehaviour
         {
             return true;
         }
+
         return false;
     }
 
@@ -138,7 +164,7 @@ public class MinotaurController : MonoBehaviour
         }
 
         PathFinder.POINT startTarget = new PathFinder.POINT(MC.GetCurrNode().x, MC.GetCurrNode().y);
-        
+
         PathFinder.FindPathBFS(startTarget.x, startTarget.y, ref visited, ref maze, sizes);
         int max = -1;
         for (int i = 0; i < sizes.x; i++)
@@ -168,33 +194,37 @@ public class MinotaurController : MonoBehaviour
             {
                 chel.character.SetPlayer(this);
             }
-            
         }
+
         for (int i = MC.GetCurrNode().x + 1; i < MC.maze.baseTilesList.sizeX; i++)
         {
-           if(MC.maze.Maze[i, MC.GetCurrNode().y].isWall) break;
-           else if (MC.maze.Maze[i, MC.GetCurrNode().y].character != null)
-               MC.maze.Maze[i, MC.GetCurrNode().y].character.GetComponent<MazeCharacter>().SetPlayer(this);
+            if (MC.maze.Maze[i, MC.GetCurrNode().y].isWall) break;
+            else if (MC.maze.Maze[i, MC.GetCurrNode().y].character != null)
+                MC.maze.Maze[i, MC.GetCurrNode().y].character.GetComponent<MazeCharacter>().SetPlayer(this);
         }
+
         for (int i = MC.GetCurrNode().x - 1; i >= 0; i--)
         {
-           if(MC.maze.Maze[i, MC.GetCurrNode().y].isWall) break;
-           else if (MC.maze.Maze[i, MC.GetCurrNode().y].character != null)
-               MC.maze.Maze[i, MC.GetCurrNode().y].character.GetComponent<MazeCharacter>().SetPlayer(this);
+            if (MC.maze.Maze[i, MC.GetCurrNode().y].isWall) break;
+            else if (MC.maze.Maze[i, MC.GetCurrNode().y].character != null)
+                MC.maze.Maze[i, MC.GetCurrNode().y].character.GetComponent<MazeCharacter>().SetPlayer(this);
         }
+
         for (int i = MC.GetCurrNode().y - 1; i >= 0; i--)
         {
-           if(MC.maze.Maze[MC.GetCurrNode().x, i].isWall) break;
-           else if (MC.maze.Maze[MC.GetCurrNode().x, i].character != null)
-               MC.maze.Maze[MC.GetCurrNode().x, i].character.GetComponent<MazeCharacter>().SetPlayer(this);
+            if (MC.maze.Maze[MC.GetCurrNode().x, i].isWall) break;
+            else if (MC.maze.Maze[MC.GetCurrNode().x, i].character != null)
+                MC.maze.Maze[MC.GetCurrNode().x, i].character.GetComponent<MazeCharacter>().SetPlayer(this);
         }
+
         for (int i = MC.GetCurrNode().y + 1; i < MC.maze.baseTilesList.sizeY; i++)
         {
-           if(MC.maze.Maze[MC.GetCurrNode().x, i].isWall) break;
-           else if (MC.maze.Maze[MC.GetCurrNode().x, i].character != null)
-               MC.maze.Maze[MC.GetCurrNode().x, i].character.GetComponent<MazeCharacter>().SetPlayer(this);
+            if (MC.maze.Maze[MC.GetCurrNode().x, i].isWall) break;
+            else if (MC.maze.Maze[MC.GetCurrNode().x, i].character != null)
+                MC.maze.Maze[MC.GetCurrNode().x, i].character.GetComponent<MazeCharacter>().SetPlayer(this);
         }
     }
+
     // Update is called once per frame
     void Update()
     {
@@ -203,30 +233,21 @@ public class MinotaurController : MonoBehaviour
 
         if (_MinotaurOD > 0)
         {
-            var dirs = MC.GetPossible(false);
-            if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) &&
-                dirs.Contains(MazeCharacter.direction.up)) MoveTo(MazeCharacter.direction.up);
-            if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) &&
-                dirs.Contains(MazeCharacter.direction.down)) MoveTo(MazeCharacter.direction.down);
-            if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) &&
-                dirs.Contains(MazeCharacter.direction.left)) MoveTo(MazeCharacter.direction.left);
-            if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) &&
-                dirs.Contains(MazeCharacter.direction.right)) MoveTo(MazeCharacter.direction.right);
+            if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))) MoveTo(MazeCharacter.direction.up);
+            if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)))
+                MoveTo(MazeCharacter.direction.down);
+            if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)))
+                MoveTo(MazeCharacter.direction.left);
+            if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)))
+                MoveTo(MazeCharacter.direction.right);
             if (Input.GetKeyDown(KeyCode.Q) && HasNodeGear())
             {
-                _isMoving = true;
-                _MinotaurOD--;
-                MinotaurOD_UI.SetPoints(_MinotaurOD);
-                MC.animator.Play("ActiveGear90");
-                TM.turnButton.interactable = false;
+                TurnGearLeft();
             }
+
             if (Input.GetKeyDown(KeyCode.E) && HasNodeGear())
             {
-                _isMoving = true;
-                _MinotaurOD--;
-                MinotaurOD_UI.SetPoints(_MinotaurOD);
-                MC.animator.Play("ActiveGear_90");
-                TM.turnButton.interactable = false;
+                TurnGearRight();
             }
         }
     }

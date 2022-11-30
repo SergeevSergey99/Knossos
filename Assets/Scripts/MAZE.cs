@@ -97,4 +97,42 @@ public class MAZE : MonoBehaviour
             chel.character.transform.eulerAngles = Vector3.zero;
         }
     }
+
+    public Node GetNeighbourNodeByDirection(Node currentNode, MazeCharacter.direction direction)
+    {
+        switch (direction)
+        {
+            case MazeCharacter.direction.up:
+                return Maze[currentNode.x, currentNode.y + 1];
+            case MazeCharacter.direction.down:
+                return Maze[currentNode.x, currentNode.y - 1];
+            case MazeCharacter.direction.left:
+                return Maze[currentNode.x - 1, currentNode.y];
+            case MazeCharacter.direction.right:
+                return Maze[currentNode.x + 1, currentNode.y];
+            default:
+                return null;
+        }
+    }
+
+    public  Node FindCLoosestNodeToPosition(Vector3 position)
+    {
+        int closestX = 0, closestY = 0;
+        float min = float.MaxValue;
+        for (int i = 0; i < baseTilesList.sizeX; i++)
+        {
+            for (int j = 0; j < baseTilesList.sizeY; j++)
+            {
+                if ((Maze[i, j].transform.position - position).magnitude < min)
+                {
+                    min = (Maze[i, j].transform.position - position).magnitude;
+                    closestX = i;
+                    closestY = j;
+                }
+            }
+        }
+        return Maze[closestX, closestY];
+    }
+    
+    
 }

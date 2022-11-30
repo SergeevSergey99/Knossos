@@ -3,31 +3,45 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Animator))]
 public class MazeCharacter : MonoBehaviour
 {
-    [HideInInspector] public MAZE maze;
-
-    private Node _currNode;
-
+    //Graphics
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private SpriteRenderer sign;
     public Animator animator;
-    [SerializeField] private int FramesPerMove = 50;
 
-    public bool useAI = false;
-    [HideInInspector]
-    public PathFinder.POINT target = null;
-    public PathFinder.POINT playerPOS = null;
-    [HideInInspector] public List<PathFinder.POINT> path = null;
-    private MinotaurController player;
-    public bool isPlayerNull() => player == null;
+    [FormerlySerializedAs("FramesPerMove")] [SerializeField]
+    private int framesPerMove = 50;
+    // Graphics
+
+    //Nodes
+    [HideInInspector] public MAZE maze;
+    private Node _currNode;
     public Node GetCurrNode() => _currNode;
 
-    [SerializeField] private SpriteRenderer sign;
+    public MazeCharacter.direction lastDirection = MazeCharacter.direction.none;
+    //Nodes
+
+    //AI Stuff
+    public bool useAI = false;
+    [HideInInspector] public PathFinder.POINT target = null;
+    public PathFinder.POINT playerPOS = null;
+
+    [HideInInspector] public List<PathFinder.POINT> path = null;
+    //AI Stuff
+
+    //Player movement stuff
+    private MinotaurController player;
+    public bool isPlayerNull() => player == null;
 
     private bool isPlayer = false;
+    //Player movement stuff
 
     private void Awake()
     {
@@ -39,22 +53,7 @@ public class MazeCharacter : MonoBehaviour
 
     void Start()
     {
-        int closestX = 0, closestY = 0;
-        float min = float.MaxValue;
-        for (int i = 0; i < maze.baseTilesList.sizeX; i++)
-        {
-            for (int j = 0; j < maze.baseTilesList.sizeY; j++)
-            {
-                if ((maze.Maze[i, j].transform.position - transform.position).magnitude < min)
-                {
-                    min = (maze.Maze[i, j].transform.position - transform.position).magnitude;
-                    closestX = i;
-                    closestY = j;
-                }
-            }
-        }
-
-        _currNode = maze.Maze[closestX, closestY];
+        _currNode = maze.FindCLoosestNodeToPosition(transform.position);
         transform.SetParent(_currNode.transform);
         _currNode.SetCharacter(transform);
         transform.localPosition = Vector3.zero;
@@ -81,48 +80,14 @@ public class MazeCharacter : MonoBehaviour
 
     public bool CanMove(direction dir)
     {
-        switch (dir)
-        {
-            case direction.left:
-                if (!isPlayer && maze.Maze[_currNode.x - 1, _currNode.y].character != null
-                    || maze.Maze[_currNode.x - 1, _currNode.y].isWall) return false;
-                break;
-            case direction.right:
-                if (!isPlayer && maze.Maze[_currNode.x + 1, _currNode.y].character != null
-                    || maze.Maze[_currNode.x + 1, _currNode.y].isWall) return false;
-                break;
-            case direction.up:
-                if (!isPlayer && maze.Maze[_currNode.x, _currNode.y + 1].character != null
-                    || maze.Maze[_currNode.x, _currNode.y + 1].isWall) return false;
-                break;
-            case direction.down:
-                if (!isPlayer && maze.Maze[_currNode.x, _currNode.y - 1].character != null
-                    || maze.Maze[_currNode.x, _currNode.y - 1].isWall) return false;
-                break;
-        }
-
-        return true;
+        var nodeInDireection = maze.GetNeighbourNodeByDirection(_currNode, dir);
+        return !(nodeInDireection.isWall || HaveCharacters(nodeInDireection));
     }
 
-    public bool HanCheliks(direction dir)
+    public bool HasCheliks(direction dir)
     {
-        switch (dir)
-        {
-            case direction.left:
-                if (maze.Maze[_currNode.x - 1, _currNode.y].character != null) return true;
-                break;
-            case direction.right:
-                if (maze.Maze[_currNode.x + 1, _currNode.y].character != null) return true;
-                break;
-            case direction.up:
-                if (maze.Maze[_currNode.x, _currNode.y + 1].character != null) return true;
-                break;
-            case direction.down:
-                if (maze.Maze[_currNode.x, _currNode.y - 1].character != null) return true;
-                break;
-        }
-
-        return false;
+        var nodeInDirection = maze.GetNeighbourNodeByDirection(_currNode, dir);
+        return HaveCharacters(nodeInDirection);
     }
 
     public void SetPlayer(MinotaurController mino)
@@ -149,23 +114,20 @@ public class MazeCharacter : MonoBehaviour
     {
         List<direction> directions = new List<direction>();
 
-        if (_currNode.x > 0 && !maze.Maze[_currNode.x - 1, _currNode.y].isWall
-                            && (!countCheliks || !HaveCharacters(maze.Maze[_currNode.x - 1, _currNode.y])))
-            directions.Add(direction.left);
-
-        if (_currNode.x < maze.baseTilesList.sizeX - 1 && !maze.Maze[_currNode.x + 1, _currNode.y].isWall
-                                                       && (!countCheliks ||
-                                                           !HaveCharacters(maze.Maze[_currNode.x + 1, _currNode.y])))
-            directions.Add(direction.right);
-
-        if (_currNode.y > 0 && !maze.Maze[_currNode.x, _currNode.y - 1].isWall
-                            && (!countCheliks || !HaveCharacters(maze.Maze[_currNode.x, _currNode.y - 1])))
-            directions.Add(direction.down);
-
-        if (_currNode.y < maze.baseTilesList.sizeY - 1 && !maze.Maze[_currNode.x, _currNode.y + 1].isWall
-                                                       && (!countCheliks ||
-                                                           !HaveCharacters(maze.Maze[_currNode.x, _currNode.y + 1])))
-            directions.Add(direction.up);
+        if (_currNode.x > 0 && !maze.GetNeighbourNodeByDirection(_currNode, direction.left).isWall)
+            if (!countCheliks || !HaveCharacters(maze.GetNeighbourNodeByDirection(_currNode, direction.left)))
+                directions.Add(direction.left);
+        if (_currNode.x < maze.baseTilesList.sizeX - 1 &&
+            !maze.GetNeighbourNodeByDirection(_currNode, direction.right).isWall)
+            if (!countCheliks || !HaveCharacters(maze.GetNeighbourNodeByDirection(_currNode, direction.right)))
+                directions.Add(direction.right);
+        if (_currNode.y > 0 && !maze.GetNeighbourNodeByDirection(_currNode, direction.down).isWall)
+            if (!countCheliks || !HaveCharacters(maze.GetNeighbourNodeByDirection(_currNode, direction.down)))
+                directions.Add(direction.down);
+        if (_currNode.y < maze.baseTilesList.sizeY - 1 &&
+            !maze.GetNeighbourNodeByDirection(_currNode, direction.up).isWall)
+            if (!countCheliks || !HaveCharacters(maze.GetNeighbourNodeByDirection(_currNode, direction.up)))
+                directions.Add(direction.up);
 
         return directions;
     }
@@ -185,45 +147,37 @@ public class MazeCharacter : MonoBehaviour
 
     public void SetFlipX(int flip)
     {
-        if (spriteRenderer != null) spriteRenderer.flipX = flip == 1;
-        if (animator != null)
-        {
-            if (flip == 1) animator.Play("FlipXTrue");
-            else animator.Play("FlipXFalse");
-        }
+        spriteRenderer.flipX = flip == 1;
+        //Uncomment when u have animation
+        //animator.Play(flip == 1 ? "FlipXTrue" : "FlipXFalse");
     }
 
     public void MoveTo(direction dir)
     {
+        lastDirection = dir;
         if (dir == direction.none) return;
-
         _currNode.RemoveCharacter();
         switch (dir)
         {
             case direction.left:
-                _currNode = maze.Maze[_currNode.x - 1, _currNode.y];
-                if (spriteRenderer != null) spriteRenderer.flipX = false;
-                if (animator != null) animator.Play("FlipXFalse");
-                if (animator != null) animator.SetBool("isWalk", true);
+                _currNode = maze.GetNeighbourNodeByDirection(_currNode, direction.left);
+                SetFlipX(0);
                 break;
             case direction.right:
-                _currNode = maze.Maze[_currNode.x + 1, _currNode.y];
-                if (spriteRenderer != null) spriteRenderer.flipX = true;
-                if (animator != null) animator.Play("FlipXTrue");
-                if (animator != null) animator.SetBool("isWalk", true);
+                _currNode = maze.GetNeighbourNodeByDirection(_currNode, direction.right);
+                SetFlipX(1);
                 break;
             case direction.up:
-                _currNode = maze.Maze[_currNode.x, _currNode.y + 1];
-                if (animator != null) animator.SetBool("isWalk", true);
+                _currNode = maze.GetNeighbourNodeByDirection(_currNode, direction.up);
                 break;
             case direction.down:
-                _currNode = maze.Maze[_currNode.x, _currNode.y - 1];
-                if (animator != null) animator.SetBool("isWalk", true);
+                _currNode = maze.GetNeighbourNodeByDirection(_currNode, direction.down);
                 break;
             default:
                 return;
         }
 
+        animator.SetBool("isWalk", true);
         transform.SetParent(_currNode.transform);
         _currNode.SetCharacter(transform);
         StartCoroutine(MoveToZero());
@@ -232,17 +186,34 @@ public class MazeCharacter : MonoBehaviour
     IEnumerator MoveToZero()
     {
         float t = 0.01f;
-        int i = FramesPerMove;
+        int i = framesPerMove;
         var start = transform.localPosition;
         while (i > 0)
         {
             yield return new WaitForSeconds(t);
-            transform.localPosition = start * (i * 1f / FramesPerMove);
+            transform.localPosition = start * (i * 1f / framesPerMove);
             i--;
         }
 
         transform.localPosition = Vector3.zero;
 
         if (animator != null) animator.SetBool("isWalk", false);
+    }
+
+    public direction GetOppositeDirection(direction dir)
+    {
+        switch (dir)
+        {
+            case direction.left:
+                return direction.right;
+            case direction.right:
+                return direction.left;
+            case direction.up:
+                return direction.down;
+            case direction.down:
+                return direction.up;
+            default:
+                return direction.none;
+        }
     }
 }
