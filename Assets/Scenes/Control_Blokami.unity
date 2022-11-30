@@ -4174,11 +4174,11 @@ PrefabInstance:
     - target: {fileID: 7809690102909897207, guid: 6ef020bce63a8aa4592c7f2a857ec3d5, type: 3}
       propertyPath: m_TileSpriteArray.Array.data[0].m_Data
       value: 
-      objectReference: {fileID: 82145613, guid: 263e449433f55224ea9e0478ea4871bb, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 7809690102909897207, guid: 6ef020bce63a8aa4592c7f2a857ec3d5, type: 3}
       propertyPath: m_TileSpriteArray.Array.data[1].m_Data
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 82145613, guid: 263e449433f55224ea9e0478ea4871bb, type: 3}
     - target: {fileID: 7809690102909897207, guid: 6ef020bce63a8aa4592c7f2a857ec3d5, type: 3}
       propertyPath: m_TileSpriteArray.Array.data[2].m_Data
       value: 
@@ -4285,11 +4285,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7809690102909897207, guid: 6ef020bce63a8aa4592c7f2a857ec3d5, type: 3}
       propertyPath: m_TileSpriteArray.Array.data[0].m_RefCount
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7809690102909897207, guid: 6ef020bce63a8aa4592c7f2a857ec3d5, type: 3}
       propertyPath: m_TileSpriteArray.Array.data[1].m_RefCount
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7809690102909897207, guid: 6ef020bce63a8aa4592c7f2a857ec3d5, type: 3}
       propertyPath: m_TileSpriteArray.Array.data[2].m_RefCount
@@ -4301,7 +4301,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7809690102909897207, guid: 6ef020bce63a8aa4592c7f2a857ec3d5, type: 3}
       propertyPath: m_Tiles.Array.data[0].second.m_TileSpriteIndex
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7809690102909897207, guid: 6ef020bce63a8aa4592c7f2a857ec3d5, type: 3}
       propertyPath: m_Tiles.Array.data[1].second.m_TileSpriteIndex
@@ -5293,6 +5293,10 @@ PrefabInstance:
     - target: {fileID: 2336790844734789918, guid: 3e11844dd1f911f4dab39d96827a457a, type: 3}
       propertyPath: m_Name
       value: MINOTAUR
+      objectReference: {fileID: 0}
+    - target: {fileID: 2336790844734789918, guid: 3e11844dd1f911f4dab39d96827a457a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e11844dd1f911f4dab39d96827a457a, type: 3}
