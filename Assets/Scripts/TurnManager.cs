@@ -21,6 +21,8 @@ public class TurnManager : MonoBehaviour
     public Animator EscapeMenu;
     public Animator KillPanel;
     private bool isPaused = false;
+
+    private Camera _camera;
     public bool GetPaused() => isPaused;
 
     private Vector2 cameraPos;
@@ -34,10 +36,11 @@ public class TurnManager : MonoBehaviour
 
     private void Awake()
     {
+        _camera = Camera.main;
         if (camSize == 0)
         {
-            cameraPos = Camera.main.transform.position;
-            camSize = Camera.main.orthographicSize;
+            cameraPos = _camera.transform.position;
+            camSize = _camera.orthographicSize;
             player = FindObjectOfType<MinotaurController>();
             cheliks = new List<CHEL>();
             var chs = FindObjectsOfType<MazeCharacter>();
@@ -64,7 +67,18 @@ public class TurnManager : MonoBehaviour
 
     public void CheliksRandMove(MazeCharacter mc)
     {
-        mc.MoveToRandomPossibleDir();
+        if (mc.lastDirection == MazeCharacter.direction.none)
+        {
+            mc.MoveToRandomPossibleDir();
+        }
+        else if (mc.GetPossible().Contains(mc.lastDirection))
+        {
+            mc.MoveTo(mc.lastDirection);
+        }
+        else
+        {
+            mc.MoveToRandomPossibleDir();
+        }
     }
 
     void CheckAndMove(MazeCharacter mc, MazeCharacter.direction dir)
@@ -258,7 +272,7 @@ public class TurnManager : MonoBehaviour
 
     IEnumerator ZoomingTo()
     {
-        var cam = Camera.main;
+        var cam = _camera;
         for (int i = 100; i >= 0; i--)
         {
             yield return new WaitForSeconds(0.01f);
@@ -299,16 +313,15 @@ public class TurnManager : MonoBehaviour
     IEnumerator ZoomingFrom()
     {
         KillPanel.gameObject.SetActive(false);
-        var cam = Camera.main;
         for (int i = 0; i <= 100; i++)
         {
             yield return new WaitForSeconds(0.01f);
             Vector3 playerPos = new Vector3(player.transform.position.x, player.transform.position.y,
-                cam.transform.position.z);
-            cam.transform.position = playerPos +
-                                     (new Vector3(cameraPos.x, cameraPos.y, cam.transform.position.z) - playerPos) *
+                _camera.transform.position.z);
+            _camera.transform.position = playerPos +
+                                     (new Vector3(cameraPos.x, cameraPos.y, _camera.transform.position.z) - playerPos) *
                                      (i / 100f);
-            cam.orthographicSize = 1 + (camSize - 1) * (i / 100f);
+            _camera.orthographicSize = 1 + (camSize - 1) * (i / 100f);
         }
 
         isPaused = false;

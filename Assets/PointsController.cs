@@ -8,7 +8,7 @@ public class PointsController : MonoBehaviour
     public GameObject prefab;
     List<GameObject> states = new List<GameObject>();
 
-    private MinotaurController player;
+    [SerializeField]private MinotaurController player;
     private void Start()
     {
         if (player == null)

@@ -214,8 +214,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maze: {fileID: 0}
-  spriteRenderer: {fileID: 0}
-  animator: {fileID: 0}
+  spriteRenderer: {fileID: 4408654762226786785}
+  animator: {fileID: 7661677510891888684}
   FramesPerMove: 50
   useAI: 0
   sign: {fileID: 8884279225071519318}
