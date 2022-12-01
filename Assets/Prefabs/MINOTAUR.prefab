@@ -333,7 +333,7 @@ MonoBehaviour:
   maze: {fileID: 0}
   spriteRenderer: {fileID: 0}
   animator: {fileID: 0}
-  FramesPerMove: 150
+  FramesPerMove: 50
   useAI: 0
   sign: {fileID: 0}
 --- !u!114 &2336790844734789906
@@ -478,6 +478,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bec35064be49c647bac69b436bfeb07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Clip1: {fileID: 8300000, guid: e2076deeffe2cf742960b91431cf7bb7, type: 3}
-  Clip2: {fileID: 8300000, guid: 807993031c028fb43bce5c25877a5c43, type: 3}
-  Clip3: {fileID: 8300000, guid: da0d11857a7b88149afcaf2fb757e062, type: 3}
+  Clip1:
+    clip: {fileID: 8300000, guid: e2076deeffe2cf742960b91431cf7bb7, type: 3}
+    IsLoop: 1
+  Clip2:
+    clip: {fileID: 8300000, guid: 807993031c028fb43bce5c25877a5c43, type: 3}
+    IsLoop: 1
+  Clip3:
+    clip: {fileID: 8300000, guid: da0d11857a7b88149afcaf2fb757e062, type: 3}
+    IsLoop: 0

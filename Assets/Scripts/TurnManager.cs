@@ -268,7 +268,7 @@ public class TurnManager : MonoBehaviour
     IEnumerator ZoomingTo()
     {
         var cam = Camera.main;
-        for (int i = 100; i >= 0; i--)
+        for (int i = 100; i >= 0; i-=2)
         {
             yield return new WaitForSeconds(0.01f);
             Vector3 playerPos = new Vector3(player.transform.position.x, player.transform.position.y,

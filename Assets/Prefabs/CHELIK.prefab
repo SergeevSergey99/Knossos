@@ -216,7 +216,7 @@ MonoBehaviour:
   maze: {fileID: 0}
   spriteRenderer: {fileID: 0}
   animator: {fileID: 0}
-  FramesPerMove: 50
+  FramesPerMove: 35
   useAI: 0
   sign: {fileID: 8884279225071519318}
 --- !u!95 &7661677510891888684
@@ -251,7 +251,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.85
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -347,9 +347,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bec35064be49c647bac69b436bfeb07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Clip1: {fileID: 8300000, guid: 91103b3946819844c9d69aeb871f4624, type: 3}
-  Clip2: {fileID: 8300000, guid: 7e5d015822b1f794ead333311cdee18e, type: 3}
-  Clip3: {fileID: 0}
+  Clip1:
+    clip: {fileID: 8300000, guid: 91103b3946819844c9d69aeb871f4624, type: 3}
+    IsLoop: 0
+  Clip2:
+    clip: {fileID: 8300000, guid: 7e5d015822b1f794ead333311cdee18e, type: 3}
+    IsLoop: 0
+  Clip3:
+    clip: {fileID: 0}
+    IsLoop: 0
 --- !u!1 &7416287692865220578
 GameObject:
   m_ObjectHideFlags: 0
