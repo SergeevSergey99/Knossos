@@ -30,6 +30,8 @@ public class TurnManager : MonoBehaviour
     {
         public MazeCharacter character = null;
         public int OD = 0;
+        [HideInInspector]
+        public Animator animator = null;
     }
 
     private void Awake()
@@ -48,6 +50,7 @@ public class TurnManager : MonoBehaviour
                     CHEL ch = new CHEL();
                     ch.character = mc;
                     ch.OD = chelicksOD;
+                    ch.animator = mc.GetComponent<Animator>();
                     cheliks.Add(ch);
                 }
             }
@@ -59,6 +62,9 @@ public class TurnManager : MonoBehaviour
         foreach (var chel in cheliks)
         {
             chel.OD = chelicksOD;
+            
+            if(chel.OD > 0) chel.animator.Play("Chill");
+            else chel.animator.Play("Chained");
         }
     }
 
@@ -106,6 +112,7 @@ public class TurnManager : MonoBehaviour
 
     public void CheliksMove()
     {
+        int index = 0;
         for (int i = 0; i < cheliks.Count; i++)
         {
             if (cheliks[i].OD > 0)
@@ -114,11 +121,12 @@ public class TurnManager : MonoBehaviour
                 cheliks[i].OD--;
                 if (cheliks[i].character.useAI) CheliksAIMove(cheliks[i].character);
                 else CheliksRandMove(cheliks[i].character);
+                index = i;
                 break;
             }
         }
 
-        StartCoroutine(WaitTillStop());
+        StartCoroutine(WaitTillStop(index));
     }
 
     public void UpdateAI(MazeCharacter mc)
@@ -193,7 +201,7 @@ public class TurnManager : MonoBehaviour
 
             mc.target = possiblePoints[max];
             mc.path = possiblePoints[max].path;
-            Debug.Log(mc.path.Count);
+            //Debug.Log(mc.path.Count);
         }
     }
 
@@ -206,6 +214,7 @@ public class TurnManager : MonoBehaviour
         cheliks = cheliks
             .OrderByDescending(o => Mathf.Abs((o.character.transform.position - player.transform.position).magnitude))
             .ToList();
+
 
         player.LoseOG();
         player.ShowOG();
@@ -314,7 +323,7 @@ public class TurnManager : MonoBehaviour
         isPaused = false;
     }
 
-    IEnumerator WaitTillStop()
+    IEnumerator WaitTillStop(int i)
     {
         while (!IsCheliksStoped())
         {
