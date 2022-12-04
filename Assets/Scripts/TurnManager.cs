@@ -210,7 +210,9 @@ public class TurnManager : MonoBehaviour
     {
         _isPlayerTurn = false;
         turnButton.interactable = false;
-        if(player.MinotaurOD == player.GetCurrOD())player.Sound();
+        
+        //if (player.MinotaurOD == player.GetCurrOD())player.Sound();
+        player.HideCanvas();
         cheliks = cheliks
             .OrderByDescending(o => Mathf.Abs((o.character.transform.position - player.transform.position).magnitude))
             .ToList();
@@ -336,6 +338,8 @@ public class TurnManager : MonoBehaviour
             _isPlayerTurn = true;
             turnButton.interactable = true;
             player.UpdateOD();
+            
+            player.ShowCanvas();
         }
     }
 

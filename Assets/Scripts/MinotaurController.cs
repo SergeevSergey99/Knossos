@@ -13,6 +13,7 @@ public class MinotaurController : MonoBehaviour
     public int HungerOG = 5;
     PointsController MinotaurOD_UI;
     PointsController HungerOG_UI;
+    public Animator canvas;
     int _MinotaurOD = 0;
     public int GetCurrOD() => _MinotaurOD;
     int _HungerOG = 0;
@@ -62,10 +63,12 @@ public class MinotaurController : MonoBehaviour
     {
         _isMoving = false;
         TM.turnButton.interactable = true;
+        ShowCanvas();
     }
 
     public void MoveTo(MazeCharacter.direction dir)
     {   
+        if(HasNodeGear()) HideCanvas();
         if (_MinotaurOD > 0)
         {
             _isMoving = true;
@@ -101,6 +104,16 @@ public class MinotaurController : MonoBehaviour
         }*/
         GetComponent<AudioManager>().Stop();
         Sound();
+        ShowCanvas();
+    }
+
+    public void ShowCanvas()
+    {
+        if (HasNodeGear()) canvas.Play("AppearFromZero");
+    }
+    public void HideCanvas()
+    {
+        canvas.Play("DisappearZero");
     }
 
     public void ActiveGear90()
@@ -195,6 +208,17 @@ public class MinotaurController : MonoBehaviour
                MC.maze.Maze[MC.GetCurrNode().x, i].character.GetComponent<MazeCharacter>().SetPlayer(this);
         }
     }
+
+    public void ActiveGear(string anim)
+    {
+        _isMoving = true;
+        _MinotaurOD--;
+        MinotaurOD_UI.SetPoints(_MinotaurOD);
+        MC.animator.Play(anim);
+        TM.turnButton.interactable = false;
+        HideCanvas();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -212,22 +236,9 @@ public class MinotaurController : MonoBehaviour
                 dirs.Contains(MazeCharacter.direction.left)) MoveTo(MazeCharacter.direction.left);
             if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) &&
                 dirs.Contains(MazeCharacter.direction.right)) MoveTo(MazeCharacter.direction.right);
-            if (Input.GetKeyDown(KeyCode.Q) && HasNodeGear())
-            {
-                _isMoving = true;
-                _MinotaurOD--;
-                MinotaurOD_UI.SetPoints(_MinotaurOD);
-                MC.animator.Play("ActiveGear90");
-                TM.turnButton.interactable = false;
-            }
-            if (Input.GetKeyDown(KeyCode.E) && HasNodeGear())
-            {
-                _isMoving = true;
-                _MinotaurOD--;
-                MinotaurOD_UI.SetPoints(_MinotaurOD);
-                MC.animator.Play("ActiveGear_90");
-                TM.turnButton.interactable = false;
-            }
+            if (Input.GetKeyDown(KeyCode.Q) && HasNodeGear()) ActiveGear("ActiveGear90");
+            if (Input.GetKeyDown(KeyCode.E) && HasNodeGear()) ActiveGear("ActiveGear_90");
+            
         }
     }
 }

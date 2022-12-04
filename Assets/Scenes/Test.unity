@@ -4254,6 +4254,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1006667364482069880, guid: 3e11844dd1f911f4dab39d96827a457a, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 150
+      objectReference: {fileID: 0}
     - target: {fileID: 2303222240834585627, guid: 3e11844dd1f911f4dab39d96827a457a, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -4304,11 +4308,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2336790844734789907, guid: 3e11844dd1f911f4dab39d96827a457a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.56
+      value: -5.6
       objectReference: {fileID: 0}
     - target: {fileID: 2336790844734789907, guid: 3e11844dd1f911f4dab39d96827a457a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.57
+      value: -3.59
       objectReference: {fileID: 0}
     - target: {fileID: 2336790844734789907, guid: 3e11844dd1f911f4dab39d96827a457a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4345,6 +4349,18 @@ PrefabInstance:
     - target: {fileID: 2336790844734789918, guid: 3e11844dd1f911f4dab39d96827a457a, type: 3}
       propertyPath: m_Name
       value: MINOTAUR
+      objectReference: {fileID: 0}
+    - target: {fileID: 3286384544084647930, guid: 3e11844dd1f911f4dab39d96827a457a, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 6857585213437729107, guid: 3e11844dd1f911f4dab39d96827a457a, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8208666121377439632, guid: 3e11844dd1f911f4dab39d96827a457a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e11844dd1f911f4dab39d96827a457a, type: 3}

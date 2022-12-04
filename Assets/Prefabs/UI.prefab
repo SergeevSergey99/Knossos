@@ -472,9 +472,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bec35064be49c647bac69b436bfeb07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Clip1: {fileID: 8300000, guid: 32436f11d074bcf41ac1a6b7a3555860, type: 3}
-  Clip2: {fileID: 8300000, guid: 11f54c03088c7f14d8ac109f9c25e98c, type: 3}
-  Clip3: {fileID: 0}
+  Clip1:
+    clip: {fileID: 0}
+    IsLoop: 0
+  Clip2:
+    clip: {fileID: 0}
+    IsLoop: 0
+  Clip3:
+    clip: {fileID: 0}
+    IsLoop: 0
 --- !u!1 &7983889259276501731
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,6 +765,7 @@ GameObject:
   - component: {fileID: 7983889259690098837}
   - component: {fileID: 7983889259690098842}
   - component: {fileID: 7983889259690098843}
+  - component: {fileID: 5018245160943997935}
   m_Layer: 5
   m_Name: EndTurn
   m_TagString: Untagged
@@ -881,6 +888,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5018245160943997935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7983889259690098840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 408d95b505613ff4a823e4661995a4b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  code: 32
+  altCode: 13
 --- !u!1 &7983889260158599342
 GameObject:
   m_ObjectHideFlags: 0
