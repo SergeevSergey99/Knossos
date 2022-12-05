@@ -109,13 +109,22 @@ public class MinotaurController : MonoBehaviour
         ShowCanvas();
     }
 
+    private bool isShown = false;
     public void ShowCanvas()
     {
-        if (HasNodeGear() && _MinotaurOD > 0) canvas.Play("AppearFromZero");
+        if (HasNodeGear() && _MinotaurOD > 0)
+        {
+            isShown = true;
+            canvas.Play("AppearFromZero");
+        }
     }
     public void HideCanvas()
     {
-        canvas.Play("DisappearZero");
+        if (isShown)
+        {
+            isShown = false;
+            canvas.Play("DisappearZero");
+        }
     }
 
     public void ActiveGear90()
