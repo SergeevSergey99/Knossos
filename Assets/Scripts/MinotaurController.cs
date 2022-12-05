@@ -78,6 +78,8 @@ public class MinotaurController : MonoBehaviour
             MinotaurOD_UI.SetPoints(_MinotaurOD);
             if(MC.HanCheliks(dir))
                 TM.ZoomToMino();
+            
+            TM.turnButton.interactable = false;
             MC.MoveTo(dir);
             StartCoroutine(WaitTillStop());
         }
@@ -94,16 +96,7 @@ public class MinotaurController : MonoBehaviour
         }
 
         _isMoving = false;
-/*
-        foreach (var chel in TM.cheliks)
-        {
-            if (MC.GetCurrNode().x == chel.character.GetCurrNode().x
-                && MC.GetCurrNode().y == chel.character.GetCurrNode().y)
-            {
-                TM.ZoomToMino();
-                break;
-            }
-        }*/
+        TM.turnButton.interactable = true;
         GetComponent<AudioManager>().Stop();
         Sound();
         ShowCanvas();
