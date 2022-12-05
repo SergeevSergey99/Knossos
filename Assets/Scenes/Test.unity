@@ -4519,6 +4519,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 351554423866356910, guid: 691f077d3af29174e8a8cdbeb0dcf6e1, type: 3}
+      propertyPath: m_Alpha
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 351554423866356946, guid: 691f077d3af29174e8a8cdbeb0dcf6e1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1114450662598709055, guid: 691f077d3af29174e8a8cdbeb0dcf6e1, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1114450662598709055, guid: 691f077d3af29174e8a8cdbeb0dcf6e1, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2393329913590941331, guid: 691f077d3af29174e8a8cdbeb0dcf6e1, type: 3}
+      propertyPath: m_MinValue
+      value: 0.0001
+      objectReference: {fileID: 0}
     - target: {fileID: 6745457388068607358, guid: 691f077d3af29174e8a8cdbeb0dcf6e1, type: 3}
       propertyPath: invokeEvent.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -4527,6 +4547,42 @@ PrefabInstance:
       propertyPath: invokeEvent.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2107428862}
+    - target: {fileID: 7279368513620902664, guid: 691f077d3af29174e8a8cdbeb0dcf6e1, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7279368513620902664, guid: 691f077d3af29174e8a8cdbeb0dcf6e1, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8585738108135273818, guid: 691f077d3af29174e8a8cdbeb0dcf6e1, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8585738108135273818, guid: 691f077d3af29174e8a8cdbeb0dcf6e1, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8585738108135273818, guid: 691f077d3af29174e8a8cdbeb0dcf6e1, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8664036012488899915, guid: 691f077d3af29174e8a8cdbeb0dcf6e1, type: 3}
+      propertyPath: m_MinValue
+      value: 0.0001
+      objectReference: {fileID: 0}
+    - target: {fileID: 9071900039583027470, guid: 691f077d3af29174e8a8cdbeb0dcf6e1, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9071900039583027470, guid: 691f077d3af29174e8a8cdbeb0dcf6e1, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9071900039583027470, guid: 691f077d3af29174e8a8cdbeb0dcf6e1, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 691f077d3af29174e8a8cdbeb0dcf6e1, type: 3}
 --- !u!1001 &2336790844190658265
@@ -5321,6 +5377,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1055757578}
     m_Modifications:
+    - target: {fileID: 1737439198, guid: 4c659f4718152a940a01aaa1f862c9a2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2107428862}
     - target: {fileID: 4579748560605730527, guid: 4c659f4718152a940a01aaa1f862c9a2, type: 3}
       propertyPath: m_Name
       value: UI
