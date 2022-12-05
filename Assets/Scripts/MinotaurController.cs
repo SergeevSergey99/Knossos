@@ -20,8 +20,10 @@ public class MinotaurController : MonoBehaviour
 
     public MazeCharacter GetMC() => MC;
 
+    private CameraShaker cs = null;
     private void Awake()
     {
+        cs = FindObjectOfType<CameraShaker>();
         TM = FindObjectOfType<TurnManager>();
         MC = GetComponent<MazeCharacter>();
         foreach (var PC in FindObjectsOfType<PointsController>())
@@ -215,6 +217,7 @@ public class MinotaurController : MonoBehaviour
         _MinotaurOD--;
         MinotaurOD_UI.SetPoints(_MinotaurOD);
         MC.animator.Play(anim);
+        if(cs != null) cs.ShakeCamera();
         TM.turnButton.interactable = false;
         HideCanvas();
     }
