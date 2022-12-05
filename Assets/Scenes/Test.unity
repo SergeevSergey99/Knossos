@@ -259,9 +259,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3446505281f15e44cad52a73cb9efd6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 1
+  duration: 2
   minMagnitude: 0
-  maxMagnitude: 1
+  maxMagnitude: 0.1
 --- !u!114 &257124394 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5292505959365536641, guid: b8dcf41deb9673f4cad8969c3697ec18, type: 3}

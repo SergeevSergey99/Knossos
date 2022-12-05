@@ -35,7 +35,7 @@ public class CameraShaker : MonoBehaviour
                 magnitude = Mathf.Lerp(maxMagnitude, minMagnitude, (elapsed / duration - duration / duration /2) * 2);
             Vector2 cameraPostionDelta = Random.insideUnitCircle * magnitude;
     
-            Debug.Log(elapsed + " " + magnitude);
+            //Debug.Log(elapsed + " " + magnitude);
             transform.localPosition = startPosition + (Vector3) cameraPostionDelta;
    
             elapsed += Time.deltaTime;

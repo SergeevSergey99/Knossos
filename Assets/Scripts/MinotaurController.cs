@@ -111,7 +111,7 @@ public class MinotaurController : MonoBehaviour
 
     public void ShowCanvas()
     {
-        if (HasNodeGear()) canvas.Play("AppearFromZero");
+        if (HasNodeGear() && _MinotaurOD > 0) canvas.Play("AppearFromZero");
     }
     public void HideCanvas()
     {
@@ -120,11 +120,13 @@ public class MinotaurController : MonoBehaviour
 
     public void ActiveGear90()
     {
+        if(cs != null) cs.ShakeCamera();
         transform.parent.parent.GetComponent<RotatableTiles>().RotateAllOfSameType90();
     }
 
     public void ActiveGear_90()
     {
+        if(cs != null) cs.ShakeCamera();
         transform.parent.parent.GetComponent<RotatableTiles>().RotateAllOfSameType_90();
     }
 
@@ -213,11 +215,15 @@ public class MinotaurController : MonoBehaviour
 
     public void ActiveGear(string anim)
     {
+        
+        if (!TM.IsPlayerTurn() || TM.GetPaused()) return;
+        if (_isMoving) return;
+        if (_MinotaurOD <= 0) return;
+        
         _isMoving = true;
         _MinotaurOD--;
         MinotaurOD_UI.SetPoints(_MinotaurOD);
         MC.animator.Play(anim);
-        if(cs != null) cs.ShakeCamera();
         TM.turnButton.interactable = false;
         HideCanvas();
     }
