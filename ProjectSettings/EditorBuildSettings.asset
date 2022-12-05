@@ -75,6 +75,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Levels/Stage3/7hard.unity
     guid: dc68ae165c2ebbd49a73572358346b88
   - enabled: 1
+    path: Assets/Scenes/CutScenes/CutScene17.unity
+    guid: 10e02ed3d82ecdd458ebcdea0f9f52f4
+  - enabled: 1
+    path: Assets/Scenes/Levels/Stage3/8hard.unity
+    guid: d33fbb2bddf967349bb2c44f13739bc6
+  - enabled: 1
     path: Assets/Scenes/CutScenes/CutSceneFinal.unity
     guid: 553facaec746c9b4b896a1954f648aa6
   - enabled: 1
