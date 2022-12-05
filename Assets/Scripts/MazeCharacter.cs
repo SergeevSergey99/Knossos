@@ -28,7 +28,7 @@ public class MazeCharacter : MonoBehaviour
     [SerializeField] private SpriteRenderer sign;
 
     private bool isPlayer = false;
-
+    public direction lastDirection = direction.none;
     private void Awake()
     {
         if (animator == null) animator = GetComponent<Animator>();
@@ -148,6 +148,7 @@ public class MazeCharacter : MonoBehaviour
     public List<direction> GetPossible(bool countCheliks = true)
     {
         List<direction> directions = new List<direction>();
+        
 
         if (_currNode.x > 0 && !maze.Maze[_currNode.x - 1, _currNode.y].isWall
                             && (!countCheliks || !HaveCharacters(maze.Maze[_currNode.x - 1, _currNode.y])))
@@ -179,8 +180,47 @@ public class MazeCharacter : MonoBehaviour
 
     public void MoveToRandomPossibleDir()
     {
-        var dir = GetRandomPossible();
-        MoveTo(dir);
+        var directions = GetPossible();
+        if (directions.Contains(lastDirection))
+        {
+            MoveTo(lastDirection);
+            
+        }
+        else
+        {
+            if (directions.Count > 1)
+            {
+                if (directions.Contains(getOppositeDirection(lastDirection)))
+                {
+                    directions.Remove(getOppositeDirection(lastDirection));
+                }
+                
+                MoveTo(directions[Random.Range(0, directions.Count)]);
+                
+            }
+            else
+            {
+                MoveTo(directions[0]);
+                
+            }
+        }
+    }
+
+    public direction getOppositeDirection(direction direction)
+    {
+            switch (direction)
+        {
+            case direction.left:
+                return direction.right;
+            case direction.right:
+                return direction.left;
+            case direction.up:
+                return direction.down;
+            case direction.down:
+                return direction.up;
+        }
+
+        return direction.none;
     }
 
     public void SetFlipX(int flip)
@@ -195,6 +235,7 @@ public class MazeCharacter : MonoBehaviour
 
     public void MoveTo(direction dir)
     {
+        lastDirection = dir;
         if (dir == direction.none) return;
 
         _currNode.RemoveCharacter();
@@ -202,22 +243,26 @@ public class MazeCharacter : MonoBehaviour
         {
             case direction.left:
                 _currNode = maze.Maze[_currNode.x - 1, _currNode.y];
+                lastDirection = direction.left;
                 if (spriteRenderer != null) spriteRenderer.flipX = false;
                 if (animator != null) animator.Play("FlipXFalse");
                 if (animator != null) animator.SetBool("isWalk", true);
                 break;
             case direction.right:
                 _currNode = maze.Maze[_currNode.x + 1, _currNode.y];
+                lastDirection = direction.right;
                 if (spriteRenderer != null) spriteRenderer.flipX = true;
                 if (animator != null) animator.Play("FlipXTrue");
                 if (animator != null) animator.SetBool("isWalk", true);
                 break;
             case direction.up:
                 _currNode = maze.Maze[_currNode.x, _currNode.y + 1];
+                lastDirection = direction.up;
                 if (animator != null) animator.SetBool("isWalk", true);
                 break;
             case direction.down:
                 _currNode = maze.Maze[_currNode.x, _currNode.y - 1];
+                lastDirection = direction.down;
                 if (animator != null) animator.SetBool("isWalk", true);
                 break;
             default:
