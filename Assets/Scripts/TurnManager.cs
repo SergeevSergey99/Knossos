@@ -54,6 +54,7 @@ public class TurnManager : MonoBehaviour
                     ch.OD = chelicksOD;
                     ch.animator = mc.GetComponent<Animator>();
                     ch.pathMaze = new int[maze.baseTilesList.sizeX, maze.baseTilesList.sizeY];
+                    if(ch.OD == 0) ch.animator.Play("Chained");
                     cheliks.Add(ch);
                 }
             }
@@ -65,7 +66,6 @@ public class TurnManager : MonoBehaviour
         foreach (var chel in cheliks)
         {
             chel.OD = chelicksOD;
-            
             if(chel.OD > 0) chel.animator.Play("Chill");
             else chel.animator.Play("Chained");
         }
