@@ -32,10 +32,12 @@ public class TurnManager : MonoBehaviour
         public int OD = 0;
         [HideInInspector]
         public Animator animator = null;
+        public int[,] pathMaze = null;
     }
 
     private void Awake()
     {
+        var maze = FindObjectOfType<MAZE>();
         if (camSize == 0)
         {
             cameraPos = Camera.main.transform.position;
@@ -51,6 +53,7 @@ public class TurnManager : MonoBehaviour
                     ch.character = mc;
                     ch.OD = chelicksOD;
                     ch.animator = mc.GetComponent<Animator>();
+                    ch.pathMaze = new int[maze.baseTilesList.sizeX, maze.baseTilesList.sizeY];
                     cheliks.Add(ch);
                 }
             }

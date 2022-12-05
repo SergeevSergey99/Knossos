@@ -57,13 +57,25 @@ public class RotatableTiles : MonoBehaviour
 
     public void childAddLayers(int i)
     {
-        foreach (Transform node in transform)
+        foreach (Transform node in transform.parent)
         {
+            if (node.GetComponent<SpriteRenderer>() != null)
+            {
+                node.GetComponent<SpriteRenderer>().sortingOrder += i;
+            }
+            else if (node.GetComponent<TilemapRenderer>() != null)
+            {
+                node.GetComponent<TilemapRenderer>().sortingOrder += i;
+            }
             foreach (Transform OBJ in node.transform)
             {
                 if (OBJ.GetComponent<SpriteRenderer>() != null)
                 {
                     OBJ.GetComponent<SpriteRenderer>().sortingOrder += i;
+                }
+                else if (OBJ.GetComponent<TilemapRenderer>() != null)
+                {
+                    OBJ.GetComponent<TilemapRenderer>().sortingOrder += i;
                 }
 
                 foreach (Transform VAR in OBJ)
@@ -71,6 +83,18 @@ public class RotatableTiles : MonoBehaviour
                     if (VAR.GetComponent<SpriteRenderer>() != null)
                     {
                         VAR.GetComponent<SpriteRenderer>().sortingOrder += i;
+                    }
+                    else if (VAR.GetComponent<TilemapRenderer>() != null)
+                    {
+                        VAR.GetComponent<TilemapRenderer>().sortingOrder += i;
+                    }
+                    
+                    foreach (Transform VARR in VAR)
+                    {
+                        if (VARR.GetComponent<SpriteRenderer>() != null)
+                        {
+                            VARR.GetComponent<SpriteRenderer>().sortingOrder += i;
+                        }
                     }
                 }
             }
