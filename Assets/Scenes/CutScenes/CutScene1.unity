@@ -233,11 +233,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_text
-      value: and you will respond to the call
+      value: since then you have served him and kept the treasures of his labyrinth
       objectReference: {fileID: 0}
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_fontSize
-      value: 35
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_fontAsset
@@ -253,7 +253,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_fontSizeBase
-      value: 35
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_enableKerning
@@ -775,11 +775,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_text
-      value: they have disturbed your peace again
+      value: but Daedalus wanted to revive you, and you rebelled in your mechanical
+        form
       objectReference: {fileID: 0}
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_fontSize
-      value: 35
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_fontAsset
@@ -795,7 +796,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_fontSizeBase
-      value: 35
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_enableKerning

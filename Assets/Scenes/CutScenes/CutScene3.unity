@@ -233,7 +233,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_text
-      value: "\u2026 just like you \u2026"
+      value: but you'll have to wake up soon
       objectReference: {fileID: 0}
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_fontSize
@@ -775,7 +775,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_text
-      value: the creator made this maze "alive"
+      value: you've seen this nightmare many times
       objectReference: {fileID: 0}
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_fontSize

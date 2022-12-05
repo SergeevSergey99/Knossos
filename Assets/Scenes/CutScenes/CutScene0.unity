@@ -233,11 +233,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_text
-      value: "\u2026 again \u2026"
+      value: people tried to kill you many times and once they succeeded
       objectReference: {fileID: 0}
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_fontSize
-      value: 60
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_fontAsset
@@ -253,7 +253,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_fontSizeBase
-      value: 60
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_enableKerning
@@ -775,11 +775,28 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_text
-      value: "it\u2019s time to wake up"
+      value: many years ago, the great Daedalus built this labyrinth to lock you
+        up here
       objectReference: {fileID: 0}
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_fontSize
-      value: 60
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
+      propertyPath: m_margin.w
+      value: -0.9694404
+      objectReference: {fileID: 0}
+    - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
+      propertyPath: m_margin.x
+      value: -0.000015256186
+      objectReference: {fileID: 0}
+    - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
+      propertyPath: m_margin.y
+      value: 0.0000018112314
+      objectReference: {fileID: 0}
+    - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
+      propertyPath: m_margin.z
+      value: -0.9856148
       objectReference: {fileID: 0}
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_fontAsset
@@ -795,7 +812,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_fontSizeBase
-      value: 60
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
+      propertyPath: m_overflowMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_enableKerning
@@ -805,6 +826,10 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: -4510238930082364141, guid: 9a35e96d3fca9214390b7b54e403a485, type: 2}
+    - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
+      propertyPath: m_verticalMapping
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8954967745003060345, guid: 4514d627d5d9deb4d9b497e0195392b2, type: 3}
       propertyPath: m_enableAutoSizing
       value: 0
