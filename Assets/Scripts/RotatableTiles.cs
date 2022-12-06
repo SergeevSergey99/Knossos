@@ -132,7 +132,7 @@ public class RotatableTiles : MonoBehaviour
             }
         }
         _maze.StopFixing();
-        childAddLayers(11);
+        childAddLayers(50);
     }
     public void Rotate_90()
     {
@@ -158,6 +158,6 @@ public class RotatableTiles : MonoBehaviour
             }
         }
         _maze.StopFixing();
-        childAddLayers(11);
+        childAddLayers(50);
     }
 }
