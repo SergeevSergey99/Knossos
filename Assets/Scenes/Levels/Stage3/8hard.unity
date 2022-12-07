@@ -3141,16 +3141,6 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: -3, y: -4, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 14
-      m_TileSpriteIndex: 14
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   - first: {x: 0, y: -4, z: 0}
     second:
       serializedVersion: 2
@@ -3741,7 +3731,7 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 097f01c4456355144b64b25b198aaf12, type: 2}
   - m_RefCount: 12
     m_Data: {fileID: 11400000, guid: 50f1fde582a22ef47b61ac62eabda2d9, type: 2}
-  - m_RefCount: 7
+  - m_RefCount: 6
     m_Data: {fileID: 11400000, guid: 5c572a9be5a9c664e845fd3f46b10377, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 0
@@ -3772,10 +3762,10 @@ Tilemap:
     m_Data: {fileID: 442908036, guid: f7233a6f865480e4093b7217fe9b5b9f, type: 3}
   - m_RefCount: 12
     m_Data: {fileID: -158730201, guid: f7233a6f865480e4093b7217fe9b5b9f, type: 3}
-  - m_RefCount: 7
+  - m_RefCount: 6
     m_Data: {fileID: 964635446, guid: f7233a6f865480e4093b7217fe9b5b9f, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 79
+  - m_RefCount: 78
     m_Data:
       e00: 1
       e01: 0
@@ -3794,7 +3784,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 79
+  - m_RefCount: 78
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -4417,7 +4407,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.71
+  m_Intensity: 0
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 00000000
@@ -5146,6 +5136,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2127976763}
     m_Modifications:
+    - target: {fileID: 3123465060258246729, guid: 3bfbcddb29a289941807889534756c8e, type: 3}
+      propertyPath: m_Intensity
+      value: 0.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 3123465060258246729, guid: 3bfbcddb29a289941807889534756c8e, type: 3}
+      propertyPath: m_FalloffIntensity
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 3123465060258246729, guid: 3bfbcddb29a289941807889534756c8e, type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 0.61
+      objectReference: {fileID: 0}
     - target: {fileID: 4408654762226786784, guid: 3bfbcddb29a289941807889534756c8e, type: 3}
       propertyPath: m_RootOrder
       value: 19
