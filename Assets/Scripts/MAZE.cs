@@ -47,7 +47,7 @@ public class MAZE : MonoBehaviour
             if (rt.type == i)
             {
                 rt.transform.parent.GetComponent<Animator>().Play("Rotate90");
-                rt.childAddLayers(-11);
+                rt.childAddLayers(-50);
             }
         }
 
@@ -61,7 +61,7 @@ public class MAZE : MonoBehaviour
             if (rt.type == i)
             {
                 rt.transform.parent.GetComponent<Animator>().Play("Rotate_90");
-                rt.childAddLayers(-11);
+                rt.childAddLayers(-50);
             }
         }
 
