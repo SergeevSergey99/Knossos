@@ -148,7 +148,7 @@ public class MazeCharacter : MonoBehaviour
     public List<direction> GetPossible(bool countCheliks = true)
     {
         List<direction> directions = new List<direction>();
-        
+        directions.Add(direction.none);
 
         if (_currNode.x > 0 && !maze.Maze[_currNode.x - 1, _currNode.y].isWall
                             && (!countCheliks || !HaveCharacters(maze.Maze[_currNode.x - 1, _currNode.y])))
@@ -167,7 +167,8 @@ public class MazeCharacter : MonoBehaviour
                                                        && (!countCheliks ||
                                                            !HaveCharacters(maze.Maze[_currNode.x, _currNode.y + 1])))
             directions.Add(direction.up);
-
+        
+        if (directions.Count > 1 && directions.Contains(direction.none)) directions.Remove(direction.none);
         return directions;
     }
 
@@ -218,9 +219,10 @@ public class MazeCharacter : MonoBehaviour
                 return direction.down;
             case direction.down:
                 return direction.up;
+            default:
+                return direction.none;
         }
 
-        return direction.none;
     }
 
     public void SetFlipX(int flip)
