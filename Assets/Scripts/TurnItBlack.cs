@@ -22,6 +22,12 @@ public class TurnItBlack : MonoBehaviour
         //Invoke coroutine
         StartCoroutine(Wait(black.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length, index));
     }
+    public void TurnBlackAndLoadByIndex(string sceneName)
+    {
+        black.GetComponent<Animator>().Play("AppearFromZero");
+        //Invoke coroutine
+        StartCoroutine(Wait(black.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length, sceneName));
+    }
     
     //Coroutine to wait for the animation to finish
     IEnumerator Wait(float time, int index)
@@ -30,6 +36,14 @@ public class TurnItBlack : MonoBehaviour
         permanentBlack.SetActive(true);
         //OnTurnBlack?.Invoke();
         SceneManager.LoadScene(index);
+    }
+    //Coroutine to wait for the animation to finish
+    IEnumerator Wait(float time, string sceneName)
+    {
+        yield return new WaitForSecondsRealtime(time);
+        permanentBlack.SetActive(true);
+        //OnTurnBlack?.Invoke();
+        SceneManager.LoadScene(sceneName);
     }
     
 }

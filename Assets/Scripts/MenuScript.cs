@@ -6,15 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class MenuScript : MonoBehaviour
 {
-    /*
-    int nextSceneToLoad;
-    private void Awake()
-    {
-        TurnItBlack.OnTurnBlack += TurnItBlack_OnTurnBlack;
-    }*/
-
-    
-
     public void Quit()
     {
         Application.Quit();
@@ -23,6 +14,12 @@ public class MenuScript : MonoBehaviour
     public void LoadLevel(string name)
     {
         SceneManager.LoadScene(name);
+    }
+    
+    public void LoadLevelBlack(string name)
+    {
+        var Black = FindObjectOfType<TurnItBlack>();
+        Black.TurnBlackAndLoadByIndex(name);
     }
     
     public void LoadLevel(int index)
@@ -43,13 +40,14 @@ public class MenuScript : MonoBehaviour
         var Black = FindObjectOfType<TurnItBlack>();
         Black.TurnBlackAndLoadByIndex(SceneManager.GetActiveScene().buildIndex + 1);
     }
-    /*
-    private void TurnItBlack_OnTurnBlack()
+
+    public void SetAudio(AudioClip clip)
     {
-        Debug.Log(SceneManager.GetActiveScene().name + "\t" + nextSceneToLoad);
-        SceneManager.LoadScene(nextSceneToLoad);
-    }*/
-    
+        var AS =FindObjectOfType<DontDestroy>().GetComponent<AudioSource>();
+        AS.Stop();
+        AS.clip = clip;
+        AS.Play();
+    }
     public void DeActiveSelf()
     {
         gameObject.SetActive(false);
