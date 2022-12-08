@@ -413,6 +413,7 @@ MonoBehaviour:
   FramesPerMove: 50
   useAI: 0
   sign: {fileID: 0}
+  lastDirection: 4
 --- !u!114 &2336790844734789906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -426,7 +427,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MinotaurOD: 3
-  HungerOG: 5
+  HungerOG: 6
   canvas: {fileID: 4432409349856757152}
 --- !u!95 &2336790844734789909
 Animator:
@@ -1093,7 +1094,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 151
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &4640933678632736265
 MonoBehaviour:
