@@ -120,7 +120,8 @@ public class TurnManager : MonoBehaviour
         {
             if (cheliks[i].OD > 0)
             {
-                if (cheliks[i].OD == chelicksOD) UpdateAI(cheliks[i].character);
+                //if (cheliks[i].OD == chelicksOD)
+                UpdateAI(cheliks[i].character);
                 cheliks[i].OD--;
                 if (cheliks[i].character.useAI) CheliksAIMove(cheliks[i].character);
                 else CheliksRandMove(cheliks[i].character);
