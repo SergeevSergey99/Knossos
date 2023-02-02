@@ -13,7 +13,7 @@ public class MinotaurController : MonoBehaviour
     public int HungerOG = 5;
     PointsController MinotaurOD_UI;
     PointsController HungerOG_UI;
-    public Animator canvas;
+    public CanvasGroup canvas;
     int _MinotaurOD = 0;
     public int GetCurrOD() => _MinotaurOD;
     int _HungerOG = 0;
@@ -100,15 +100,29 @@ public class MinotaurController : MonoBehaviour
         GetComponent<AudioManager>().Stop();
         Sound();
         ShowCanvas();
+        if (_MinotaurOD == 0)
+        {
+            TM.turnButton.onClick.Invoke();
+        }
+
     }
 
     private bool isShown = false;
+    int tween = -1;
+    public float CanvasAppearTime = 0.5f;
     public void ShowCanvas()
     {
         if (HasNodeGear() && _MinotaurOD > 0)
         {
             isShown = true;
-            canvas.Play("AppearFromZero");
+            if (tween != -1) LeanTween.cancel(tween);
+            tween = LeanTween.alphaCanvas(canvas, 1, CanvasAppearTime).setOnComplete(() =>
+            {
+                canvas.interactable = true;
+                canvas.blocksRaycasts = true;
+                tween = -1;
+            }).id;
+            //canvas.Play("AppearFromZero");
         }
     }
     public void HideCanvas()
@@ -116,7 +130,14 @@ public class MinotaurController : MonoBehaviour
         if (isShown)
         {
             isShown = false;
-            canvas.Play("DisappearZero");
+            if (tween != -1) LeanTween.cancel(tween);
+            canvas.interactable = false;
+            canvas.blocksRaycasts = false;
+            tween = LeanTween.alphaCanvas(canvas, 0, CanvasAppearTime).setOnComplete(() =>
+            {
+                tween = -1;
+            }).id;
+            //canvas.Play("DisappearZero");
         }
     }
 
