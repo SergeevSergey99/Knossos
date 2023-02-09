@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4280106078721124311
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5943039868219183949}
+  - component: {fileID: -5527147093890180322}
+  m_Layer: 0
+  m_Name: LocalizationPrefab
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5943039868219183949
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4280106078721124311}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-5527147093890180322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4280106078721124311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50cf2546973275f4caa0511552ee3aef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TableId: 1rExyvIujHUesHLY2kklU1_7lwxdMZBfpvwHx3jLADyk
+  Sheets:
+  - Name: Main menu
+    Id: 0
+  - Name: LVL Select
+    Id: 458451063
+  - Name: Controls
+    Id: 451019595
+  - Name: Creators Menu
+    Id: 1342656450
+  - Name: Play menu
+    Id: 1198232009
+  - Name: Levels
+    Id: 1726996862
+  - Name: Cut Scenes
+    Id: 1361978993
+  SaveFolder: {fileID: 102900000, guid: dbcbc8d84d5492f41a7aad6f07d38181, type: 3}
+  SpamFolder: {fileID: 102900000, guid: 63b958f9398373c44b8a7fd15faf8f45, type: 3}

@@ -1,0 +1,5 @@
+Keyword,Eng ,Rus
+moves,wasd/arrows - move,wasd/arrows - передвижение
+turns,q/e - platform turn (left/right),q/e - поворот платформ (влево/вправо)
+Esc,Esc - menu,Esc - меню
+next_turn,push button to next turn,нажмите кнопку для завершения хода
