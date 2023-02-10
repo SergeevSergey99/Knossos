@@ -13,6 +13,14 @@ public class LocalizationScript : MonoBehaviour
         EN,
         RU
     }
+    public void SetLanguageEN()
+    {
+        SetLanguage(Language.EN);
+    }
+    public void SetLanguageRU()
+    {
+        SetLanguage(Language.RU);
+    }
     public static void SetLanguage(Language lang)
     {
         PlayerPrefs.SetInt("Language", (int) lang);
