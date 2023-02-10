@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 
 public class MinotaurController : MonoBehaviour
@@ -20,7 +21,17 @@ public class MinotaurController : MonoBehaviour
 
     public MazeCharacter GetMC() => MC;
 
+    [Serializable]
+    public class RotateEvent
+    {
+        public int RotateCount;
+        public UnityEvent OnRotate;
+    }
+
+    public List<RotateEvent> RotateEvents = new List<RotateEvent>();
+
     private CameraShaker cs = null;
+
     private void Awake()
     {
         cs = FindObjectOfType<CameraShaker>();
@@ -33,6 +44,7 @@ public class MinotaurController : MonoBehaviour
             else
                 HungerOG_UI = PC;
         }
+
         UpdateOD();
         UpdateOG();
     }
@@ -42,11 +54,13 @@ public class MinotaurController : MonoBehaviour
         _MinotaurOD = MinotaurOD;
         MinotaurOD_UI.SetPoints(_MinotaurOD);
     }
+
     public void UpdateOG()
     {
         _HungerOG = HungerOG;
         ShowOG();
     }
+
     public void ShowOG()
     {
         HungerOG_UI.SetPoints(_HungerOG);
@@ -69,27 +83,25 @@ public class MinotaurController : MonoBehaviour
     }
 
     public void MoveTo(MazeCharacter.direction dir)
-    {   
-        if(HasNodeGear()) HideCanvas();
+    {
+        if (HasNodeGear()) HideCanvas();
         if (_MinotaurOD > 0)
         {
             _isMoving = true;
             _MinotaurOD--;
             MinotaurOD_UI.SetPoints(_MinotaurOD);
-            if(MC.HanCheliks(dir))
+            if (MC.HanCheliks(dir))
                 TM.ZoomToMino();
-            
+
             TM.turnButton.interactable = false;
             MC.MoveTo(dir);
             StartCoroutine(WaitTillStop());
         }
-
     }
 
 
     IEnumerator WaitTillStop()
-    {   
-        
+    {
         while (transform.localPosition != Vector3.zero)
         {
             yield return new WaitForSeconds(0.05f);
@@ -104,12 +116,12 @@ public class MinotaurController : MonoBehaviour
         {
             TM.turnButton.onClick.Invoke();
         }
-
     }
 
     private bool isShown = false;
     int tween = -1;
     public float CanvasAppearTime = 0.5f;
+
     public void ShowCanvas()
     {
         if (HasNodeGear() && _MinotaurOD > 0)
@@ -125,6 +137,7 @@ public class MinotaurController : MonoBehaviour
             //canvas.Play("AppearFromZero");
         }
     }
+
     public void HideCanvas()
     {
         if (isShown)
@@ -133,23 +146,31 @@ public class MinotaurController : MonoBehaviour
             if (tween != -1) LeanTween.cancel(tween);
             canvas.interactable = false;
             canvas.blocksRaycasts = false;
-            tween = LeanTween.alphaCanvas(canvas, 0, CanvasAppearTime).setOnComplete(() =>
-            {
-                tween = -1;
-            }).id;
+            tween = LeanTween.alphaCanvas(canvas, 0, CanvasAppearTime).setOnComplete(() => { tween = -1; }).id;
             //canvas.Play("DisappearZero");
         }
     }
 
     public void ActiveGear90()
     {
-        if(cs != null) cs.ShakeCamera();
+        FindObjectOfType<RotateCounter>().Increment();
+        foreach (var RE in RotateEvents)
+            if (RE.RotateCount == FindObjectOfType<RotateCounter>().counter)
+                RE.OnRotate.Invoke();
+
+        if (cs != null) cs.ShakeCamera();
         transform.parent.parent.GetComponent<RotatableTiles>().RotateAllOfSameType90();
     }
 
     public void ActiveGear_90()
     {
-        if(cs != null) cs.ShakeCamera();
+        FindObjectOfType<RotateCounter>().Increment();
+        foreach (var RE in RotateEvents)
+            if (RE.RotateCount == FindObjectOfType<RotateCounter>().counter)
+                RE.OnRotate.Invoke();
+
+
+        if (cs != null) cs.ShakeCamera();
         transform.parent.parent.GetComponent<RotatableTiles>().RotateAllOfSameType_90();
     }
 
@@ -159,6 +180,7 @@ public class MinotaurController : MonoBehaviour
         {
             return true;
         }
+
         return false;
     }
 
@@ -178,7 +200,7 @@ public class MinotaurController : MonoBehaviour
         }
 
         PathFinder.POINT startTarget = new PathFinder.POINT(MC.GetCurrNode().x, MC.GetCurrNode().y);
-        
+
         PathFinder.FindPathBFS(startTarget.x, startTarget.y, ref visited, ref maze, sizes);
         int max = -1;
         for (int i = 0; i < sizes.x; i++)
@@ -208,41 +230,43 @@ public class MinotaurController : MonoBehaviour
             {
                 chel.character.SetPlayer(this);
             }
-            
         }
+
         for (int i = MC.GetCurrNode().x + 1; i < MC.maze.baseTilesList.sizeX; i++)
         {
-           if(MC.maze.Maze[i, MC.GetCurrNode().y].isWall) break;
-           else if (MC.maze.Maze[i, MC.GetCurrNode().y].character != null)
-               MC.maze.Maze[i, MC.GetCurrNode().y].character.GetComponent<MazeCharacter>().SetPlayer(this);
+            if (MC.maze.Maze[i, MC.GetCurrNode().y].isWall) break;
+            else if (MC.maze.Maze[i, MC.GetCurrNode().y].character != null)
+                MC.maze.Maze[i, MC.GetCurrNode().y].character.GetComponent<MazeCharacter>().SetPlayer(this);
         }
+
         for (int i = MC.GetCurrNode().x - 1; i >= 0; i--)
         {
-           if(MC.maze.Maze[i, MC.GetCurrNode().y].isWall) break;
-           else if (MC.maze.Maze[i, MC.GetCurrNode().y].character != null)
-               MC.maze.Maze[i, MC.GetCurrNode().y].character.GetComponent<MazeCharacter>().SetPlayer(this);
+            if (MC.maze.Maze[i, MC.GetCurrNode().y].isWall) break;
+            else if (MC.maze.Maze[i, MC.GetCurrNode().y].character != null)
+                MC.maze.Maze[i, MC.GetCurrNode().y].character.GetComponent<MazeCharacter>().SetPlayer(this);
         }
+
         for (int i = MC.GetCurrNode().y - 1; i >= 0; i--)
         {
-           if(MC.maze.Maze[MC.GetCurrNode().x, i].isWall) break;
-           else if (MC.maze.Maze[MC.GetCurrNode().x, i].character != null)
-               MC.maze.Maze[MC.GetCurrNode().x, i].character.GetComponent<MazeCharacter>().SetPlayer(this);
+            if (MC.maze.Maze[MC.GetCurrNode().x, i].isWall) break;
+            else if (MC.maze.Maze[MC.GetCurrNode().x, i].character != null)
+                MC.maze.Maze[MC.GetCurrNode().x, i].character.GetComponent<MazeCharacter>().SetPlayer(this);
         }
+
         for (int i = MC.GetCurrNode().y + 1; i < MC.maze.baseTilesList.sizeY; i++)
         {
-           if(MC.maze.Maze[MC.GetCurrNode().x, i].isWall) break;
-           else if (MC.maze.Maze[MC.GetCurrNode().x, i].character != null)
-               MC.maze.Maze[MC.GetCurrNode().x, i].character.GetComponent<MazeCharacter>().SetPlayer(this);
+            if (MC.maze.Maze[MC.GetCurrNode().x, i].isWall) break;
+            else if (MC.maze.Maze[MC.GetCurrNode().x, i].character != null)
+                MC.maze.Maze[MC.GetCurrNode().x, i].character.GetComponent<MazeCharacter>().SetPlayer(this);
         }
     }
 
     public void ActiveGear(string anim)
     {
-        
         if (!TM.IsPlayerTurn() || TM.GetPaused()) return;
         if (_isMoving) return;
         if (_MinotaurOD <= 0) return;
-        
+
         _isMoving = true;
         _MinotaurOD--;
         MinotaurOD_UI.SetPoints(_MinotaurOD);
@@ -270,7 +294,6 @@ public class MinotaurController : MonoBehaviour
                 dirs.Contains(MazeCharacter.direction.right)) MoveTo(MazeCharacter.direction.right);
             if (Input.GetKeyDown(KeyCode.Q) && HasNodeGear()) ActiveGear("ActiveGear90");
             if (Input.GetKeyDown(KeyCode.E) && HasNodeGear()) ActiveGear("ActiveGear_90");
-            
         }
     }
 }

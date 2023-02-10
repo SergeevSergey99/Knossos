@@ -4714,6 +4714,7 @@ GameObject:
   - component: {fileID: 1554559484}
   - component: {fileID: 1554559483}
   - component: {fileID: 1554559482}
+  - component: {fileID: 1554559485}
   m_Layer: 0
   m_Name: DontDestroyedAudio
   m_TagString: Untagged
@@ -4844,6 +4845,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1554559485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554559481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c6b28d27e0f2e147bf0a1539201aa35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  counter: 0
 --- !u!1 &1559924873 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2170994841659499, guid: 9d6b03580e921654b80425c5da7ff7f7, type: 3}

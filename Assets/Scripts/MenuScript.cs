@@ -13,11 +13,13 @@ public class MenuScript : MonoBehaviour
 
     public void LoadLevel(string name)
     {
+        FindObjectOfType<RotateCounter>().counter = -1;
         SceneManager.LoadScene(name);
     }
     
     public void LoadLevelBlack(string name)
     {
+        FindObjectOfType<RotateCounter>().counter = -1;
         var Black = FindObjectOfType<TurnItBlack>();
         Black.TurnBlackAndLoadByIndex(name);
     }
@@ -25,6 +27,7 @@ public class MenuScript : MonoBehaviour
     public void LoadLevel(int index)
     {
         //nextSceneToLoad = index;
+        FindObjectOfType<RotateCounter>().counter = -1;
         var Black = FindObjectOfType<TurnItBlack>();
         Black.TurnBlackAndLoadByIndex(index);
         
@@ -37,6 +40,12 @@ public class MenuScript : MonoBehaviour
     public void LoadNextLevel()
     {
         //nextSceneToLoad = SceneManager.GetActiveScene().buildIndex + 1;
+        if (FindObjectOfType<RotateCounter>().counter == -1)
+        {
+            FindObjectOfType<RotateCounter>().counter = 0;
+            SceneManager.LoadScene(0);
+        }
+        FindObjectOfType<RotateCounter>().counter = 0;
         var Black = FindObjectOfType<TurnItBlack>();
         Black.TurnBlackAndLoadByIndex(SceneManager.GetActiveScene().buildIndex + 1);
     }
