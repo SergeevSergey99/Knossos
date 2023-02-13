@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 06518b8a4561bc14c8c6b6186f0fea4e, type: 3}
-  m_Name: TutorialGears
+  m_Name: CutSceneFinal_9
   m_EditorClassIdentifier: 
-  EN: 
-  RU: 
+  EN: The walls and ceiling begin to collapse
+  RU: "\u0421\u0442\u0435\u043D\u044B \u0438 \u043F\u043E\u0442\u043E\u043B\u043E\u043A
+    \u043D\u0430\u0447\u0438\u043D\u0430\u044E\u0442 \u043E\u0431\u0440\u0443\u0448\u0438\u0432\u0430\u0442\u044C\u0441\u044F"

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06518b8a4561bc14c8c6b6186f0fea4e, type: 3}
   m_Name: TutorialConnectedGears
   m_EditorClassIdentifier: 
-  EN: 2
+  EN: 
   RU: 

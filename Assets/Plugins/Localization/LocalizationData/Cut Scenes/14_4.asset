@@ -10,7 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 06518b8a4561bc14c8c6b6186f0fea4e, type: 3}
-  m_Name: TutorialGears
+  m_Name: 14_4
   m_EditorClassIdentifier: 
   EN: 
-  RU: 
+  RU: "\u0418 \u0442\u044B \u043D\u0435 \u043F\u043E\u0437\u0432\u043E\u043B\u0438\u0448\u044C
+    \u043D\u0438\u043A\u043E\u043C\u0443 \u0438\u0445 \u0441\u043D\u043E\u0432\u0430
+    \u0440\u0430\u0437\u0436\u0435\u0447\u044C"

@@ -32,6 +32,7 @@ public class MinotaurController : MonoBehaviour
 
     private CameraShaker cs = null;
 
+    RotateCounter rc = null;
     private void Awake()
     {
         cs = FindObjectOfType<CameraShaker>();
@@ -47,6 +48,10 @@ public class MinotaurController : MonoBehaviour
 
         UpdateOD();
         UpdateOG();
+        rc = FindObjectOfType<RotateCounter>();
+        foreach (var RE in RotateEvents)
+            if (RE.RotateCount == 0 && rc.counter == 0)
+                RE.OnRotate.Invoke();
     }
 
     public void UpdateOD()
@@ -153,9 +158,9 @@ public class MinotaurController : MonoBehaviour
 
     public void ActiveGear90()
     {
-        FindObjectOfType<RotateCounter>().Increment();
+        rc.Increment();
         foreach (var RE in RotateEvents)
-            if (RE.RotateCount == FindObjectOfType<RotateCounter>().counter)
+            if (RE.RotateCount == rc.counter)
                 RE.OnRotate.Invoke();
 
         if (cs != null) cs.ShakeCamera();
@@ -164,9 +169,9 @@ public class MinotaurController : MonoBehaviour
 
     public void ActiveGear_90()
     {
-        FindObjectOfType<RotateCounter>().Increment();
+        rc.Increment();
         foreach (var RE in RotateEvents)
-            if (RE.RotateCount == FindObjectOfType<RotateCounter>().counter)
+            if (RE.RotateCount == rc.counter)
                 RE.OnRotate.Invoke();
 
 
