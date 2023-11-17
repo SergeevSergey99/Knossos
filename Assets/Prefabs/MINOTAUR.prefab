@@ -369,6 +369,7 @@ GameObject:
   - component: {fileID: 2336790844734789909}
   - component: {fileID: 7876260907129116623}
   - component: {fileID: 3757968768147299646}
+  - component: {fileID: 7722057213802068121}
   m_Layer: 0
   m_Name: MINOTAUR
   m_TagString: Untagged
@@ -429,9 +430,11 @@ MonoBehaviour:
   MinotaurOD: 3
   HungerOG: 6
   canvas: {fileID: 2735377937488606390}
+  RotateEvents: []
+  CanvasAppearTime: 0.5
 --- !u!95 &2336790844734789909
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -448,7 +451,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!82 &7876260907129116623
 AudioSource:
   m_ObjectHideFlags: 0
@@ -566,6 +570,19 @@ MonoBehaviour:
   Clip3:
     clip: {fileID: 8300000, guid: da0d11857a7b88149afcaf2fb757e062, type: 3}
     IsLoop: 0
+--- !u!114 &7722057213802068121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2336790844734789918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c6b28d27e0f2e147bf0a1539201aa35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  counter: 0
 --- !u!1 &2379794241739268278
 GameObject:
   m_ObjectHideFlags: 0
@@ -840,7 +857,7 @@ MonoBehaviour:
         m_CallState: 2
 --- !u!95 &198157795236565210
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -857,7 +874,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5329400778327047962
 GameObject:
   m_ObjectHideFlags: 0
@@ -996,7 +1014,7 @@ MonoBehaviour:
         m_CallState: 2
 --- !u!95 &7313613031581604790
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1013,7 +1031,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5836978069607885335
 GameObject:
   m_ObjectHideFlags: 0
